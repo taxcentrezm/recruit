@@ -1,24 +1,36 @@
 /* ===================================
-   GLOBAL CORPORATE THEME (HD READY)
+   CIVI RECRUITMENT — GLOBAL THEME
+   HD Corporate Design (Red Edition)
    =================================== */
 
 :root {
-  --brand-primary: #00a676;
-  --brand-accent: #006a60;
-  --brand-light: #f3f9f8;
+  /* ===== Brand & Colors ===== */
+  --brand-primary: #d62828; /* Vibrant red */
+  --brand-accent: #9d0208;  /* Deep corporate crimson */
+  --brand-light: #fdf3f3;   /* Soft warm red tint */
   --text-main: #1a1a1a;
   --text-secondary: #5f6c7b;
   --bg-body: #f9fafb;
   --bg-card: #ffffff;
+
+  /* ===== Layout ===== */
+  --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --transition: 0.3s ease;
+
+  /* ===== Typography ===== */
   --font-main: "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 16px;
+  --font-size-h1: 3em;
+  --font-size-h2: 2em;
 }
 
-/* Base Reset */
+/* ===========================
+   BASE RESET
+   =========================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,6 +41,7 @@ html, body {
   background: var(--bg-body);
   color: var(--text-main);
   scroll-behavior: smooth;
+  line-height: 1.6;
 }
 img {
   max-width: 100%;
@@ -37,24 +50,25 @@ img {
 button {
   cursor: pointer;
   transition: var(--transition);
+  font-family: var(--font-main);
 }
 
-/* ===============================
+/* ===========================
    NAVBAR
-   =============================== */
+   =========================== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: var(--bg-card);
-  padding: 16px 60px;
+  padding: 18px 60px;
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 .logo {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.6em;
   color: var(--brand-accent);
 }
@@ -93,6 +107,9 @@ button {
   border: 1px solid #ddd;
   color: var(--text-main);
 }
+.login-btn:hover {
+  background: #eee;
+}
 .post-job-btn {
   background: var(--brand-primary);
   color: white;
@@ -101,9 +118,9 @@ button {
   background: var(--brand-accent);
 }
 
-/* ===============================
+/* ===========================
    HERO SECTION
-   =============================== */
+   =========================== */
 .hero {
   display: flex;
   align-items: center;
@@ -111,33 +128,44 @@ button {
   padding: 80px 60px;
   background: var(--brand-light);
   border-bottom: 1px solid #e5e9ec;
+  flex-wrap: wrap;
 }
 .hero-text {
-  max-width: 50%;
+  max-width: 520px;
+  flex: 1;
 }
 .hero-text h1 {
-  font-size: 3em;
+  font-size: var(--font-size-h1);
   line-height: 1.2;
   color: var(--text-main);
 }
 .hero-text p {
-  margin-top: 10px;
+  margin-top: 12px;
   color: var(--text-secondary);
   font-size: 1.1em;
+}
+.hero-image {
+  flex: 1;
+  text-align: right;
+}
+.hero-image img {
+  max-width: 90%;
 }
 .search-bar {
   display: flex;
   align-items: center;
   margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .search-bar input,
 .search-bar select {
   padding: 14px;
   border-radius: var(--radius-md);
   border: 1px solid #ccc;
-  margin-right: 10px;
   font-size: 1em;
   flex: 1;
+  min-width: 180px;
 }
 .search-bar button {
   background: var(--brand-primary);
@@ -153,27 +181,47 @@ button {
 .search-bar button:hover {
   background: var(--brand-accent);
 }
+.popular-searches {
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
 
-/* ===============================
-   CARDS & GRIDS
-   =============================== */
+/* ===========================
+   OPTIONS CARDS
+   =========================== */
 .options {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 80px 0;
+  padding: 80px 40px;
+  flex-wrap: wrap;
 }
 .card {
   background: var(--bg-card);
   padding: 40px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  width: 350px;
+  width: 340px;
   transition: var(--transition);
+  text-align: center;
 }
 .card:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+}
+.card i {
+  margin-bottom: 20px;
+  color: var(--brand-primary);
+}
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+}
+.card p {
+  color: var(--text-secondary);
+  font-size: 1em;
+  margin-bottom: 20px;
 }
 .card button {
   background: var(--brand-primary);
@@ -181,18 +229,20 @@ button {
   border: none;
   padding: 12px 20px;
   border-radius: var(--radius-md);
-  margin-top: 15px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 }
+.card button:hover {
+  background: var(--brand-accent);
+}
 
-/* ===============================
-   JOB CARDS
-   =============================== */
+/* ===========================
+   JOB LISTS & CATEGORIES
+   =========================== */
 .job-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 .job-card {
@@ -207,6 +257,10 @@ button {
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
+.job-card i {
+  color: var(--brand-primary);
+  margin-bottom: 8px;
+}
 .job-card h4 {
   font-size: 1.2em;
   margin-bottom: 5px;
@@ -214,7 +268,10 @@ button {
 }
 .job-card p {
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .job-card span {
   color: var(--brand-primary);
@@ -226,35 +283,86 @@ button {
   padding: 8px 16px;
   font-weight: 500;
   margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .job-card .apply {
   background: var(--brand-primary);
   color: white;
 }
+.job-card .apply:hover {
+  background: var(--brand-accent);
+}
 .job-card .save {
   background: #eaeaea;
   color: var(--text-main);
 }
+.job-card .save:hover {
+  background: #dcdcdc;
+}
 
-/* ===============================
+/* ===========================
    FOOTER
-   =============================== */
+   =========================== */
 footer {
   text-align: center;
-  padding: 30px;
+  padding: 40px 20px;
   background: #fff;
   color: var(--text-secondary);
   font-size: 0.95em;
   border-top: 1px solid #eee;
 }
 
-/* ===============================
-   ANIMATIONS & TRANSITIONS
-   =============================== */
+/* ===========================
+   ANIMATIONS
+   =========================== */
 .fade-in {
-  animation: fadeIn 0.6s ease;
+  animation: fadeIn 0.7s ease both;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 992px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 16px 30px;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    max-width: 100%;
+  }
+  .hero-image {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .options {
+    padding: 60px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar nav {
+    display: none;
+  }
+  .search-bar {
+    flex-direction: column;
+  }
+  .job-list {
+    grid-template-columns: 1fr;
+  }
 }
