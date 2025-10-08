@@ -39,12 +39,10 @@
 .toast.warning { border-color: #e9b000; }
 .toast.info { border-color: var(--brand-primary); }
 
-    /* ===========================
-   HERO SLIDESHOW BACKGROUND
+  /* ===========================
+   HERO SLIDESHOW BACKGROUND — FINAL REFINED
    =========================== */
-/* ===========================
-   HERO SLIDESHOW BACKGROUND (Refined)
-   =========================== */
+
 .hero {
   position: relative;
   display: flex;
@@ -52,8 +50,10 @@
   justify-content: flex-start;
   padding: 100px 60px;
   min-height: 80vh;
-  overflow: hidden;
   color: #fff;
+  overflow: hidden;
+
+  /* Background illustration handled dynamically via JS */
   background: var(--brand-light);
   background-size: contain;
   background-position: right center;
@@ -61,27 +61,34 @@
   transition: background-image 1s ease-in-out;
 }
 
+/* Illustration layer (shrunk, non-intrusive) */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-background-size: 60%;  
-background-position: right center;
-  background-repeat: no-repeat;
   background-image: inherit;
+  background-size: 60%; /* controls illustration scale */
+  background-position: right center;
+  background-repeat: no-repeat;
+  filter: brightness(0.85) saturate(1.05);
   z-index: 0;
   transition: background-image 1s ease-in-out;
-  filter: brightness(0.85) saturate(1.05);
 }
 
+/* Red overlay with reduced opacity */
 .hero-overlay {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     90deg,
     rgba(157, 2, 8, 0.45) 0%,
     rgba(157, 2, 8, 0.25) 50%,
     rgba(157, 2, 8, 0.15) 100%
   );
+  z-index: 1;
 }
+
+/* Foreground content */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -90,22 +97,29 @@ background-position: right center;
 
 .hero-text h1 {
   color: #fff;
-}
-.hero-text p {
-  color: #f0f0f0;
-}
-
-    .hero-text h1,
-.hero-text p {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
+.hero-text p {
+  color: #f0f0f0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+}
+
+/* Search bar styling */
 .search-bar input,
 .search-bar select {
   background: rgba(255, 255, 255, 0.9);
+  color: #333;
 }
+
 .search-bar button {
   background: var(--brand-primary);
+  color: #fff;
+}
+
+.search-bar button:hover {
+  background: var(--brand-accent);
 }
 
 
