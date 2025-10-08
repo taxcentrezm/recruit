@@ -169,6 +169,40 @@
 .close-modal:hover {
   color: var(--text-main);
 }
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  transition: var(--transition);
+}
+
+#loginSubmit {
+  background: var(--brand-primary);
+  color: white;
+}
+#loginSubmit:hover {
+  background: var(--brand-accent);
+}
+
+.close-modal {
+  background: #eee;
+  color: var(--text-main);
+}
+.close-modal:hover {
+  background: #ddd;
+}
 
 /* ===========================
    ANIMATION
@@ -373,8 +407,10 @@
       <h3><i data-feather="log-in"></i> Login to Continue</h3>
       <input type="email" id="loginEmail" placeholder="Email" />
       <input type="password" id="loginPassword" placeholder="Password" />
-      <button id="loginSubmit"><i data-feather="check-circle"></i> Login</button>
-      <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
+      <div class="modal-actions">
+  <button id="loginSubmit"><i data-feather="check-circle"></i> Login</button>
+  <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
+</div>
       <p class="modal-links">
         <span><i data-feather="user-plus"></i> <a href="#" id="openSignup">Create Account</a></span> |
         <span><i data-feather="unlock"></i> <a href="#" id="openRecovery">Forgot Password?</a></span>
