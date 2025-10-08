@@ -133,12 +133,19 @@ button {
   justify-content: space-between;
   padding: 60px 60px; /* reduced vertical padding */
   min-height: 70vh;
-  background-size: 30%; /* try 30% or 35% */
-background-position: right 10% center; /* try 10% or 15% */
   background-repeat: no-repeat;
   background-color: var(--brand-light);
-  transition: background-image 1s ease-in-out;
+  transition: background-image 3s ease-in-out;
 }
+
+.hero {
+  background-color: var(--brand-light); /* base color */
+  background-blend-mode: multiply;      /* blend effect */
+  background-size: 40%;
+  background-position: right 20% center;
+}
+
+
 
 .hero-text {
   max-width: 520px;
