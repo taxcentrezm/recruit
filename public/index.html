@@ -32,7 +32,48 @@
   z-index: -1;
 }
 
-  
+  .modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-overlay.show {
+  display: flex;
+}
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  width: 300px;
+  text-align: center;
+}
+.modal input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+.modal button {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+.modal-links {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+.modal-links a {
+  color: var(--brand-primary);
+  text-decoration: none;
+}
+.modal-links a:hover {
+  text-decoration: underline;
+}
+
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -189,10 +230,154 @@
        TOAST CONTAINER
        =============================== -->
   <div class="toast-container" aria-live="polite"></div>
+<!-- 🔐 LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h3>Login to Continue</h3>
+    <input type="email" id="loginEmail" placeholder="Email" />
+    <input type="password" id="loginPassword" placeholder="Password" />
+    <button id="loginSubmit">Login</button>
+    <p class="modal-links">
+      <a href="#" id="openSignup">Create Account</a> |
+      <a href="#" id="openRecovery">Forgot Password?</a>
+    </p>
+    <button class="close-modal">Cancel</button>
+  </div>
+</div>
+
+<!-- 🆕 SIGNUP MODAL -->
+<div class="modal-overlay" id="signupModal">
+  <div class="modal">
+    <h3>Create Your Account</h3>
+    <input type="email" id="signupEmail" placeholder="Email" />
+    <input type="password" id="signupPassword" placeholder="Password" />
+    <button id="signupSubmit">Sign Up</button>
+    <button class="close-modal">Cancel</button>
+  </div>
+</div>
+
+<!-- 🔁 RECOVERY MODAL -->
+<div class="modal-overlay" id="recoveryModal">
+  <div class="modal">
+    <h3>Password Recovery</h3>
+    <input type="email" id="recoveryEmail" placeholder="Enter your email" />
+    <button id="recoverySubmit">Send Reset Link</button>
+    <button class="close-modal">Cancel</button>
+  </div>
+</div>
 
   <!-- ===============================
        SCRIPT
        =============================== -->
+  <script>
+    // ========= 🔐 SESSION CHECK =========
+function isUserLoggedIn() {
+  return !!localStorage.getItem("userToken");
+}
+
+// ========= 🔐 SHOW MODALS =========
+function showModal(id) {
+  document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("show"));
+  document.getElementById(id).classList.add("show");
+}
+function closeModals() {
+  document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("show"));
+}
+
+// ========= 🔐 REDIRECT INTENT =========
+function setRedirectIntent(path) {
+  localStorage.setItem("redirectAfterLogin", path);
+}
+
+// ========= 🔐 LOGIN FLOW =========
+document.querySelectorAll(".close-modal").forEach(btn =>
+  btn.addEventListener("click", closeModals)
+);
+
+document.getElementById("loginSubmit").addEventListener("click", () => {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  if (!email || !password) {
+    showToast("Please enter email and password", "warning");
+    return;
+  }
+
+  // Simulate login success
+  localStorage.setItem("userToken", "mock-token");
+  showToast("✅ Logged in successfully", "success");
+
+  setTimeout(() => {
+    closeModals();
+    const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+    window.location.href = redirectPath;
+  }, 1000);
+});
+
+// ========= 🆕 SIGNUP FLOW =========
+document.getElementById("signupSubmit").addEventListener("click", () => {
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
+
+  if (!email || !password) {
+    showToast("Please enter email and password", "warning");
+    return;
+  }
+
+  // Simulate signup success
+  localStorage.setItem("userToken", "mock-token");
+  showToast("🎉 Account created successfully", "success");
+
+  setTimeout(() => {
+    closeModals();
+    const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+    window.location.href = redirectPath;
+  }, 1000);
+});
+
+// ========= 🔁 PASSWORD RECOVERY =========
+document.getElementById("recoverySubmit").addEventListener("click", () => {
+  const email = document.getElementById("recoveryEmail").value.trim();
+
+  if (!email) {
+    showToast("Please enter your email", "warning");
+    return;
+  }
+
+  showToast("📧 Password reset link sent to your email", "info");
+  setTimeout(closeModals, 1500);
+});
+
+// ========= 🔗 MODAL NAVIGATION =========
+document.getElementById("openSignup").addEventListener("click", () => showModal("signupModal"));
+document.getElementById("openRecovery").addEventListener("click", () => showModal("recoveryModal"));
+
+// ========= 🔐 OPTIONS SECTION BUTTONS =========
+const employerBtn = document.querySelector(".card:nth-child(1) button");
+const candidateBtn = document.querySelector(".card:nth-child(2) button");
+
+if (employerBtn) {
+  employerBtn.addEventListener("click", () => {
+    if (!isUserLoggedIn()) {
+      setRedirectIntent("/post-job.html");
+      showModal("loginModal");
+      return;
+    }
+    window.location.href = "/post-job.html";
+  });
+}
+
+if (candidateBtn) {
+  candidateBtn.addEventListener("click", () => {
+    if (!isUserLoggedIn()) {
+      setRedirectIntent("/upload-cv.html");
+      showModal("loginModal");
+      return;
+    }
+    window.location.href = "/upload-cv.html";
+  });
+}
+  </script>
   <script src="assets/js/script.js"></script>
 
 </body>
