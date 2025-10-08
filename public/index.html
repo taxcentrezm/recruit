@@ -42,35 +42,46 @@
     /* ===========================
    HERO SLIDESHOW BACKGROUND
    =========================== */
+/* ===========================
+   HERO SLIDESHOW BACKGROUND (Refined)
+   =========================== */
 .hero {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 100px 60px;
-  min-height: 85vh;
+  min-height: 80vh;
   overflow: hidden;
   color: #fff;
+  background: var(--brand-light);
+  background-size: contain;
+  background-position: right center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
 }
 
-/* background slideshow images handled dynamically */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  background-size: contain; /* smaller visual footprint */
+  background-position: right 5% center; /* push illustration to side */
   background-repeat: no-repeat;
+  background-image: inherit;
   z-index: 0;
   transition: background-image 1s ease-in-out;
+  filter: brightness(0.85) saturate(1.05);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    rgba(157, 2, 8, 0.6),
-    rgba(157, 2, 8, 0.7)
+    90deg,
+    rgba(157, 2, 8, 0.85) 0%,
+    rgba(157, 2, 8, 0.7) 50%,
+    rgba(157, 2, 8, 0.4) 100%
   );
   z-index: 1;
 }
@@ -94,6 +105,7 @@
 .search-bar button {
   background: var(--brand-primary);
 }
+
 
   </style>
 </head>
