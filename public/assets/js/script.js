@@ -11,22 +11,22 @@ const heroSection = document.querySelector(".hero");
 
 if (heroSection) {
   const heroImages = [
-    "assets/img/1 (1).jpg",
-    "assets/img/1 (2).jpg",
-    "assets/img/1 (3).jpg"
+    "assets/img/1.jpg",
+    "assets/img/2.jpg",
+    "assets/img/3.jpg"
   ];
 
   let current = 0;
 
   function changeHeroBackground() {
     heroSection.style.backgroundImage = `url('${heroImages[current]}')`;
-    heroSection.style.transition = "background-image 1s ease-in-out";
     current = (current + 1) % heroImages.length;
   }
 
-  changeHeroBackground();
-  setInterval(changeHeroBackground, 5000);
+  changeHeroBackground(); // initial load
+  setInterval(changeHeroBackground, 5000); // rotate every 5s
 }
+
 
 
   // ========= 1️⃣ MOBILE NAV MENU =========
