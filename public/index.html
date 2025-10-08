@@ -38,9 +38,8 @@
 .toast.success { border-color: #2ec27e; }
 .toast.warning { border-color: #e9b000; }
 .toast.info { border-color: var(--brand-primary); }
-
-  /* ===========================
-   HERO SLIDESHOW BACKGROUND — FINAL REFINED
+/* ===========================
+   HERO SLIDESHOW BACKGROUND — CLEAN & FIXED
    =========================== */
 
 .hero {
@@ -53,30 +52,17 @@
   color: #fff;
   overflow: hidden;
 
-  /* Background illustration handled dynamically via JS */
-  background: var(--brand-light);
-  background-size: contain;
+  /* The slideshow JS will update this image dynamically */
+  background-size: 60%;              /* small, contained illustration */
   background-position: right center;
   background-repeat: no-repeat;
+  background-color: var(--brand-light);
   transition: background-image 1s ease-in-out;
 }
 
-/* Illustration layer (shrunk, non-intrusive) */
-.hero::before {
+/* Red gradient overlay — subtle */
+.hero::after {
   content: "";
-  position: absolute;
-  inset: 0;
-  background-image: inherit;
-  background-size: 60%; /* controls illustration scale */
-  background-position: right center;
-  background-repeat: no-repeat;
-  filter: brightness(0.85) saturate(1.05);
-  z-index: 0;
-  transition: background-image 1s ease-in-out;
-}
-
-/* Red overlay with reduced opacity */
-.hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -88,7 +74,7 @@
   z-index: 1;
 }
 
-/* Foreground content */
+/* Content container */
 .hero-content {
   position: relative;
   z-index: 2;
@@ -106,7 +92,7 @@
   margin-top: 10px;
 }
 
-/* Search bar styling */
+/* Search bar */
 .search-bar input,
 .search-bar select {
   background: rgba(255, 255, 255, 0.9);
@@ -120,6 +106,19 @@
 
 .search-bar button:hover {
   background: var(--brand-accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .hero {
+    background-size: 80%;
+    background-position: center bottom;
+    text-align: center;
+    padding: 80px 30px;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
 }
 
 
