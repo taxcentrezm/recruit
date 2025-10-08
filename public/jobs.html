@@ -340,6 +340,92 @@
     </div>
   </div>
 </div>
+<!-- Job Results Section -->
+<section id="jobsSection" style="display:none; padding:40px; max-width:900px; margin:auto;">
+  <h2 style="font-size:24px; color:#111827; margin-bottom:20px;">Recommended Jobs</h2>
+  <div id="jobsList" style="display:grid; gap:16px;"></div>
+</section>
+
+<script>
+/* =============== Auto-popup logic =============== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const modal = document.getElementById('modal');
+  const jobsSection = document.getElementById('jobsSection');
+  const stored = loadState();
+
+  if(stored && stored.username && stored.jobtype && stored.desiredjob){
+    // Already onboarded → show jobs
+    modal.style.display = 'none';
+    jobsSection.style.display = 'block';
+    populateJobs(stored);
+  } else {
+    // No data → show onboarding modal
+    modal.style.display = 'block';
+    jobsSection.style.display = 'none';
+  }
+});
+
+/* =============== Populate jobs =============== */
+function populateJobs(user){
+  const jobs = [
+    {title:"Frontend Developer",type:"fulltime",tags:["JavaScript","React","CSS"],location:"Harare"},
+    {title:"UI/UX Designer",type:"remote",tags:["Design","Figma","User Research"],location:"Cape Town"},
+    {title:"Marketing Executive",type:"hybrid",tags:["Marketing","Sales"],location:"Lusaka"},
+    {title:"Data Analyst",type:"fulltime",tags:["SQL","Python","Excel"],location:"Johannesburg"},
+    {title:"Backend Engineer",type:"freelance",tags:["Node.js","Databases"],location:"Bulawayo"}
+  ];
+
+  const userInterests = (user.interests || []).map(i=>i.toLowerCase());
+  const preferredTypes = (user.jobtype || []).map(t=>t.toLowerCase());
+  const desiredTitles = (user.desiredjob || '').toLowerCase().split(',').map(d=>d.trim());
+
+  const matches = jobs.filter(j=>{
+    const matchTitle = desiredTitles.some(t=>j.title.toLowerCase().includes(t));
+    const matchInterest = userInterests.some(i=>j.tags.join(' ').toLowerCase().includes(i));
+    const matchType = preferredTypes.includes(j.type);
+    return matchTitle || matchInterest || matchType;
+  });
+
+  const list = document.getElementById('jobsList');
+  list.innerHTML = '';
+
+  if(matches.length===0){
+    list.innerHTML = `<div style="color:#68707d;">No exact matches found, but we’ll keep searching for you.</div>`;
+    return;
+  }
+
+  matches.forEach(job=>{
+    const div = document.createElement('div');
+    div.style.background = 'white';
+    div.style.padding = '20px';
+    div.style.borderRadius = '12px';
+    div.style.boxShadow = '0 4px 14px rgba(0,0,0,0.06)';
+    div.innerHTML = `
+      <h3 style="color:#111827;font-size:18px">${job.title}</h3>
+      <div style="color:#6c63ff;font-weight:600;margin:4px 0">${job.location} • ${job.type}</div>
+      <div style="color:#68707d;font-size:14px;">Tags: ${job.tags.join(', ')}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+/* =============== Override submitProfile =============== */
+function submitProfile(){
+  persistFromInputs();
+  const state = loadState();
+  document.getElementById('successScreen').classList.add('active');
+  startConfetti();
+
+  // Save permanently
+  saveState(state);
+
+  setTimeout(()=>{
+    document.getElementById('modal').style.display='none';
+    document.getElementById('jobsSection').style.display='block';
+    populateJobs(state);
+  }, 2000);
+}
+</script>
 
 <script>
 /* ===========================
@@ -651,17 +737,7 @@ function renderReview(){
 /* ===========================
   Submit -> success + confetti
 =========================== */
-function submitProfile(){
-  persistFromInputs();
-  // show success
-  document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));
-  document.getElementById('successScreen').classList.add('active');
-  updateStepper(7);
-  // confetti
-  startConfetti();
-  // clear saved local state after submit
-  localStorage.removeItem(STORAGE_KEY);
-}
+ 
 
 /* ===========================
   Persistence helpers: read inputs and save to localStorage
