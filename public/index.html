@@ -371,24 +371,42 @@
 
 <!-- 🆕 SIGNUP MODAL -->
 <div class="modal-overlay" id="signupModal">
-  <div class="modal">
-    <h3>Create Your Account</h3>
-    <input type="email" id="signupEmail" placeholder="Email" />
-    <input type="password" id="signupPassword" placeholder="Password" />
-    <button id="signupSubmit">Sign Up</button>
-    <button class="close-modal">Cancel</button>
+  <div class="modal split">
+    <div class="modal-left">
+      <img src="assets/img/9873163.jpg" alt="Signup Illustration" />
+    </div>
+    <div class="modal-right">
+      <h3><i data-feather="user-plus"></i> Create Your Account</h3>
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+      <button id="signupSubmit"><i data-feather="check-circle"></i> Sign Up</button>
+      <p class="modal-links">
+        <span><i data-feather="log-in"></i> <a href="#" onclick="showModal('loginModal')">Already have an account?</a></span>
+      </p>
+      <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
+    </div>
   </div>
 </div>
 
+
 <!-- 🔁 RECOVERY MODAL -->
 <div class="modal-overlay" id="recoveryModal">
-  <div class="modal">
-    <h3>Password Recovery</h3>
-    <input type="email" id="recoveryEmail" placeholder="Enter your email" />
-    <button id="recoverySubmit">Send Reset Link</button>
-    <button class="close-modal">Cancel</button>
+  <div class="modal split">
+    <div class="modal-left">
+      <img src="assets/img/10241279.jpg" alt="Recovery Illustration" />
+    </div>
+    <div class="modal-right">
+      <h3><i data-feather="unlock"></i> Password Recovery</h3>
+      <input type="email" id="recoveryEmail" placeholder="Enter your email" />
+      <button id="recoverySubmit"><i data-feather="send"></i> Send Reset Link</button>
+      <p class="modal-links">
+        <span><i data-feather="log-in"></i> <a href="#" onclick="showModal('loginModal')">Back to Login</a></span>
+      </p>
+      <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
+    </div>
   </div>
 </div>
+
 
   <!-- ===============================
        SCRIPT
