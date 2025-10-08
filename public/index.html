@@ -6,6 +6,7 @@
   <title>Ntchito — Job Recruitment Platform</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+    
     .text-center {
   text-align: center;
 }
@@ -55,8 +56,8 @@
 .modal.split {
   display: flex;
   flex-direction: row;
-  width: 640px;
-  max-width: 90%;
+  width: 791px;
+  max-width: 99%;
   background: #fff;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -119,6 +120,7 @@
   gap: 8px;
   margin-top: 10px;
   transition: var(--transition);
+  width: 50%;
 }
 .modal-right button:hover {
   background: var(--brand-accent);
@@ -201,6 +203,8 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+
+  
 
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
@@ -370,11 +374,12 @@
       <input type="email" id="loginEmail" placeholder="Email" />
       <input type="password" id="loginPassword" placeholder="Password" />
       <button id="loginSubmit"><i data-feather="check-circle"></i> Login</button>
+      <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
       <p class="modal-links">
         <span><i data-feather="user-plus"></i> <a href="#" id="openSignup">Create Account</a></span> |
         <span><i data-feather="unlock"></i> <a href="#" id="openRecovery">Forgot Password?</a></span>
       </p>
-      <button class="close-modal"><i data-feather="x-circle"></i> Cancel</button>
+      
     </div>
   </div>
 </div>
