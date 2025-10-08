@@ -11,9 +11,9 @@ const heroSection = document.querySelector(".hero");
 
 if (heroSection) {
   const heroImages = [
-    "assets/img/1.jpg",
-    "assets/img/2.jpg",
-    "assets/img/3.jpg"
+    "assets/img/1 (1).jpg",
+    "assets/img/1 (2).jpg",
+    "assets/img/1 (3).jpg"
   ];
 
   let current = 0;
