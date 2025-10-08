@@ -127,14 +127,19 @@ button {
    HERO SECTION
    =========================== */
 .hero {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 80px 60px;
-  background: var(--brand-light);
-  border-bottom: 1px solid #e5e9ec;
-  flex-wrap: wrap;
+  padding: 60px 60px; /* reduced vertical padding */
+  min-height: 70vh;
+  background-size: 30%; /* try 30% or 35% */
+background-position: right 10% center; /* try 10% or 15% */
+  background-repeat: no-repeat;
+  background-color: var(--brand-light);
+  transition: background-image 1s ease-in-out;
 }
+
 .hero-text {
   max-width: 520px;
   flex: 1;
@@ -391,3 +396,12 @@ footer {
 .toast .close-btn:hover {
   color: var(--text-main);
 }
+
+@media (max-width: 992px) {
+  .hero {
+    background-size: 60%;
+    background-position: center bottom;
+    padding: 40px 20px;
+  }
+}
+
