@@ -345,6 +345,122 @@
   <h2 style="font-size:24px; color:#111827; margin-bottom:20px;">Recommended Jobs</h2>
   <div id="jobsList" style="display:grid; gap:16px;"></div>
 </section>
+  <!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="hero-overlay">
+    <h1>Find Your Dream Job Today</h1>
+    <p>Join thousands of professionals and land the job that fits you best.</p>
+    <button class="btn" onclick="document.getElementById('modal').style.display='flex'">Get Started</button>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <img src="assets/search.png" alt="Search Jobs">
+      <h3>1. Search Jobs</h3>
+      <p>Filter jobs by location, type, and interests.</p>
+    </div>
+    <div class="step-card">
+      <img src="assets/apply.png" alt="Apply">
+      <h3>2. Apply</h3>
+      <p>Submit your profile and cover letters directly.</p>
+    </div>
+    <div class="step-card">
+      <img src="assets/connect.png" alt="Connect">
+      <h3>3. Connect</h3>
+      <p>Get noticed by top employers and recruiters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED JOB CATEGORIES -->
+<section class="job-categories">
+  <h2>Popular Job Categories</h2>
+  <div class="category-grid">
+    <div class="category-card">
+      <img src="assets/it.png" alt="IT Jobs">
+      <h3>IT & Development</h3>
+    </div>
+    <div class="category-card">
+      <img src="assets/design.png" alt="Design Jobs">
+      <h3>Design & UX</h3>
+    </div>
+    <div class="category-card">
+      <img src="assets/marketing.png" alt="Marketing Jobs">
+      <h3>Marketing & Sales</h3>
+    </div>
+    <div class="category-card">
+      <img src="assets/admin.png" alt="Admin Jobs">
+      <h3>Admin & Operations</h3>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <h2>Success Stories</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <p>"I found my dream job within two weeks using this platform!"</p>
+      <strong>- Jane D.</strong>
+    </div>
+    <div class="testimonial-card">
+      <p>"Easy to use and highly effective. Highly recommend to job seekers."</p>
+      <strong>- Mike T.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-overlay">
+    <h2>Ready to start your career journey?</h2>
+    <button class="btn" onclick="document.getElementById('modal').style.display='flex'">Join Now</button>
+  </div>
+</section>
+<style>
+  /* HERO */
+.hero-section {
+  background: url('assets/hero-bg.jpg') center/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.hero-overlay {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  text-align: center;
+  padding: 40px;
+  border-radius: 16px;
+}
+
+/* HOW IT WORKS */
+.how-it-works { padding:60px 20px; text-align:center; background:#f9fafb; }
+.how-it-works h2 { margin-bottom:40px; }
+.steps-grid { display:flex; flex-wrap:wrap; gap:24px; justify-content:center; }
+.step-card { background:white; padding:20px; border-radius:12px; width:240px; box-shadow:0 10px 25px rgba(0,0,0,0.05); text-align:center; }
+
+/* JOB CATEGORIES */
+.job-categories { padding:60px 20px; text-align:center; }
+.category-grid { display:flex; flex-wrap:wrap; gap:24px; justify-content:center; }
+.category-card { width:200px; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; background:white; }
+.category-card img { width:100%; height:120px; object-fit:cover; }
+
+/* TESTIMONIALS */
+.testimonials { padding:60px 20px; background:#eef2ff; text-align:center; }
+.testimonial-grid { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.testimonial-card { width:260px; padding:24px; background:white; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.05); font-style:italic; }
+
+/* CTA SECTION */
+.cta-section { background:url('assets/cta-bg.jpg') center/cover no-repeat; height:50vh; display:flex; align-items:center; justify-content:center; position:relative; margin-top:40px; }
+.cta-overlay { background: rgba(0,0,0,0.6); color:white; text-align:center; padding:40px; border-radius:16px; }
+
+</style>
 
 <script>
 /* =============== Auto-popup logic =============== */
