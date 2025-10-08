@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Civi — Job Recruitment Platform</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+  <!-- ===============================
+       NAVBAR
+       =============================== -->
+  <header class="navbar">
+    <div class="logo">
+      <span>Ci</span>vi
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Find Jobs</a>
+      <a href="#">Companies</a>
+      <a href="#">Candidates</a>
+      <a href="#">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="login-btn"><i data-feather="log-in"></i> Login</button>
+      <button class="post-job-btn"><i data-feather="plus-circle"></i> Post a Job</button>
+    </div>
+  </header>
+
+  <!-- ===============================
+       HERO SECTION
+       =============================== -->
+  <section class="hero">
+    <div class="hero-text fade-in">
+      <h1>Got Talent? <br> Meet Opportunity</h1>
+      <p>Company reviews. Salaries. Interviews. Jobs. Everything you need to grow your career.</p>
+      
+      <div class="search-bar">
+        <input type="text" placeholder="Job title or keyword" />
+        <select>
+          <option>All Locations</option>
+          <option>Lusaka</option>
+          <option>Ndola</option>
+          <option>Kitwe</option>
+        </select>
+        <button><i data-feather="search"></i> Search</button>
+      </div>
+
+      <p class="popular-searches">
+        <small>Popular searches:</small> Data Management, Marketing Manager, Customer Support
+      </p>
+    </div>
+
+    <div class="hero-image fade-in">
+      <img src="assets/img/hero-job-search.png" alt="Job seeker illustration" />
+    </div>
+  </section>
+
+  <!-- ===============================
+       EMPLOYER & CANDIDATE SECTIONS
+       =============================== -->
+  <section class="options fade-in">
+    <div class="card">
+      <i data-feather="briefcase" style="color: var(--brand-primary); width: 40px; height: 40px;"></i>
+      <h3>For Employers</h3>
+      <p>Find professionals from around the world and access all skills easily.</p>
+      <button><i data-feather="upload"></i> Post Jobs for Free</button>
+    </div>
+
+    <div class="card">
+      <i data-feather="user-check" style="color: var(--brand-primary); width: 40px; height: 40px;"></i>
+      <h3>For Candidates</h3>
+      <p>Build your professional profile and discover the best new job opportunities.</p>
+      <button><i data-feather="upload-cloud"></i> Upload Your CV</button>
+    </div>
+  </section>
+
+  <!-- ===============================
+       POPULAR CATEGORIES
+       =============================== -->
+  <section class="categories fade-in" style="padding: 60px;">
+    <h2 style="text-align:center; margin-bottom: 40px;">Popular Categories</h2>
+    <div class="job-list">
+      <div class="job-card">
+        <i data-feather="code"></i>
+        <h4>Development & IT</h4>
+        <p>Frontend, backend, web and app developer jobs.</p>
+        <span>16 Jobs</span>
+      </div>
+
+      <div class="job-card">
+        <i data-feather="bar-chart-2"></i>
+        <h4>Marketing & Sales</h4>
+        <p>Advertising, digital marketing and brand strategy jobs.</p>
+        <span>8 Jobs</span>
+      </div>
+
+      <div class="job-card">
+        <i data-feather="edit-3"></i>
+        <h4>Design & Creative</h4>
+        <p>Graphic, digital, web and product design jobs.</p>
+        <span>13 Jobs</span>
+      </div>
+
+      <div class="job-card">
+        <i data-feather="headphones"></i>
+        <h4>Customer Service</h4>
+        <p>Customer experience and account management jobs.</p>
+        <span>8 Jobs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       LATEST JOBS
+       =============================== -->
+  <section class="latest-jobs fade-in" style="padding: 60px;">
+    <h2 style="text-align:center; margin-bottom: 40px;">Latest Jobs</h2>
+    <div class="job-list">
+
+      <div class="job-card">
+        <h4><i data-feather="terminal"></i> Sr. Backend Developer</h4>
+        <p><i data-feather="map-pin"></i> San Francisco</p>
+        <p><i data-feather="dollar-sign"></i> $1200 / month</p>
+        <button class="apply"><i data-feather="send"></i> Apply</button>
+        <button class="save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+
+      <div class="job-card">
+        <h4><i data-feather="figma"></i> UX/UI Designer</h4>
+        <p><i data-feather="map-pin"></i> Remote - California</p>
+        <p><i data-feather="dollar-sign"></i> $900 / month</p>
+        <button class="apply"><i data-feather="send"></i> Apply</button>
+        <button class="save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+
+      <div class="job-card">
+        <h4><i data-feather="trending-up"></i> Product Marketing Manager</h4>
+        <p><i data-feather="map-pin"></i> Chicago</p>
+        <p><i data-feather="dollar-sign"></i> $2500 / week</p>
+        <button class="apply"><i data-feather="send"></i> Apply</button>
+        <button class="save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+
+      <div class="job-card">
+        <h4><i data-feather="users"></i> Chief of Staff</h4>
+        <p><i data-feather="map-pin"></i> Full Time - Remote</p>
+        <p><i data-feather="dollar-sign"></i> $40 / hour</p>
+        <button class="apply"><i data-feather="send"></i> Apply</button>
+        <button class="save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       FOOTER
+       =============================== -->
+  <footer>
+    © 2025 Civi Recruitment — All Rights Reserved.  
+  </footer>
+
+  <!-- ===============================
+       ICON INITIALIZATION
+       =============================== -->
+  <script>
+    feather.replace();
+  </script>
+
+</body>
+</html>
