@@ -1,27 +1,20 @@
-/* ===================================
-   CIVI RECRUITMENT — GLOBAL THEME
-   HD Corporate Design (Red Edition)
-   =================================== */
-
+/* ===========================
+   GLOBAL THEME — Corporate Red
+   =========================== */
 :root {
-  /* ===== Brand & Colors ===== */
-  --brand-primary: #d62828; /* Vibrant red */
-  --brand-accent: #9d0208;  /* Deep corporate crimson */
-  --brand-light: #fdf3f3;   /* Soft warm red tint */
+  --brand-primary: #d62828;
+  --brand-accent: #9d0208;
+  --brand-light: #fdf3f3;
   --text-main: #1a1a1a;
   --text-secondary: #5f6c7b;
   --bg-body: #f9fafb;
   --bg-card: #ffffff;
-
-  /* ===== Layout ===== */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --transition: 0.3s ease;
-
-  /* ===== Typography ===== */
   --font-main: "Inter", "Segoe UI", Roboto, sans-serif;
   --font-size-base: 16px;
   --font-size-h1: 3em;
@@ -117,6 +110,18 @@ button {
 .post-job-btn:hover {
   background: var(--brand-accent);
 }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: var(--text-main);
+}
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+  background: #fff;
+  transition: var(--transition);
+}
 
 /* ===========================
    HERO SECTION
@@ -143,13 +148,6 @@ button {
   margin-top: 12px;
   color: var(--text-secondary);
   font-size: 1.1em;
-}
-.hero-image {
-  flex: 1;
-  text-align: right;
-}
-.hero-image img {
-  max-width: 90%;
 }
 .search-bar {
   display: flex;
@@ -315,54 +313,81 @@ footer {
 }
 
 /* ===========================
-   ANIMATIONS
+   TOAST NOTIFICATIONS
    =========================== */
-.fade-in {
-  animation: fadeIn 0.7s ease both;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
 }
 
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
-@media (max-width: 992px) {
-  .navbar {
-    flex-wrap: wrap;
-    padding: 16px 30px;
-  }
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text {
-    max-width: 100%;
-  }
-  .hero-image {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .options {
-    padding: 60px 20px;
-  }
+.toast {
+  background: #fff;
+  color: var(--text-main);
+  border-left: 5px solid var(--brand-primary);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  font-weight: 500;
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 360px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
 }
 
-@media (max-width: 600px) {
-  .navbar nav {
-    display: none;
-  }
-  .search-bar {
-    flex-direction: column;
-  }
-  .job-list {
-    grid-template-columns: 1fr;
-  }
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast i {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--brand-primary);
+}
+
+.toast.success {
+  border-color: #2ec27e;
+}
+.toast.success i {
+  color: #2ec27e;
+}
+
+.toast.warning {
+  border-color: #e9b000;
+}
+.toast.warning i {
+  color: #e9b000;
+}
+
+.toast.info {
+  border-color: var(--brand-primary);
+}
+.toast.info i {
+  color: var(--brand-primary);
+}
+
+.toast .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  color: #999;
+  cursor: pointer;
+}
+.toast .close-btn:hover {
+  color: var(--text-main);
 }
