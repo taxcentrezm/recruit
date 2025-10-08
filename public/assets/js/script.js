@@ -1,18 +1,8 @@
-/* =======================================================
-   CIVI RECRUITMENT PLATFORM
-   Corporate Red Edition
-   Author: SMAIT DEV
-   ======================================================= */
-
-// ===============
-// GLOBAL ELEMENTS
-// ===============
 document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.querySelector(".navbar");
   const mobileMenuBtn = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector("nav");
   const searchForm = document.querySelector(".search-bar");
-  const jobCards = document.querySelectorAll(".job-card");
   const applyButtons = document.querySelectorAll(".apply");
   const saveButtons = document.querySelectorAll(".save");
 
@@ -33,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ========= 3️⃣ SEARCH BAR ANIMATION =========
+  // ========= 3️⃣ SEARCH BAR VALIDATION =========
   if (searchForm) {
     searchForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -53,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========= 4️⃣ APPLY BUTTON =========
+  // ========= 4️⃣ APPLY BUTTON LOGIC =========
   applyButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const jobTitle = btn.closest(".job-card").querySelector("h4").innerText;
@@ -64,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ========= 5️⃣ SAVE JOB =========
+  // ========= 5️⃣ SAVE JOB LOGIC =========
   saveButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       btn.classList.toggle("saved");
@@ -82,45 +72,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ========= 6️⃣ TOAST MESSAGE SYSTEM =========
-  const toastContainer = document.createElement("div");
-  toastContainer.classList.add("toast-container");
-  document.body.appendChild(toastContainer);
+  // ========= 6️⃣ TOAST SYSTEM =========
+  const toastContainer = document.querySelector(".toast-container") || (() => {
+    const container = document.createElement("div");
+    container.classList.add("toast-container");
+    document.body.appendChild(container);
+    return container;
+  })();
 
-  function showToast(message, type = "info") {
+  function showToast(message, type = "info", duration = 4000) {
     const toast = document.createElement("div");
     toast.classList.add("toast", type);
-    toast.innerHTML = message;
+
+    const icons = {
+      success: "check-circle",
+      warning: "alert-triangle",
+      info: "info"
+    };
+
+    toast.innerHTML = `
+      <i data-feather="${icons[type] || 'info'}"></i>
+      <span>${message}</span>
+      <button class="close-btn" aria-label="Close toast">&times;</button>
+    `;
+
     toastContainer.appendChild(toast);
+    feather.replace();
 
     setTimeout(() => toast.classList.add("show"), 10);
-    setTimeout(() => toast.classList.remove("show"), 3000);
-    setTimeout(() => toast.remove(), 3500);
+
+    const removeToast = () => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 400);
+    };
+
+    setTimeout(removeToast, duration);
+    toast.querySelector(".close-btn").addEventListener("click", removeToast);
   }
 
-  // ========= 7️⃣ DASHBOARD MOCK DATA (Optional for Employer Side) =========
-  if (document.querySelector("#dashboard-stats")) {
-    const stats = [
-      { label: "Active Jobs", value: 12 },
-      { label: "Total Applicants", value: 318 },
-      { label: "Interviews Scheduled", value: 24 },
-      { label: "Hires Made", value: 8 },
-    ];
-
-    const statsContainer = document.querySelector("#dashboard-stats");
-    stats.forEach((s) => {
-      const card = document.createElement("div");
-      card.classList.add("stat-card", "fade-in");
-      card.innerHTML = `
-        <i data-feather="bar-chart-2"></i>
-        <h3>${s.value}</h3>
-        <p>${s.label}</p>
-      `;
-      statsContainer.appendChild(card);
-    });
-    feather.replace();
-  }
-
-  // ========= 8️⃣ FEATHER ICON INIT =========
+  // ========= 7️⃣ ICON INIT =========
   feather.replace();
 });
