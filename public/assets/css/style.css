@@ -126,23 +126,68 @@ button {
 /* ===========================
    HERO SECTION
    =========================== */
-.hero {
+/* =============================
+   HERO SECTION (Full Screen)
+   ============================= */
+.hero.full-screen {
   position: relative;
+  height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 60px 60px; /* reduced vertical padding */
-  min-height: 70vh;
-  background-repeat: no-repeat;
-  background-color: var(--brand-light);
-  transition: background-image 3s ease-in-out;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease-in-out;
 }
 
-.hero {
-  background-color: var(--brand-light); /* base color */
-  background-blend-mode: multiply;      /* blend effect */
-  background-size: 40%;
-  background-position: right 20% center;
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* =============================
+   JOB CARDS (Colorful Layout)
+   ============================= */
+.job-card {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-card:nth-child(2n) {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+}
+
+.job-card:nth-child(3n) {
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+.job-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 
