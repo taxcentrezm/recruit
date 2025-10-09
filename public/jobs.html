@@ -350,7 +350,7 @@
   <div class="hero-overlay">
     <h1>Find Your Dream Job Today</h1>
     <p>Join thousands of professionals and land the job that fits you best.</p>
-    <button class="btn" onclick="document.getElementById('modal').style.display='flex'">Get Started</button>
+    <button class="btn" >Get Started</button>
   </div>
 </section>
 
@@ -418,26 +418,91 @@
 <section class="cta-section">
   <div class="cta-overlay">
     <h2>Ready to start your career journey?</h2>
-    <button class="btn" onclick="document.getElementById('modal').style.display='flex'">Join Now</button>
+    <button class="btn" >Join Now</button>
   </div>
 </section>
 <style>
-  /* HERO */
+/* GENERAL SECTION STYLING */
+section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* HERO */
 .hero-section {
   background: url('assets/hero-bg.jpg') center/cover no-repeat;
   height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  text-align: center;
 }
 .hero-overlay {
   background: rgba(0,0,0,0.5);
-  color: white;
-  text-align: center;
+  color: #fff;
   padding: 40px;
   border-radius: 16px;
 }
+
+/* GRID UTILITY */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+.steps-grid, .category-grid, .testimonial-grid {
+  display: grid;
+  gap: 24px;
+}
+
+/* Responsive grids */
+.steps-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.category-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.testimonial-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* CARD STYLING */
+.step-card, .category-card, .testimonial-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: url('assets/cta-bg.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  text-align: center;
+}
+.cta-overlay {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 40px;
+  border-radius: 16px;
+}
+
+/* BUTTONS */
+.btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+.btn:hover { background: #3730a3; }
 
 /* HOW IT WORKS */
 .how-it-works { padding:60px 20px; text-align:center; background:#f9fafb; }
