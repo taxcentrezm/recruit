@@ -6,6 +6,7 @@
   <title>Ntchito — Job Recruitment Platform</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
+
  /* ===========================
    GLOBAL THEME — Corporate Red
    =========================== */
@@ -509,6 +510,7 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+  align-items: center;
 }
 .job-card {
   background: var(--bg-card);
@@ -517,6 +519,7 @@ button {
   padding: 24px;
   transition: var(--transition);
   position: relative;
+  align-items: center;
 }
 .job-card:hover {
   box-shadow: var(--shadow-md);
@@ -668,13 +671,14 @@ footer {
 }
     .sadc-carousel {
   position: fixed;
-  top: 60px; /* adjust to your navbar height */
+  top: 65px; /* adjust to your navbar height */
   width: 100%;
   overflow: hidden;
   background: #fff; /* clean, professional look */
-  padding: 5px 0;
+  padding: -10px 0;
   border-bottom: 1px solid #ddd;
   z-index: 999;
+  left: 0px;
 }
 
 .carousel-track {
@@ -715,7 +719,6 @@ footer {
   cursor: pointer;
   text-decoration: underline;
 }
-
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
