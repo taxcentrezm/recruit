@@ -238,7 +238,41 @@
   display: block;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-  
+  /* SADC Carousel */
+.sadc-carousel {
+  overflow-x: auto;
+  white-space: nowrap;
+  background: #f5f5f5;
+  padding: 10px 0;
+  border-bottom: 2px solid #ddd;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 15px;
+  padding-left: 20px;
+}
+
+.country-card {
+  display: inline-block;
+  min-width: 150px;
+  height: 100px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  line-height: 100px;
+  font-weight: bold;
+  font-size: 1rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  transition: transform 0.3s ease;
+}
+
+.country-card:nth-child(2n) { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+.country-card:nth-child(3n) { background: linear-gradient(135deg, #43cea2, #185a9d); }
+
+.country-card:hover { transform: translateY(-5px); cursor: pointer; }
+
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -261,6 +295,12 @@
       <button class="post-job-btn"><i data-feather="plus-circle"></i> Post a Job</button>
       <button class="menu-toggle" aria-label="Toggle menu"><i data-feather="menu"></i></button>
     </div>
+     <div class="sadc-carousel">
+    <div class="carousel-track" id="carousel-track">
+      <!-- JS will populate country cards here -->
+    </div>
+  </div>
+</header>
   </header>
 
   <!-- ===============================
@@ -696,6 +736,21 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast(`Searching jobs for "${keyword}" in ${location || "All Areas"}...`, "info");
     setTimeout(() => showToast("✅ Results loaded successfully", "success"), 1500);
   });
+
+  const carouselTrack = document.getElementById("carousel-track");
+
+const sadcCountries = [
+  "Angola","Botswana","Comoros","Democratic Republic of the Congo","Eswatini",
+  "Lesotho","Madagascar","Malawi","Mauritius","Mozambique",
+  "Namibia","Seychelles","South Africa","Tanzania","Zambia","Zimbabwe"
+];
+
+sadcCountries.forEach(country => {
+  const card = document.createElement("div");
+  card.classList.add("country-card");
+  card.textContent = country;
+  carouselTrack.appendChild(card);
+});
 
   /* =========================================
      🖼 ICON INIT
