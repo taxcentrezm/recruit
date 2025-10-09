@@ -238,23 +238,42 @@
   display: block;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-  /* SADC Carousel */
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #1a1a1a;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* SADC Carousel below navbar */
 .sadc-carousel {
-  overflow-x: auto;
-  white-space: nowrap;
+  position: fixed;
+  top: 60px; /* adjust according to navbar height */
+  width: 100%;
+  overflow: hidden;
   background: #f5f5f5;
   padding: 10px 0;
   border-bottom: 2px solid #ddd;
+  z-index: 999;
 }
 
+/* Track wrapper for sliding animation */
 .carousel-track {
   display: flex;
   gap: 15px;
-  padding-left: 20px;
+  animation: scroll 20s linear infinite;
 }
 
+/* Country cards */
 .country-card {
-  display: inline-block;
+  flex-shrink: 0;
   min-width: 150px;
   height: 100px;
   border-radius: 12px;
@@ -263,15 +282,25 @@
   line-height: 100px;
   font-weight: bold;
   font-size: 1rem;
-  flex-shrink: 0;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
-  transition: transform 0.3s ease;
 }
 
+/* Alternate colors */
 .country-card:nth-child(2n) { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
 .country-card:nth-child(3n) { background: linear-gradient(135deg, #43cea2, #185a9d); }
 
-.country-card:hover { transform: translateY(-5px); cursor: pointer; }
+/* Hover effect */
+.country-card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+/* Sliding animation */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* adjust based on number of cards */
+}
+
 
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
@@ -295,13 +324,13 @@
       <button class="post-job-btn"><i data-feather="plus-circle"></i> Post a Job</button>
       <button class="menu-toggle" aria-label="Toggle menu"><i data-feather="menu"></i></button>
     </div>
-     <div class="sadc-carousel">
+      <div class="sadc-carousel">
     <div class="carousel-track" id="carousel-track">
       <!-- JS will populate country cards here -->
     </div>
   </div>
 </header>
-  </header>
+
 
   <!-- ===============================
        HERO SECTION
@@ -737,7 +766,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => showToast("✅ Results loaded successfully", "success"), 1500);
   });
 
-  const carouselTrack = document.getElementById("carousel-track");
+ const carouselTrack = document.getElementById("carousel-track");
 
 const sadcCountries = [
   "Angola","Botswana","Comoros","Democratic Republic of the Congo","Eswatini",
@@ -745,12 +774,16 @@ const sadcCountries = [
   "Namibia","Seychelles","South Africa","Tanzania","Zambia","Zimbabwe"
 ];
 
-sadcCountries.forEach(country => {
+// Duplicate countries so sliding looks seamless
+const allCountries = [...sadcCountries, ...sadcCountries];
+
+allCountries.forEach(country => {
   const card = document.createElement("div");
   card.classList.add("country-card");
   card.textContent = country;
   carouselTrack.appendChild(card);
 });
+
 
   /* =========================================
      🖼 ICON INIT
