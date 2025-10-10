@@ -369,49 +369,42 @@
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.2);
   z-index: 10000; 
 }
-.filter-bar {
+.filter-sidebar {
+  position: relative;
+  float: right;
+  width: 280px;
+  margin: 30px 40px 0 0;
+  padding: 20px;
   background: #fff;
-  padding: 20px 40px;
-  border-bottom: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
 }
 
-.filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
-}
-
-.filter-info {
+.filter-sidebar h3 {
+  font-size: 1.2rem;
+  color: #bb0303;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-.filter-info i {
-  color: #bb0303;
 }
 
 .filter-group {
-  display: flex;
-  flex-direction: column;
-  min-width: 160px;
+  margin-bottom: 16px;
 }
 
 .filter-group label {
   font-size: 0.85rem;
   color: #68707d;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.filter-group select,
-.filter-group input {
+.filter-group select {
+  width: 100%;
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid #e6e9f2;
@@ -421,15 +414,16 @@
 
 .filter-actions {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
-  margin-left: auto;
+  margin-top: 10px;
 }
 
 .filter-actions .btn {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
@@ -447,17 +441,6 @@
   border: 1px solid #ccc;
 }
 
-@media (max-width: 768px) {
-  .filter-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .filter-actions {
-    justify-content: flex-start;
-    margin-left: 0;
-  }
-}
  
 
 </style>
@@ -475,69 +458,52 @@
       <a href="#">SAGE UK HR</a>
     </nav>
   </header>
-	<section class="filter-bar">
-  <div class="filter-row">
-    <!-- Description -->
-    <div class="filter-info">
-      <i data-feather="filter"></i>
-      <p>Refine your search by category, location, experience, and keyword.</p>
-    </div>
 
-    <!-- Category -->
-    <div class="filter-group">
-      <label for="categorySelect"><i data-feather="layers"></i> Category</label>
-      <select id="categorySelect">
-        <option>All</option>
-        <option>Engineering</option>
-        <option>Healthcare</option>
-        <option>Education</option>
-        <option>Finance</option>
-        <option>Design</option>
-      </select>
-    </div>
-
-    <!-- Location -->
-    <div class="filter-group">
-      <label for="locationSelect"><i data-feather="map-pin"></i> Location</label>
-      <select id="locationSelect">
-        <option>All</option>
-        <option>Lusaka</option>
-        <option>Harare</option>
-        <option>Gaborone</option>
-        <option>Blantyre</option>
-        <option>Maputo</option>
-      </select>
-    </div>
-
-    <!-- Experience -->
-    <div class="filter-group">
-      <label for="experienceSelect"><i data-feather="briefcase"></i> Experience</label>
-      <select id="experienceSelect">
-        <option>Any</option>
-        <option>0–2 years</option>
-        <option>3–5 years</option>
-        <option>6+ years</option>
-      </select>
-    </div>
-
-    <!-- Keyword -->
-    <div class="filter-group">
-      <label for="keywordInput"><i data-feather="search"></i> Keyword</label>
-      <input type="text" id="keywordInput" placeholder="e.g. React, Nursing, Sales" />
-    </div>
-
-    <!-- Actions -->
-    <div class="filter-actions">
-      <button class="btn secondary"><i data-feather="check-circle"></i> Apply</button>
-      <button class="btn ghost"><i data-feather="x-circle"></i> Reset</button>
-    </div>
-  </div>
-</section>
 <!-- HERO -->
 <section class="hero">
   <h2>Hire the best talent across SADC</h2>
   <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
 </section>
+ 
+
+<div class="filter-sidebar">
+  <h3><i data-feather="filter"></i> Advanced Filters</h3>
+
+  <div class="filter-group">
+    <label><i data-feather="layers"></i> Category</label>
+    <select>
+      <option>All</option>
+      <option>Engineering</option>
+      <option>Healthcare</option>
+      <option>Education</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label><i data-feather="map-pin"></i> Location</label>
+    <select>
+      <option>All</option>
+      <option>Lusaka</option>
+      <option>Harare</option>
+      <option>Gaborone</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label><i data-feather="briefcase"></i> Experience</label>
+    <select>
+      <option>Any</option>
+      <option>0–2 years</option>
+      <option>3–5 years</option>
+      <option>6+ years</option>
+    </select>
+  </div>
+
+  <div class="filter-actions">
+    <button class="btn secondary"><i data-feather="check-circle"></i> Apply</button>
+    <button class="btn ghost"><i data-feather="x-circle"></i> Reset</button>
+  </div>
+</div>
 
 <!-- DASHBOARD -->
 <section id="recruiterDashboard">
