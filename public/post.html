@@ -379,15 +379,16 @@
       </section>
 
       <!-- Step 3 -->
-      <section class="step-content" data-step="3" id="step-3">
-        <h3>Upload Certificates</h3>
-        <label>Upload Company Certificate</label><input id="certFile" type="file" />
-        <label>Upload Other Supporting Docs</label><input id="supportFile" type="file" />
-      <div class="actions">
-          <button class="btn ghost" onclick="goStep(2)">← Back</button>
-          <button class="btn" onclick="goStep(4)">Next →</button>
-        </div>
-      </section>
+     <!-- Step 3 -->
+<section class="step-content" data-step="3" id="step-3">
+  <h3>Upload Company Certificates</h3>
+  <div class="edu-controls">
+    <button class="btn" onclick="openCertPopup()">Add Certificate</button>
+  </div>
+  <div class="edu-list" id="certList">
+    <!-- Certificate cards will be rendered here -->
+  </div>
+</section>
 
       <!-- Step 4 -->
       <section class="step-content" data-step="4" id="step-4">
@@ -451,6 +452,24 @@
      
     </div>
   </div>
+
+
+<!-- Certificate popup template -->
+<div id="certPopupTemplate" style="display:none;">
+  <div class="overlay" id="certOverlay" onclick="closeCertPopup()">
+    <div class="popup" onclick="event.stopPropagation()">
+      <h3 style="margin-bottom:8px">Add Certificate</h3>
+      <label for="certName">Certificate Name</label>
+      <input id="certName" type="text" placeholder="e.g. Company Registration" />
+      <label for="certFile" style="margin-top:8px">Upload File</label>
+      <input id="certFileInput" type="file" />
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn ghost" onclick="closeCertPopup()">Cancel</button>
+        <button class="btn" onclick="saveCertificate()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <canvas id="confettiCanvas"></canvas>
 <!-- links popup template -->
@@ -643,6 +662,62 @@ const stepsMeta = [
       document.getElementById('companyNameDisplay').textContent = state.companyName;
     }, 2000);
   }
+
+	 let certificates = []; // {id, name, fileName}
+
+function openCertPopup() {
+  document.body.insertAdjacentHTML('beforeend', document.getElementById('certPopupTemplate').innerHTML);
+  document.getElementById('certOverlay').style.display = 'flex';
+}
+
+function closeCertPopup() {
+  document.getElementById('certOverlay')?.remove();
+}
+
+function saveCertificate() {
+  const name = document.getElementById('certName').value.trim();
+  const fileInput = document.getElementById('certFileInput');
+  const fileName = fileInput?.files?.[0]?.name || '';
+  if (!name || !fileName) return alert('Please provide both a name and file');
+  certificates.push({ id: Date.now(), name, fileName });
+  renderCertificates();
+  closeCertPopup();
+  persistFromInputs();
+}
+
+function renderCertificates() {
+  const area = document.getElementById('certList');
+  area.innerHTML = '';
+  certificates.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'edu-card';
+    div.innerHTML = `
+      <div class="edu-info">
+        <div style="font-weight:700">${escapeHtml(c.name)}</div>
+        <div class="muted">${escapeHtml(c.fileName)}</div>
+      </div>
+      <div class="edu-actions">
+        <button class="btn ghost" onclick='editCertificate(${c.id})'>Edit</button>
+        <button class="btn" onclick='removeCertificate(${c.id})'>Remove</button>
+      </div>`;
+    area.appendChild(div);
+  });
+}
+
+function editCertificate(id) {
+  const found = certificates.find(c => c.id === id);
+  if (!found) return;
+  openCertPopup();
+  document.getElementById('certName').value = found.name;
+  certificates = certificates.filter(c => c.id !== id);
+}
+
+function removeCertificate(id) {
+  certificates = certificates.filter(c => c.id !== id);
+  renderCertificates();
+  persistFromInputs();
+}
+
 
   // ========== Confetti ==========
   const canvas = document.getElementById('confettiCanvas');
