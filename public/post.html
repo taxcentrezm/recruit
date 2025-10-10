@@ -438,134 +438,128 @@
 <script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
  <script>
     feather.replace();
- /*===========================
-  helpers for escaping and debugging
-=========================== */
-window.persistFromInputs = persistFromInputs;
-window.goStep = goStep;
-window.addChip = addChip;
-window.editEdu = editEdu;
-window.removeEdu = removeEdu;
-window.openLinkPopup = openLinkPopup;
-window.closeLinkPopup = closeLinkPopup;
-window.saveLink = saveLink;
-window.removeLink = removeLink;
+<script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
+<script>
+  // ========== Global Setup ==========
+  const STORAGE_KEY = 'ntchito_recruiter';
+  let current = 1;
+  let links = [];
 
-/* expose updateStepper initially */
-updateStepper(1);
+  // ========== Local Storage ==========
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
 
-/* Auto-save keys & data */
-const STORAGE_KEY = 'ntchito_v2';
-function saveState(state){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-function loadState(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e){ return {}; } }
-
-/* initialize stepper UI */
-const stepsList = document.getElementById('stepsList');
-stepsMeta.forEach(s=>{
-  const el = document.createElement('div');
-  el.className = 'step-item';
-  el.dataset.step = s.id;
-  el.innerHTML = `
-    <div class="step-icon"><i data-feather="${s.icon}"></i></div>
-    <div class="step-labels"><div class="title">${s.id}. ${s.label}</div><div class="subtitle">${s.sub}</div></div>
-  `;
-  el.addEventListener('click', ()=>goStep(s.id));
-  stepsList.appendChild(el);
-});
-feather.replace();
-
-/* progress fill update */
-function updateStepper(active){
-  document.querySelectorAll('.step-item').forEach(si=>{
-    si.classList.toggle('active', Number(si.dataset.step)===active);
-  });
-  const pct = ((active-1)/(stepsMeta.length-1))*100;
-  document.getElementById('progressFill').style.width = pct + '%';
-}
-/* ===========================
-  Step navigation
-=========================== */
-let current = 1;
-function goStep(n){
-  if(n<1 || n>7) return;
-  // save before moving
-  persistFromInputs();
-  current = n;
-  // show/hide panels
-  document.querySelectorAll('.step-content').forEach(sec=>{
-    sec.classList.toggle('active', Number(sec.dataset.step)===n);
-  });
-  // hide success screen if moving backwards
-  document.getElementById('successScreen').classList.remove('active');
-  // update left steps
-  updateStepper(n);
-  // restore review content if step 7
-  if(n===7) renderReview();
-}
-
-/* ===========================
-  Step 6: Links popup
-=========================== */
-let links = []; // {id,name,url}
-function openLinkPopup(){
-  document.body.insertAdjacentHTML('beforeend', document.getElementById('linkPopup').innerHTML);
-  document.getElementById('overlay').style.display='flex';
-}
-function closeLinkPopup(){ document.getElementById('overlay')?.remove(); }
-function saveLink(){
-  const name = document.getElementById('linkName').value.trim();
-  const url = document.getElementById('linkUrl').value.trim();
-  if(!name || !url) return alert('Please provide both a name and URL');
-  links.push({id:Date.now(),name,url});
-  renderLinks();
-  closeLinkPopup();
-  persistFromInputs();
-}
-function renderLinks(){
-  const area = document.getElementById('linksArea');
-  area.innerHTML = '';
-  links.forEach(l=>{
-    const div = document.createElement('div');
-    div.className = 'edu-card';
-    div.innerHTML = `<div class="edu-info"><div style="font-weight:700">${escapeHtml(l.name)}</div><div class="muted">${escapeHtml(l.url)}</div></div>
-      <div class="edu-actions"><button class="btn ghost" onclick='editLink(${l.id})'>Edit</button><button class="btn" onclick='removeLink(${l.id})'>Remove</button></div>`;
-    area.appendChild(div);
-  });
-}
-function editLink(id){
-  const found = links.find(l=>l.id===id);
-  if(!found) return;
-  openLinkPopup();
-  document.getElementById('linkName').value = found.name;
-  document.getElementById('linkUrl').value = found.url;
-  // remove original; save will push edited as new entry
-  links = links.filter(l=>l.id!==id);
-}
-function removeLink(id){ links = links.filter(l=>l.id!==id); renderLinks(); persistFromInputs(); }
-
-  function persist(){
-    const s=loadState();
-    s.companyName=document.getElementById('companyName').value;
-    s.industry=document.getElementById('industry').value;
-    s.regNo=document.getElementById('regNo').value;
-    s.country=document.getElementById('country').value;
-    s.district=document.getElementById('district').value;
-    s.town=document.getElementById('town').value;
-    s.phone=document.getElementById('phone').value;
-    s.companyType=document.getElementById('companyType').value;
-    s.employeeCount=document.getElementById('employeeCount').value;
-    s.departments=document.getElementById('departments').value;
-    s.website=document.getElementById('website').value;
-    s.linkedin=document.getElementById('linkedin').value;
+  function persistFromInputs() {
+    const s = loadState();
+    s.companyName = document.getElementById('companyName').value;
+    s.industry = document.getElementById('industry').value;
+    s.regNo = document.getElementById('regNo').value;
+    s.country = document.getElementById('country').value;
+    s.district = document.getElementById('district').value;
+    s.town = document.getElementById('town').value;
+    s.phone = document.getElementById('phone').value;
+    s.companyType = document.getElementById('companyType').value;
+    s.employeeCount = document.getElementById('employeeCount').value;
+    s.departments = document.getElementById('departments').value;
+    s.website = document.getElementById('website').value;
+    s.linkedin = document.getElementById('linkedin').value;
     saveState(s);
   }
 
-  function submitRecruiter(){
-    persist();
-    const s=loadState();
-    document.getElementById('reviewArea').innerHTML=`
+  // ========== Stepper UI ==========
+  function updateStepper(active) {
+    document.querySelectorAll('.step-item').forEach(si => {
+      si.classList.toggle('active', Number(si.dataset.step) === active);
+    });
+    const pct = ((active - 1) / (stepsMeta.length - 1)) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function goStep(n) {
+    if (n < 1 || n > 7) return;
+    persistFromInputs();
+    current = n;
+    document.querySelectorAll('.step-content').forEach(sec => {
+      sec.classList.toggle('active', Number(sec.dataset.step) === n);
+    });
+    document.getElementById('successScreen').classList.remove('active');
+    updateStepper(n);
+    if (n === 7) renderReview();
+  }
+
+  // ========== Escape HTML ==========
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, tag => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[tag]));
+  }
+
+  // ========== Link Popup ==========
+  function openLinkPopup() {
+    document.body.insertAdjacentHTML('beforeend', document.getElementById('linkPopup').innerHTML);
+    document.getElementById('overlay').style.display = 'flex';
+  }
+
+  function closeLinkPopup() {
+    document.getElementById('overlay')?.remove();
+  }
+
+  function saveLink() {
+    const name = document.getElementById('linkName').value.trim();
+    const url = document.getElementById('linkUrl').value.trim();
+    if (!name || !url) return alert('Please provide both a name and URL');
+    links.push({ id: Date.now(), name, url });
+    renderLinks();
+    closeLinkPopup();
+    persistFromInputs();
+  }
+
+  function renderLinks() {
+    const area = document.getElementById('linksArea');
+    area.innerHTML = '';
+    links.forEach(l => {
+      const div = document.createElement('div');
+      div.className = 'edu-card';
+      div.innerHTML = `
+        <div class="edu-info">
+          <div style="font-weight:700">${escapeHtml(l.name)}</div>
+          <div class="muted">${escapeHtml(l.url)}</div>
+        </div>
+        <div class="edu-actions">
+          <button class="btn ghost" onclick='editLink(${l.id})'>Edit</button>
+          <button class="btn" onclick='removeLink(${l.id})'>Remove</button>
+        </div>`;
+      area.appendChild(div);
+    });
+  }
+
+  function editLink(id) {
+    const found = links.find(l => l.id === id);
+    if (!found) return;
+    openLinkPopup();
+    document.getElementById('linkName').value = found.name;
+    document.getElementById('linkUrl').value = found.url;
+    links = links.filter(l => l.id !== id);
+  }
+
+  function removeLink(id) {
+    links = links.filter(l => l.id !== id);
+    renderLinks();
+    persistFromInputs();
+  }
+
+  // ========== Review & Submit ==========
+  function renderReview() {
+    const s = loadState();
+    document.getElementById('reviewArea').innerHTML = `
       <div><strong>Company:</strong> ${s.companyName}</div>
       <div><strong>Industry:</strong> ${s.industry}</div>
       <div><strong>Reg No:</strong> ${s.regNo}</div>
@@ -576,49 +570,66 @@ function removeLink(id){ links = links.filter(l=>l.id!==id); renderLinks(); pers
       <div><strong>Departments:</strong> ${s.departments}</div>
       <div><strong>Website:</strong> ${s.website}</div>
       <div><strong>LinkedIn:</strong> ${s.linkedin}</div>`;
+  }
+
+  function submitProfile() {
+    persistFromInputs();
+    const state = loadState();
     document.getElementById('successScreen').classList.add('active');
     startConfetti();
-    setTimeout(()=>{modal.style.display='none';dash.style.display='block';document.getElementById('companyNameDisplay').textContent=s.companyName;},2500);
+    saveState(state);
+    setTimeout(() => {
+      document.getElementById('modal').style.display = 'none';
+      document.getElementById('jobsSection').style.display = 'block';
+      document.getElementById('companyNameDisplay').textContent = state.companyName;
+    }, 2000);
   }
 
-  const STORAGE_KEY='ntchito_recruiter';
-  function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
-  function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return {};}}
-  
-  /* Confetti */
-  const canvas=document.getElementById('confettiCanvas');const ctx=canvas.getContext('2d');
-  function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-  window.addEventListener('resize',resizeCanvas);resizeCanvas();
-  let confetti=[];
-  function startConfetti(){
-    confetti=[];for(let i=0;i<100;i++){confetti.push({x:Math.random()*canvas.width,y:Math.random()*-canvas.height,color:`hsl(${Math.random()*360},100%,60%)`,size:6+Math.random()*6,speed:2+Math.random()*3});}
+  // ========== Confetti ==========
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  let confetti = [];
+
+  function setupConfetti() {
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  }
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function startConfetti() {
+    confetti = [];
+    for (let i = 0; i < 100; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        color: `hsl(${Math.random() * 360},100%,60%)`,
+        size: 6 + Math.random() * 6,
+        speed: 2 + Math.random() * 3
+      });
+    }
     requestAnimationFrame(drawConfetti);
-    setTimeout(()=>confetti=[],5000);
-  }
-  function drawConfetti(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confetti.forEach(p=>{ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,p.size,p.size);p.y+=p.speed;if(p.y>canvas.height)p.y=0;});
-    if(confetti.length)requestAnimationFrame(drawConfetti);
+    setTimeout(() => confetti = [], 5000);
   }
 
-/* =============== Override submitProfile =============== */
-function submitProfile(){
-  persistFromInputs();
-  const state = loadState();
-  document.getElementById('successScreen').classList.add('active');
-  startConfetti();
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+      p.y += p.speed;
+      if (p.y > canvas.height) p.y = 0;
+    });
+    if (confetti.length) requestAnimationFrame(drawConfetti);
+  }
 
-  // Save permanently
-  saveState(state);
-
-  setTimeout(()=>{
-    document.getElementById('modal').style.display='none';
-    document.getElementById('jobsSection').style.display='block';
-    populateJobs(state);
-  }, 2000);
-}
-
-
-  </script>
+  // ========== Init ==========
+  feather.replace();
+  updateStepper(1);
+  setupConfetti();
+</script>
 </body>
 </html>
