@@ -505,10 +505,42 @@ footer {
     align-items: flex-start;
   }
 
-  .nav-left {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.form-row select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e6e9f2;
+  background: #f9fafb;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.form-row .btn.small {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  background: #bb0303;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
 
   .nav-filters {
     flex-wrap: wrap;
@@ -527,7 +559,7 @@ footer {
   <div class="nav-left">
     <h1 class="logo">Ntchito</h1>
 
-    <div class="nav-filters">
+    <form class="form-row nav-filters">
       <select>
         <option>Category</option>
         <option>Engineering</option>
@@ -549,8 +581,10 @@ footer {
         <option>6+ yrs</option>
       </select>
 
-      <button class="btn small"><i data-feather="filter"></i> Apply</button>
-    </div>
+      <button class="btn small" type="submit">
+        <i data-feather="filter"></i> Apply
+      </button>
+    </form>
   </div>
 
   <nav class="main-nav">
@@ -562,6 +596,7 @@ footer {
     <a href="#">SAGE UK HR</a>
   </nav>
 </header>
+
 
 
 
