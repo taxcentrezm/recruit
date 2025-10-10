@@ -466,6 +466,22 @@ const stepsMeta = [
     }
   }
 
+	 const stepsList = document.getElementById('stepsList');
+  stepsMeta.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'step-item';
+    el.dataset.step = s.id;
+    el.innerHTML = `
+      <div class="step-icon"><i data-feather="${s.icon}"></i></div>
+      <div class="step-labels">
+        <div class="title">${s.id}. ${s.label}</div>
+        <div class="subtitle">${s.sub}</div>
+      </div>`;
+    el.addEventListener('click', () => goStep(s.id));
+    stepsList.appendChild(el);
+  });
+  feather.replace();
+	 
   function persistFromInputs() {
     const s = loadState();
     s.companyName = document.getElementById('companyName').value;
