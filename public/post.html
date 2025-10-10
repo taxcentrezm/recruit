@@ -361,18 +361,37 @@
           <option value="CD">DR Congo</option></select>
         <label>Province / District</label><select id="district"></select>
         <label>Town</label><select id="town"></select>
-        <label>Phone Number</label><input id="phone" type="text" placeholder="+263..." />
+        <div class="field-row">
+          <label for="phone">Phone number</label>
+          <div class="phone-wrap">
+            <div class="flag-block" id="flagBlock" aria-hidden>
+              <div class="flag-emoji" id="flagEmoji">🏳️</div>
+              <div class="country-code" id="countryCode">+000</div>
+            </div>
+            <div class="phone-input" style="flex:1">
+              <input id="phone" type="tel" placeholder="e.g. 772 123 456" />
+              <div class="muted" style="margin-top:6px">Country code is auto-filled from selected country</div>
+            </div>
+          </div>
+			<div class="actions">
+          <button class="btn ghost" onclick="goStep(1)">← Back</button>
+          <button class="btn" onclick="goStep(3)">Next →</button>
+        </div>
       </section>
 
       <!-- Step 3 -->
-      <div class="step-content" data-step="3">
+      <section class="step-content" data-step="3" id="step-3">
         <h3>Upload Certificates</h3>
         <label>Upload Company Certificate</label><input id="certFile" type="file" />
         <label>Upload Other Supporting Docs</label><input id="supportFile" type="file" />
-      </div>
+      <div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">← Back</button>
+          <button class="btn" onclick="goStep(4)">Next →</button>
+        </div>
+      </section>
 
       <!-- Step 4 -->
-      <div class="step-content" data-step="4">
+      <section class="step-content" data-step="4" id="step-4">
         <h3>Company Type & Size</h3>
         <label>Type of Company</label>
         <select id="companyType">
@@ -385,27 +404,43 @@
           <option value="">Select</option><option>1-10</option><option>11-50</option>
           <option>51-200</option><option>201-500</option><option>500+</option>
         </select>
-      </div>
+      <div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">← Back</button>
+          <button class="btn" onclick="goStep(4)">Next →</button>
+        </div>
+	  </section>
 
       <!-- Step 5 -->
-      <div class="step-content" data-step="5">
+      <section class="step-content" data-step="5" id="step-5">
         <h3>Recruitment Focus</h3>
         <label>Departments / Roles</label>
         <textarea id="departments" placeholder="e.g. IT, Marketing, Sales..."></textarea>
-      </div>
+		  <div class="actions">
+          <button class="btn ghost" onclick="goStep(4)">← Back</button>
+          <button class="btn" onclick="goStep(6)">Next →</button>
+        </div>
+      </section>
 
       <!-- Step 6 -->
-      <div class="step-content" data-step="6">
+      <section class="step-content" data-step="6" id="step-6">
         <h3>Online Presence</h3>
         <label>Company Website</label><input id="website" type="text" placeholder="https://company.com" />
         <label>LinkedIn</label><input id="linkedin" type="text" placeholder="https://linkedin.com/company/..." />
-      </div>
+      <div class="actions">
+          <button class="btn ghost" onclick="goStep(4)">← Back</button>
+          <button class="btn" onclick="goStep(6)">Next →</button>
+        </div>
+      </section>
 
       <!-- Step 7 -->
-      <div class="step-content" data-step="7">
+      <section class="step-content" data-step="7" id="step-7">
         <h3>Review & Submit</h3>
         <div id="reviewArea"></div>
-      </div>
+      <div class="actions">
+          <button class="btn ghost" onclick="goStep(6)">← Back</button>
+          <button class="btn secondary" onclick="submitProfile()">Submit</button>
+        </div>
+      </section>
 
  <section class="success-screen" id="successScreen">
         <div class="check">✓</div>
