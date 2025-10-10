@@ -455,12 +455,7 @@ footer {
   white-space: nowrap;
 }
 
-.nav-filters {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
-}
+ 
 
 .nav-filters select {
   padding: 6px 10px;
@@ -512,11 +507,17 @@ footer {
   flex-wrap: nowrap;
 }
 
+.nav-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 20px;
+  flex-wrap: nowrap;
+}
+
 .form-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-wrap: nowrap;
 }
 
 .form-row select {
@@ -542,16 +543,6 @@ footer {
   white-space: nowrap;
 }
 
-  .nav-filters {
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-
-  .main-nav {
-    margin-top: 10px;
-    flex-wrap: wrap;
-  }
-}
 </style>
 </head>
 <body>
@@ -559,32 +550,37 @@ footer {
   <div class="nav-left">
     <h1 class="logo">Ntchito</h1>
 
-    <form class="form-row nav-filters">
-      <select>
-        <option>Category</option>
-        <option>Engineering</option>
-        <option>Healthcare</option>
-        <option>Education</option>
-      </select>
-
-      <select>
-        <option>Location</option>
-        <option>Lusaka</option>
-        <option>Harare</option>
-        <option>Gaborone</option>
-      </select>
-
-      <select>
-        <option>Experience</option>
-        <option>0–2 yrs</option>
-        <option>3–5 yrs</option>
-        <option>6+ yrs</option>
-      </select>
-
-      <button class="btn small" type="submit">
-        <i data-feather="filter"></i> Apply
-      </button>
-    </form>
+   <form class="form-group nav-filters">
+  <div class="form-row">
+    <select>
+      <option>Category</option>
+      <option>Engineering</option>
+      <option>Healthcare</option>
+      <option>Education</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <select>
+      <option>Location</option>
+      <option>Lusaka</option>
+      <option>Harare</option>
+      <option>Gaborone</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <select>
+      <option>Experience</option>
+      <option>0–2 yrs</option>
+      <option>3–5 yrs</option>
+      <option>6+ yrs</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <button class="btn small" type="submit">
+      <i data-feather="filter"></i> Apply
+    </button>
+  </div>
+</form>
   </div>
 
   <nav class="main-nav">
