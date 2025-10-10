@@ -371,60 +371,66 @@
 }
 .filter-bar {
   background: #fff;
-  padding: 30px 60px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  padding: 20px 40px;
   border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
-.filter-header h2 {
-  font-size: 1.5rem;
-  color: #bb0303;
-  margin-bottom: 6px;
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
 }
 
-.filter-header p {
+.filter-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.95rem;
   color: #555;
-  margin-bottom: 20px;
 }
 
-.filter-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+.filter-info i {
+  color: #bb0303;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
 }
 
 .filter-group label {
   font-size: 0.85rem;
   color: #68707d;
-  margin-bottom: 6px;
-  display: block;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .filter-group select,
 .filter-group input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
   border: 1px solid #e6e9f2;
   background: #f9fafb;
   font-size: 14px;
 }
 
-.filter-group.full-width {
-  grid-column: span 2;
-}
-
 .filter-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-left: auto;
 }
 
 .filter-actions .btn {
-  padding: 10px 16px;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -440,6 +446,19 @@
   color: #68707d;
   border: 1px solid #ccc;
 }
+
+@media (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-actions {
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+}
+ 
 
 </style>
 </head>
@@ -463,15 +482,16 @@
   <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
 </section>
 <section class="filter-bar">
-  <div class="filter-header">
-    <h2>🎯 Advanced Filters</h2>
-    <p>Refine your candidate search by category, location, experience, and more.</p>
-  </div>
+  <div class="filter-row">
+    <!-- Description -->
+    <div class="filter-info">
+      <i data-feather="filter"></i>
+      <p>Refine your search by category, location, experience, and keyword.</p>
+    </div>
 
-  <div class="filter-grid">
-    <!-- Category Filter -->
+    <!-- Category -->
     <div class="filter-group">
-      <label for="categorySelect">Category</label>
+      <label for="categorySelect"><i data-feather="layers"></i> Category</label>
       <select id="categorySelect">
         <option>All</option>
         <option>Engineering</option>
@@ -482,9 +502,9 @@
       </select>
     </div>
 
-    <!-- Location Filter -->
+    <!-- Location -->
     <div class="filter-group">
-      <label for="locationSelect">Location</label>
+      <label for="locationSelect"><i data-feather="map-pin"></i> Location</label>
       <select id="locationSelect">
         <option>All</option>
         <option>Lusaka</option>
@@ -495,9 +515,9 @@
       </select>
     </div>
 
-    <!-- Experience Filter -->
+    <!-- Experience -->
     <div class="filter-group">
-      <label for="experienceSelect">Experience</label>
+      <label for="experienceSelect"><i data-feather="briefcase"></i> Experience</label>
       <select id="experienceSelect">
         <option>Any</option>
         <option>0–2 years</option>
@@ -506,16 +526,16 @@
       </select>
     </div>
 
-    <!-- Keyword Search -->
-    <div class="filter-group full-width">
-      <label for="keywordInput">Keyword</label>
+    <!-- Keyword -->
+    <div class="filter-group">
+      <label for="keywordInput"><i data-feather="search"></i> Keyword</label>
       <input type="text" id="keywordInput" placeholder="e.g. React, Nursing, Sales" />
     </div>
 
-    <!-- Filter Actions -->
-    <div class="filter-actions full-width">
-      <button class="btn secondary">Apply Filters</button>
-      <button class="btn ghost">Reset</button>
+    <!-- Actions -->
+    <div class="filter-actions">
+      <button class="btn secondary"><i data-feather="check-circle"></i> Apply</button>
+      <button class="btn ghost"><i data-feather="x-circle"></i> Reset</button>
     </div>
   </div>
 </section>
