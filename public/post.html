@@ -318,6 +318,36 @@
   padding-top: 40px;
 }
 
+	 .toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  color: #0f172a;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+	 .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -340,88 +370,82 @@
 
 <!-- DASHBOARD -->
 <section id="recruiterDashboard">
-  <h2>Welcome, <span id="companyNameDisplay">Recruiter</span> </h2>
+  <div id="toast" class="toast">
+  <h2>Welcome, <span id="companyNameToast">Recruiter</span> 👋</h2>
   <p>Here are your job posts, candidate recommendations, and insights.</p>
+</div>
 
-  <!-- Job Posts -->
-  <div class="section-title">Your Job Posts</div>
-  <div class="dashboard-grid">
-    <div class="job-card" style="background:#e0f2fe;">
-      <i data-feather="code" style="color:#0ea5e9;"></i>
-      <h3>Software Engineer</h3>
-      <p>Applications: 42</p>
-    </div>
-    <div class="job-card" style="background:#fef3c7;">
-      <i data-feather="megaphone" style="color:#f59e0b;"></i>
-      <h3>Marketing Lead</h3>
-      <p>Applications: 23</p>
-    </div>
-    <div class="job-card" style="background:#ede9fe;">
-      <i data-feather="briefcase" style="color:#8b5cf6;"></i>
-      <h3>Sales Manager</h3>
-      <p>Applications: 18</p>
-    </div>
-  </div>
 
-  <!-- Recommended Candidates -->
-  <div class="section-title" style="margin-top:40px;"> Recommended Candidates</div>
-  <div class="dashboard-grid">
-    <div class="job-card" style="background:#dcfce7;">
-      <i data-feather="user-check" style="color:#22c55e;"></i>
-      <h4>Jane Mwale</h4>
-      <p>UX Designer · Lusaka</p>
-    </div>
-    <div class="job-card" style="background:#fef2f2;">
-      <i data-feather="user" style="color:#ef4444;"></i>
-      <h4>Thabo Dlamini</h4>
-      <p>Backend Developer · Johannesburg</p>
-    </div>
-    <div class="job-card" style="background:#f0fdf4;">
-      <i data-feather="user-plus" style="color:#16a34a;"></i>
-      <h4>Chipo Banda</h4>
-      <p>Marketing Specialist · Blantyre</p>
-    </div>
-  </div>
+ 
+<!-- Job Posts -->
+<div class="section-title">Your Job Posts</div>
+<div class="dashboard-grid">
+  <div class="job-card" style="background:#e0f2fe;"><i data-feather="code" style="color:#0ea5e9;"></i><h3>Software Engineer</h3><p>Applications: 42</p></div>
+  <div class="job-card" style="background:#fef3c7;"><i data-feather="megaphone" style="color:#f59e0b;"></i><h3>Marketing Lead</h3><p>Applications: 23</p></div>
+  <div class="job-card" style="background:#ede9fe;"><i data-feather="briefcase" style="color:#8b5cf6;"></i><h3>Sales Manager</h3><p>Applications: 18</p></div>
+  <div class="job-card" style="background:#f0fdf4;"><i data-feather="settings" style="color:#16a34a;"></i><h3>DevOps Engineer</h3><p>Applications: 12</p></div>
+  <div class="job-card" style="background:#fff1f2;"><i data-feather="database" style="color:#db2777;"></i><h3>Data Analyst</h3><p>Applications: 30</p></div>
+  <div class="job-card" style="background:#e0f7fa;"><i data-feather="cpu" style="color:#06b6d4;"></i><h3>AI Specialist</h3><p>Applications: 9</p></div>
+  <div class="job-card" style="background:#fef2f2;"><i data-feather="user" style="color:#ef4444;"></i><h3>HR Officer</h3><p>Applications: 15</p></div>
+  <div class="job-card" style="background:#f3e8ff;"><i data-feather="book" style="color:#a855f7;"></i><h3>Curriculum Developer</h3><p>Applications: 7</p></div>
+  <div class="job-card" style="background:#dcfce7;"><i data-feather="globe" style="color:#22c55e;"></i><h3>SEO Specialist</h3><p>Applications: 11</p></div>
+  <div class="job-card" style="background:#fff7ed;"><i data-feather="bar-chart-2" style="color:#f97316;"></i><h3>Business Analyst</h3><p>Applications: 19</p></div>
+  <div class="job-card" style="background:#fce7f3;"><i data-feather="edit" style="color:#ec4899;"></i><h3>Content Writer</h3><p>Applications: 14</p></div>
+  <div class="job-card" style="background:#fef9c3;"><i data-feather="layers" style="color:#eab308;"></i><h3>Product Designer</h3><p>Applications: 10</p></div>
+</div>
 
-  <!-- Candidates by Location -->
-  <div class="section-title" style="margin-top:40px;"> Candidates by Location</div>
-  <div class="dashboard-grid">
-    <div class="job-card" style="background:#fff7ed;">
-      <i data-feather="map-pin" style="color:#f97316;"></i>
-      <h4>Lusaka</h4>
-      <p>12 active candidates</p>
-    </div>
-    <div class="job-card" style="background:#fef9c3;">
-      <i data-feather="map-pin" style="color:#eab308;"></i>
-      <h4>Harare</h4>
-      <p>9 active candidates</p>
-    </div>
-    <div class="job-card" style="background:#f3f4f6;">
-      <i data-feather="map-pin" style="color:#6b7280;"></i>
-      <h4>Gaborone</h4>
-      <p>6 active candidates</p>
-    </div>
-  </div>
 
-  <!-- Candidates by Category -->
-  <div class="section-title" style="margin-top:40px;"> Candidates by Category</div>
-  <div class="dashboard-grid">
-    <div class="job-card" style="background:#e0f7fa;">
-      <i data-feather="settings" style="color:#06b6d4;"></i>
-      <h4>Engineering</h4>
-      <p>15 candidates</p>
-    </div>
-    <div class="job-card" style="background:#fce7f3;">
-      <i data-feather="heart" style="color:#ec4899;"></i>
-      <h4>Healthcare</h4>
-      <p>8 candidates</p>
-    </div>
-    <div class="job-card" style="background:#f3e8ff;">
-      <i data-feather="book-open" style="color:#a855f7;"></i>
-      <h4>Education</h4>
-      <p>10 candidates</p>
-    </div>
-  </div>
+<!-- Recommended Candidates -->
+<div class="section-title" style="margin-top:40px;">Recommended Candidates</div>
+<div class="dashboard-grid">
+  <div class="job-card" style="background:#dcfce7;"><i data-feather="user-check" style="color:#22c55e;"></i><h4>Jane Mwale</h4><p>UX Designer · Lusaka</p></div>
+  <div class="job-card" style="background:#fef2f2;"><i data-feather="user" style="color:#ef4444;"></i><h4>Thabo Dlamini</h4><p>Backend Developer · Johannesburg</p></div>
+  <div class="job-card" style="background:#f0fdf4;"><i data-feather="user-plus" style="color:#16a34a;"></i><h4>Chipo Banda</h4><p>Marketing Specialist · Blantyre</p></div>
+  <div class="job-card" style="background:#e0f2fe;"><i data-feather="user" style="color:#0ea5e9;"></i><h4>Linda Phiri</h4><p>Frontend Developer · Ndola</p></div>
+  <div class="job-card" style="background:#fef3c7;"><i data-feather="user-check" style="color:#f59e0b;"></i><h4>Brian Moyo</h4><p>QA Tester · Bulawayo</p></div>
+  <div class="job-card" style="background:#ede9fe;"><i data-feather="user-plus" style="color:#8b5cf6;"></i><h4>Fatima Hassan</h4><p>Graphic Designer · Maputo</p></div>
+  <div class="job-card" style="background:#fff1f2;"><i data-feather="user" style="color:#db2777;"></i><h4>Kelvin Banda</h4><p>Copywriter · Lusaka</p></div>
+  <div class="job-card" style="background:#fce7f3;"><i data-feather="user-check" style="color:#ec4899;"></i><h4>Agnes Tembo</h4><p>HR Assistant · Gaborone</p></div>
+  <div class="job-card" style="background:#f3e8ff;"><i data-feather="user-plus" style="color:#a855f7;"></i><h4>Peter Zulu</h4><p>Sales Rep · Harare</p></div>
+  <div class="job-card" style="background:#dcfce7;"><i data-feather="user" style="color:#22c55e;"></i><h4>Naomi Chanda</h4><p>Social Media Manager · Lilongwe</p></div>
+  <div class="job-card" style="background:#fef9c3;"><i data-feather="user-check" style="color:#eab308;"></i><h4>Joseph Mwansa</h4><p>IT Support · Lusaka</p></div>
+  <div class="job-card" style="background:#f3f4f6;"><i data-feather="user-plus" style="color:#6b7280;"></i><h4>Grace Mbewe</h4><p>Recruiter · Maseru</p></div>
+</div>
+
+ <!-- Candidates by Location -->
+<div class="section-title" style="margin-top:40px;">Candidates by Location</div>
+<div class="dashboard-grid">
+  <div class="job-card" style="background:#fff7ed;"><i data-feather="map-pin" style="color:#f97316;"></i><h4>Lusaka</h4><p>12 active candidates</p></div>
+  <div class="job-card" style="background:#fef9c3;"><i data-feather="map-pin" style="color:#eab308;"></i><h4>Harare</h4><p>9 active candidates</p></div>
+  <div class="job-card" style="background:#f3f4f6;"><i data-feather="map-pin" style="color:#6b7280;"></i><h4>Gaborone</h4><p>6 active candidates</p></div>
+  <div class="job-card" style="background:#dcfce7;"><i data-feather="map-pin" style="color:#22c55e;"></i><h4>Blantyre</h4><p>5 active candidates</p></div>
+  <div class="job-card" style="background:#ede9fe;"><i data-feather="map-pin" style="color:#8b5cf6;"></i><h4>Maputo</h4><p>7 active candidates</p></div>
+  <div class="job-card" style="background:#fef2f2;"><i data-feather="map-pin" style="color:#ef4444;"></i><h4>Ndola</h4><p>4 active candidates</p></div>
+  <div class="job-card" style="background:#fce7f3;"><i data-feather="map-pin" style="color:#ec4899;"></i><h4>Francistown</h4><p>3 active candidates</p></div>
+  <div class="job-card" style="background:#f3e8ff;"><i data-feather="map-pin" style="color:#a855f7;"></i><h4>Maseru</h4><p>2 active candidates</p></div>
+  <div class="job-card" style="background:#e0f2fe;"><i data-feather="map-pin" style="color:#0ea5e9;"></i><h4>Dar es Salaam</h4><p>6 active candidates</p></div>
+  <div class="job-card" style="background:#fef3c7;"><i data-feather="map-pin" style="color:#f59e0b;"></i><h4>Victoria</h4><p>2 active candidates</p></div>
+  <div class="job-card" style="background:#f0fdf4;"><i data-feather="map-pin" style="color:#16a34a;"></i><h4>Antananarivo</h4><p>3 active candidates</p></div>
+  <div class="job-card" style="background:#fff1f2;"><i data-feather="map-pin" style="color:#db2777;"></i><h4>Windhoek</h4><p>4 active candidates</p></div>
+</div>
+
+
+<!-- Candidates by Category -->
+<div class="section-title" style="margin-top:40px;">Candidates by Category</div>
+<div class="dashboard-grid">
+  <div class="job-card" style="background:#e0f7fa;"><i data-feather="settings" style="color:#06b6d4;"></i><h4>Engineering</h4><p>15 candidates</p></div>
+  <div class="job-card" style="background:#fce7f3;"><i data-feather="heart" style="color:#ec4899;"></i><h4>Healthcare</h4><p>8 candidates</p></div>
+  <div class="job-card" style="background:#f3e8ff;"><i data-feather="book-open" style="color:#a855f7;"></i><h4>Education</h4><p>10 candidates</p></div>
+  <div class="job-card" style="background:#dcfce7;"><i data-feather="users" style="color:#22c55e;"></i><h4>Human Resources</h4><p>6 candidates</p></div>
+  <div class="job-card" style="background:#fff7ed;"><i data-feather="bar-chart-2" style="color:#f97316;"></i><h4>Finance</h4><p>9 candidates</p></div>
+  <div class="job-card" style="background:#fef2f2;"><i data-feather="globe" style="color:#ef4444;"></i><h4>Marketing</h4><p>12 candidates</p></div>
+  <div class="job-card" style="background:#ede9fe;"><i data-feather="briefcase" style="color:#8b5cf6;"></i><h4>Sales</h4><p>7 candidates</p></div>
+  <div class="job-card" style="background:#fef9c3;"><i data-feather="cpu" style="color:#eab308;"></i><h4>IT & Software</h4><p>14 candidates</p></div>
+  <div class="job-card" style="background:#f0fdf4;"><i data-feather="truck" style="color:#16a34a;"></i><h4>Logistics</h4><p>5 candidates</p></div>
+  <div class="job-card" style="background:#e0f2fe;"><i data-feather="edit" style="color:#0ea5e9;"></i><h4>Content & Media</h4><p>6 candidates</p></div>
+  <div class="job-card" style="background:#fef3c7;"><i data-feather="layers" style="color:#f59e0b;"></i><h4>Design</h4><p>4 candidates</p></div>
+  <div class="job-card" style="background:#fff1f2;"><i data-feather="shield" style="color:#db2777;"></i><h4>Security</h4><p>3 candidates</p></div>
+</div>
 </section>
 
 <!-- FOOTER -->
@@ -983,17 +1007,31 @@ function submitProfile() {
     const modal = document.getElementById('modal');
     const jobsSection = document.getElementById('jobsSection');
     const nameDisplay = document.getElementById('companyNameDisplay');
+    const toast = document.getElementById('toast');
+    const toastName = document.getElementById('companyNameToast');
 
     if (modal) modal.style.display = 'none';
     if (jobsSection) jobsSection.style.display = 'block';
     if (nameDisplay) nameDisplay.textContent = state.companyName || 'Recruiter';
+    if (toastName) toastName.textContent = state.companyName || 'Recruiter';
 
- 
+    // ✅ Show toast
+    toast.classList.add('show');
+
+    // ✅ Hide toast after 4 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+
+    // ✅ Remove overlay if still present
     document.getElementById('overlay')?.remove();
   }, 2000);
 	document.querySelector('.modal-backdrop')?.remove();
-
 }
+
+	
+
+
 
 
 
