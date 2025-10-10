@@ -347,18 +347,26 @@
 
       <!-- Step 2 -->
        <section class="step-content" data-step="2" id="step-2">
-        <h3>Location & Contact</h3>
-        <label>Country</label>
-        <select id="country">
-          <option value="">Select Country</option>
-          <option value="ZW">Zimbabwe</option><option value="ZA">South Africa</option>
-          <option value="ZM">Zambia</option><option value="MZ">Mozambique</option>
-          <option value="BW">Botswana</option><option value="NA">Namibia</option>
-          <option value="TZ">Tanzania</option><option value="AO">Angola</option>
-          <option value="MW">Malawi</option><option value="SZ">Eswatini</option>
-          <option value="LS">Lesotho</option><option value="MG">Madagascar</option>
-          <option value="MU">Mauritius</option><option value="SC">Seychelles</option>
-          <option value="CD">DR Congo</option></select>
+       <h3>Location & Contact</h3>
+<label>Country</label>
+<select id="country">
+  <option value="">Select Country</option>
+  <option value="AO">Angola</option>
+  <option value="BW">Botswana</option>
+  <option value="CD">DR Congo</option>
+  <option value="SZ">Eswatini</option>
+  <option value="LS">Lesotho</option>
+  <option value="MG">Madagascar</option>
+  <option value="MW">Malawi</option>
+  <option value="MU">Mauritius</option>
+  <option value="MZ">Mozambique</option>
+  <option value="NA">Namibia</option>
+  <option value="SC">Seychelles</option>
+  <option value="ZA">South Africa</option>
+  <option value="TZ">Tanzania</option>
+  <option value="ZM">Zambia</option>
+  <option value="ZW">Zimbabwe</option>
+</select>
         <label>Province / District</label><select id="district"></select>
         <label>Town</label><select id="town"></select>
         <div class="field-row">
@@ -507,32 +515,65 @@ const stepsMeta = [
   { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
 ];
 const districts = {
-  'ZW':['Harare','Bulawayo','Manicaland','Mashonaland Central'],
-  'ZA':['Gauteng','Western Cape','KwaZulu-Natal'],
-  'BW':['Gaborone','Francistown'],
-  'NA':['Khomas','Erongo'],
-  'MZ':['Maputo','Beira'],
-  'ZM':['Lusaka','Ndola'],
-  'TZ':['Dar es Salaam','Dodoma']
+  'AO': ['Luanda', 'Benguela', 'Huíla'],
+  'BW': ['Gaborone', 'Francistown'],
+  'CD': ['Kinshasa', 'Lubumbashi', 'Goma'],
+  'KM': ['Moroni', 'Mitsamiouli'],
+  'LS': ['Maseru', 'Leribe'],
+  'MG': ['Antananarivo', 'Toamasina'],
+  'MW': ['Lilongwe', 'Blantyre'],
+  'MU': ['Port Louis', 'Curepipe'],
+  'MZ': ['Maputo', 'Beira'],
+  'NA': ['Khomas', 'Erongo'],
+  'SC': ['Victoria'],
+  'ZA': ['Gauteng', 'Western Cape', 'KwaZulu-Natal'],
+  'SZ': ['Mbabane', 'Manzini'],
+  'TZ': ['Dar es Salaam', 'Dodoma'],
+  'ZM': ['Lusaka', 'Ndola'],
+  'ZW': ['Harare', 'Bulawayo', 'Manicaland', 'Mashonaland Central']
 };
+
 const towns = {
-  'Harare':['Harare CBD','Chisipite','Borrowdale'],
-  'Bulawayo':['Khami','Nkulumane'],
-  'Gauteng':['Johannesburg','Pretoria'],
-  'Western Cape':['Cape Town','Stellenbosch'],
-  'KwaZulu-Natal':['Durban','Pietermaritzburg'],
-  'Maputo':['Maputo City'],
-  'Lusaka':['Lusaka Central']
+  'Luanda': ['Maianga', 'Talatona'],
+  'Gaborone': ['Broadhurst', 'Tlokweng'],
+  'Kinshasa': ['Gombe', 'Limete'],
+  'Moroni': ['Itsandra'],
+  'Maseru': ['Thetsane', 'Ha Hoohlo'],
+  'Antananarivo': ['Analakely', 'Ivandry'],
+  'Lilongwe': ['Area 18', 'Area 25'],
+  'Port Louis': ['Plaine Verte', 'Les Salines'],
+  'Maputo': ['Maputo City'],
+  'Khomas': ['Windhoek East', 'Katutura'],
+  'Victoria': ['Bel Air', 'Mont Fleuri'],
+  'Gauteng': ['Johannesburg', 'Pretoria'],
+  'Western Cape': ['Cape Town', 'Stellenbosch'],
+  'KwaZulu-Natal': ['Durban', 'Pietermaritzburg'],
+  'Mbabane': ['Sibebe', 'Ngwenya'],
+  'Dar es Salaam': ['Ilala', 'Kinondoni'],
+  'Lusaka': ['Lusaka Central'],
+  'Harare': ['Harare CBD', 'Chisipite', 'Borrowdale'],
+  'Bulawayo': ['Khami', 'Nkulumane']
 };
+
 const countryData = {
-  'ZW':{name:'Zimbabwe',flag:'🇿🇼',code:'+263'},
-  'ZA':{name:'South Africa',flag:'🇿🇦',code:'+27'},
-  'BW':{name:'Botswana',flag:'🇧🇼',code:'+267'},
-  'NA':{name:'Namibia',flag:'🇳🇦',code:'+264'},
-  'MZ':{name:'Mozambique',flag:'🇲🇿',code:'+258'},
-  'ZM':{name:'Zambia',flag:'🇿🇲',code:'+260'},
-  'TZ':{name:'Tanzania',flag:'🇹🇿',code:'+255'}
+  'AO': { name: 'Angola', flag: '🇦🇴', code: '+244' },
+  'BW': { name: 'Botswana', flag: '🇧🇼', code: '+267' },
+  'CD': { name: 'DR Congo', flag: '🇨🇩', code: '+243' },
+  'KM': { name: 'Comoros', flag: '🇰🇲', code: '+269' },
+  'LS': { name: 'Lesotho', flag: '🇱🇸', code: '+266' },
+  'MG': { name: 'Madagascar', flag: '🇲🇬', code: '+261' },
+  'MW': { name: 'Malawi', flag: '🇲🇼', code: '+265' },
+  'MU': { name: 'Mauritius', flag: '🇲🇺', code: '+230' },
+  'MZ': { name: 'Mozambique', flag: '🇲🇿', code: '+258' },
+  'NA': { name: 'Namibia', flag: '🇳🇦', code: '+264' },
+  'SC': { name: 'Seychelles', flag: '🇸🇨', code: '+248' },
+  'ZA': { name: 'South Africa', flag: '🇿🇦', code: '+27' },
+  'SZ': { name: 'Eswatini', flag: '🇸🇿', code: '+268' },
+  'TZ': { name: 'Tanzania', flag: '🇹🇿', code: '+255' },
+  'ZM': { name: 'Zambia', flag: '🇿🇲', code: '+260' },
+  'ZW': { name: 'Zimbabwe', flag: '🇿🇼', code: '+263' }
 };
+
 
   // ========== Local Storage ==========
   function saveState(state) {
