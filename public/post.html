@@ -396,6 +396,10 @@
   <div class="edu-list" id="certList">
     <!-- Certificate cards will be rendered here -->
   </div>
+	<div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">← Back</button>
+          <button class="btn" onclick="goStep(4)">Next →</button>
+        </div>
 </section>
 
       <!-- Step 4 -->
@@ -419,15 +423,23 @@
 	  </section>
 
       <!-- Step 5 -->
-      <section class="step-content" data-step="5" id="step-5">
-        <h3>Recruitment Focus</h3>
-        <label>Departments / Roles</label>
-        <textarea id="departments" placeholder="e.g. IT, Marketing, Sales..."></textarea>
-		  <div class="actions">
-          <button class="btn ghost" onclick="goStep(4)">← Back</button>
-          <button class="btn" onclick="goStep(6)">Next →</button>
-        </div>
-      </section>
+      <!-- Step 5 -->
+<section class="step-content" data-step="5" id="step-5">
+  <h2>5. Recruitment Focus</h2>
+
+  <label for="interestInput">Type and select from suggestions (max 7)</label>
+  <input id="interestInput" type="text" placeholder="e.g. IT, Marketing, Sales..." oninput="showSuggestions(this.value)" onkeydown="handleInterestKey(event)" />
+  <div class="suggestions" id="suggestionsBox" role="listbox" aria-label="suggestions"></div>
+  <div class="chip-container" id="chipsWrap" aria-live="polite"></div>
+
+  <div class="small muted">We show suggestions when you type; click one to add it. You can add custom ones too (press Enter).</div>
+
+  <div class="actions">
+    <button class="btn ghost" onclick="goStep(4)">← Back</button>
+    <button class="btn" onclick="goStep(6)">Next →</button>
+  </div>
+</section>
+
 
       <!-- Step 6 -->
       <section class="step-content" data-step="6" id="step-6">
@@ -573,6 +585,111 @@ const countryData = {
   'ZM': { name: 'Zambia', flag: '🇿🇲', code: '+260' },
   'ZW': { name: 'Zimbabwe', flag: '🇿🇼', code: '+263' }
 };
+let interests = [];
+const maxInterests = 7;
+const interestSuggestions = [
+  'Accounting',
+  'Administration',
+  'Agriculture',
+  'Architecture',
+  'Automotive',
+  'Banking',
+  'Business Development',
+  'Civil Engineering',
+  'Customer Support',
+  'Data Science',
+  'Design',
+  'Education',
+  'Electrical Engineering',
+  'Engineering',
+  'Finance',
+  'Healthcare',
+  'Hospitality',
+  'Human Resources',
+  'IT',
+  'Legal',
+  'Logistics',
+  'Manufacturing',
+  'Marketing',
+  'Mechanical Engineering',
+  'Mechanic',
+  'Medical Laboratory',
+  'Nursing',
+  'Operations',
+  'Pharmacy',
+  'Procurement',
+  'Product Management',
+  'Project Management',
+  'Public Relations',
+  'Quality Assurance',
+  'Sales',
+  'Security',
+  'Social Work',
+  'Software Development',
+  'Teaching',
+  'UX/UI',
+  'Veterinary'
+];
+
+
+function showSuggestions(input) {
+  const box = document.getElementById('suggestionsBox');
+  box.innerHTML = '';
+  if (!input.trim()) return;
+
+  const matches = interestSuggestions.filter(s =>
+    s.toLowerCase().includes(input.toLowerCase()) &&
+    !interests.includes(s)
+  ).slice(0, 5);
+
+  matches.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    div.textContent = s;
+    div.onclick = () => addChip(s);
+    box.appendChild(div);
+  });
+}
+
+function handleInterestKey(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const val = e.target.value.trim();
+    if (val && !interests.includes(val)) addChip(val);
+    e.target.value = '';
+    document.getElementById('suggestionsBox').innerHTML = '';
+  }
+}
+
+function addChip(label) {
+  if (interests.length >= maxInterests) return alert('You can only add up to 7 interests');
+  interests.push(label);
+  renderChips();
+  persistFromInputs();
+}
+
+function removeChip(label) {
+  interests = interests.filter(i => i !== label);
+  renderChips();
+  persistFromInputs();
+}
+
+function renderChips() {
+  const wrap = document.getElementById('chipsWrap');
+  wrap.innerHTML = '';
+  interests.forEach(i => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.innerHTML = `${escapeHtml(i)} <button onclick="removeChip('${i}')">×</button>`;
+    wrap.appendChild(chip);
+  });
+}
+
+function persistFromInputs() {
+  const s = loadState();
+  s.interests = interests;
+  saveState(s);
+}
 
 
   // ========== Local Storage ==========
@@ -648,59 +765,6 @@ const countryData = {
     }[tag]));
   }
 
-  // ========== Link Popup ==========
-  function openLinkPopup() {
-    document.body.insertAdjacentHTML('beforeend', document.getElementById('linkPopup').innerHTML);
-    document.getElementById('overlay').style.display = 'flex';
-  }
-
-  function closeLinkPopup() {
-    document.getElementById('overlay')?.remove();
-  }
-
-  function saveLink() {
-    const name = document.getElementById('linkName').value.trim();
-    const url = document.getElementById('linkUrl').value.trim();
-    if (!name || !url) return alert('Please provide both a name and URL');
-    links.push({ id: Date.now(), name, url });
-    renderLinks();
-    closeLinkPopup();
-    persistFromInputs();
-  }
-
-  function renderLinks() {
-    const area = document.getElementById('linksArea');
-    area.innerHTML = '';
-    links.forEach(l => {
-      const div = document.createElement('div');
-      div.className = 'edu-card';
-      div.innerHTML = `
-        <div class="edu-info">
-          <div style="font-weight:700">${escapeHtml(l.name)}</div>
-          <div class="muted">${escapeHtml(l.url)}</div>
-        </div>
-        <div class="edu-actions">
-          <button class="btn ghost" onclick='editLink(${l.id})'>Edit</button>
-          <button class="btn" onclick='removeLink(${l.id})'>Remove</button>
-        </div>`;
-      area.appendChild(div);
-    });
-  }
-
-  function editLink(id) {
-    const found = links.find(l => l.id === id);
-    if (!found) return;
-    openLinkPopup();
-    document.getElementById('linkName').value = found.name;
-    document.getElementById('linkUrl').value = found.url;
-    links = links.filter(l => l.id !== id);
-  }
-
-  function removeLink(id) {
-    links = links.filter(l => l.id !== id);
-    renderLinks();
-    persistFromInputs();
-  }
 
 	 /* ===========================
   Step 2: Cascading dropdown + phone updates
