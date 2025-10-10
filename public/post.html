@@ -506,6 +506,33 @@ const stepsMeta = [
   { id: 6, label: "Online Presence", sub: "Website & LinkedIn", icon: "globe" },
   { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
 ];
+const districts = {
+  'ZW':['Harare','Bulawayo','Manicaland','Mashonaland Central'],
+  'ZA':['Gauteng','Western Cape','KwaZulu-Natal'],
+  'BW':['Gaborone','Francistown'],
+  'NA':['Khomas','Erongo'],
+  'MZ':['Maputo','Beira'],
+  'ZM':['Lusaka','Ndola'],
+  'TZ':['Dar es Salaam','Dodoma']
+};
+const towns = {
+  'Harare':['Harare CBD','Chisipite','Borrowdale'],
+  'Bulawayo':['Khami','Nkulumane'],
+  'Gauteng':['Johannesburg','Pretoria'],
+  'Western Cape':['Cape Town','Stellenbosch'],
+  'KwaZulu-Natal':['Durban','Pietermaritzburg'],
+  'Maputo':['Maputo City'],
+  'Lusaka':['Lusaka Central']
+};
+const countryData = {
+  'ZW':{name:'Zimbabwe',flag:'🇿🇼',code:'+263'},
+  'ZA':{name:'South Africa',flag:'🇿🇦',code:'+27'},
+  'BW':{name:'Botswana',flag:'🇧🇼',code:'+267'},
+  'NA':{name:'Namibia',flag:'🇳🇦',code:'+264'},
+  'MZ':{name:'Mozambique',flag:'🇲🇿',code:'+258'},
+  'ZM':{name:'Zambia',flag:'🇿🇲',code:'+260'},
+  'TZ':{name:'Tanzania',flag:'🇹🇿',code:'+255'}
+};
 
   // ========== Local Storage ==========
   function saveState(state) {
@@ -633,6 +660,30 @@ const stepsMeta = [
     renderLinks();
     persistFromInputs();
   }
+
+	 /* ===========================
+  Step 2: Cascading dropdown + phone updates
+=========================== */
+const countrySelect = document.getElementById('country');
+const districtSelect = document.getElementById('district');
+const townSelect = document.getElementById('town');
+countrySelect.addEventListener('change', ()=>{
+  const code = countrySelect.value;
+  districtSelect.innerHTML = '<option value="">Select district</option>';
+  townSelect.innerHTML = '<option value="">Select town</option>';
+  if(code && districts[code]) districts[code].forEach(d=>districtSelect.insertAdjacentHTML('beforeend', `<option value="${d}">${d}</option>`));
+  // set flag and country code
+  const cd = countryData[code];
+  document.getElementById('flagEmoji').textContent = cd?cd.flag:'🏳️';
+  document.getElementById('countryCode').textContent = cd?cd.code:'+000';
+  persistFromInputs();
+});
+districtSelect.addEventListener('change', ()=>{
+  const val = districtSelect.value;
+  townSelect.innerHTML = '<option value="">Select town</option>';
+  if(towns[val]) towns[val].forEach(t=>townSelect.insertAdjacentHTML('beforeend', `<option value="${t}">${t}</option>`));
+  persistFromInputs();
+});
 
   // ========== Review & Submit ==========
   function renderReview() {
