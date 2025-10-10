@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ntchito Recruiter Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+  /* ========== RESET & BASE ========== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Inter", sans-serif;
+    background: #f9fafb;
+    color: #222;
+    line-height: 1.6;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+  }
+
+ 
+.center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+  /* ========== HEADER ========== */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #bb0303;
+    letter-spacing: 1px;
+  }
+  header nav a {
+    margin-left: 25px;
+    font-weight: 500;
+    color: #555;
+    position: relative;
+  }
+  header nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #bb0303;
+    transition: width 0.3s ease;
+  }
+  header nav a:hover {
+    color: #bb0303;
+  }
+  header nav a:hover::after {
+    width: 100%;
+  }
+
+  /* ========== HERO SECTION ========== */
+/* ========== HERO SECTION ========== */
+  .hero {
+    background: linear-gradient(135deg, #0a66c2, #0073b1);
+    color: white;
+    text-align: center;
+    padding: 235px 30px;
+    background-image: url('assets/img/img (2).jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+  .hero h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  /* ========== JOBS SECTION ========== */
+  #jobsSection {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #cb0e00;
+    font-weight: 700;
+  }
+  .job-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .job-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+  }
+  .job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+  .job-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #0a66c2;
+  }
+  .job-card p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  .apply-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #0a66c2;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .apply-btn:hover {
+    background: #084d96;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    text-align: center;
+    padding: 25px;
+    background: #bb0303;
+    color: white;
+    margin-top: 60px;
+    font-size: 0.9rem;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
+    }
+    header nav a {
+      margin: 10px;
+      display: inline-block;
+    }
+    .hero h2 {
+      font-size: 2rem;
+    }
+  }
+
+  /* ===== Reset & Base ===== */
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+  :root{
+     --primary: #ad0303;
+    --muted:#68707d;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --radius:12px;
+    --step-size:44px;
+  }
+
+  /* ===== Modal ===== */
+  .modal{width:100%;max-width:820px;background:var(--card);border-radius:16px;box-shadow:0 20px 50px rgba(16,24,40,0.12);overflow:hidden;border:1px solid rgba(99,102,241,0.06)}
+  .container{display:grid;grid-template-columns:320px 1fr;min-height:560px}
+  @media(max-width:880px){ .container{grid-template-columns:1fr} }
+
+  /* ===== Left Panel (Stepper) ===== */
+  .left{
+    background:linear-gradient(180deg, rgba(108,99,255,0.06), rgba(108,99,255,0.02));
+    padding:22px;
+    border-right:1px solid rgba(16,24,40,0.03);
+  }
+  .brand{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+  .brand .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#4b46d9);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+  .brand h3{font-size:16px;color:#111827}
+  .steps{margin-top:8px}
+  .step-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;cursor:pointer;transition:all .25s}
+  .step-item:hover{background:rgba(99,102,241,0.04)}
+  .step-icon{width:var(--step-size);height:var(--step-size);display:flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid rgba(99,102,241,0.12);color:var(--muted)}
+  .step-labels{display:flex;flex-direction:column}
+  .step-labels .title{font-weight:600;color:#0f172a;font-size:13px}
+  .step-labels .subtitle{font-size:12px;color:var(--muted)}
+  .step-item.active .step-icon{background:var(--primary);color:white;border-color:transparent;box-shadow:0 6px 18px rgba(99,102,241,0.18)}
+  .progress-line{height:8px;background:transparent;margin-top:20px;border-radius:999px;position:relative;overflow:hidden}
+  .progress-bg{position:absolute;left:0;right:0;top:0;bottom:0;background:#eef2ff}
+  .progress-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--primary),#4b46d9);width:0%;transition:width .45s cubic-bezier(.2,.9,.25,1)}
+  @media(max-width:880px){ .left{order:2;padding:16px} .progress-line{display:block;margin-top:12px} }
+
+  /* ===== Right Panel (Steps content) ===== */
+  .right{padding:28px 30px}
+  .step-content{display:none;opacity:0;transform:translateY(12px);transition:all .45s cubic-bezier(.2,.9,.25,1)}
+  .step-content.active{display:block;opacity:1;transform:none}
+  h2{font-size:20px;margin-bottom:10px;color:#ad0303}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  .row{display:flex;gap:12px}
+  .col{flex:1}
+  input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{
+    width:100%;padding:12px 14px;border-radius:10px;border:1px solid #e6e9f2;background:white;font-size:14px;color:#0f172a;transition:box-shadow .18s,border-color .18s;
+  }
+  input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 6px 20px rgba(99,102,241,0.08);border-color:var(--primary)}
+  .small{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+  .btn{padding:10px 14px;border-radius:10px;border:none;background:var(--primary);color:white;cursor:pointer;font-weight:600;box-shadow:0 8px 20px rgba(99,102,241,0.12)}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(15,23,42,0.06)}
+  .btn.secondary{background:#111827;color:white}
+
+  /* ===== Phone with flag & code ===== */
+  .phone-wrap{display:flex;gap:8px;align-items:center}
+  .flag-block{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#fff;border:1px solid #e6e9f2;min-width:120px}
+  .flag-emoji{font-size:20px}
+  .country-code{font-weight:600;color:#111827}
+  .phone-input{flex:1}
+
+  /* ===== Suggestions & Chips ===== */
+  .suggestions{margin-top:6px;border:1px solid #eef2ff;border-radius:10px;background:white;max-height:140px;overflow:auto}
+  .suggestion-item{padding:8px 12px;cursor:pointer}
+  .suggestion-item:hover{background:#f3f4ff}
+  .chip-container{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{background:rgba(108,99,255,0.14);color:var(--primary);padding:6px 10px;border-radius:999px;font-weight:600;display:inline-flex;gap:8px;align-items:center}
+  .chip button{background:transparent;border:none;color:var(--primary);cursor:pointer;font-weight:800;padding:0}
+
+  /* ===== Multi-select nicer styling (job type) ===== */
+  select[multiple]{height:120px;padding:12px;border-radius:10px}
+
+  /* ===== Education cards area ===== */
+  .edu-controls{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .edu-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+  .edu-card{background:#fff;border-radius:10px;padding:12px;border:1px solid #eef2ff;display:flex;align-items:center;justify-content:space-between}
+  .edu-info{display:flex;flex-direction:column;gap:6px}
+  .edu-actions{display:flex;gap:8px}
+  .badge{font-size:12px;color:var(--muted);background:rgba(15,23,42,0.03);padding:6px 8px;border-radius:8px}
+
+  /* ===== Links popup ===== */
+  .overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;z-index:200}
+  .popup{background:white;padding:18px;border-radius:12px;width:420px;box-shadow:0 20px 60px rgba(2,6,23,0.2)}
+
+  /* ===== Success screen & confetti ===== */
+  .success-screen{display:none;padding:34px;text-align:center}
+  .success-screen.active{display:block}
+  .check{width:92px;height:92px;border-radius:999px;margin:16px auto;background:linear-gradient(90deg,var(--primary),#4b46d9);display:flex;align-items:center;justify-content:center;color:white;font-size:44px;box-shadow:0 12px 40px rgba(99,102,241,0.18)}
+  .success-screen p{color:var(--primary);font-weight:700;margin-top:8px}
+  /* Confetti canvas */
+  #confettiCanvas{position:absolute;left:0;top:0;pointer-events:none;z-index:150}
+
+  /* small */
+  .muted{color:var(--muted);font-size:13px}
+  .field-row{margin-bottom:12px}
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>Ntchito</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Recruiters</a>
+      <a href="#">Post Jobs</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Hire the best talent across SADC</h2>
+    <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
+  </section>
+
+  <section id="recruiterDashboard">
+    <h2>Welcome, <span id="companyNameDisplay">Recruiter</span> 👋</h2>
+    <p>Here are your recent job posts and candidates.</p>
+    <div class="dashboard-grid" id="jobsList">
+      <div class="job-card"><h3>Software Engineer</h3><p>Applications: 42</p></div>
+      <div class="job-card"><h3>Marketing Lead</h3><p>Applications: 23</p></div>
+      <div class="job-card"><h3>Sales Manager</h3><p>Applications: 18</p></div>
+    </div>
+  </section>
+
+  <footer>© 2025 Ntchito Careers — All Rights Reserved.</footer>
+
+  <!-- Onboarding Modal -->
+  <div class="center-modal">
+<div class="modal" id="modal">
+  <div class="container">
+
+    <!-- LEFT: stepper + progress -->
+    <aside class="left">
+      <div class="brand">
+        <div class="logo">JS</div>
+        <div>
+          <h3>Job Seeker Signup</h3>
+          <div class="muted">Setup your profile — 7 quick steps</div>
+        </div>
+      </div>
+
+      <div class="steps" id="stepsList">
+        <!-- Step items will be rendered by JS for dynamic active states -->
+      </div>
+
+      <div class="progress-line" aria-hidden>
+        <div class="progress-bg"></div>
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </aside>
+
+<!-- RIGHT: content -->
+    <main class="right">
+
+      <!-- Step 1 -->
+      <section class="step-content active" data-step="1" id="step-1">
+        <h3>Company Details</h3>
+	<div class="field-row">
+        <label>Company Name</label><input id="companyName" type="text" placeholder="e.g. Ntchito Holdings" />
+	</div>
+	<div class="field-row">
+        <label>Industry</label><input id="industry" type="text" placeholder="e.g. Technology, Finance" />
+	</div>
+	<div class="field-row">
+        <label>Company Reg. Number / ID</label><input id="regNo" type="text" placeholder="e.g. RC1234567" />
+	</div>
+    	<div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">Next →</button>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+       <section class="step-content" data-step="2" id="step-2">
+        <h3>Location & Contact</h3>
+        <label>Country</label>
+        <select id="country">
+          <option value="">Select Country</option>
+          <option value="ZW">Zimbabwe</option><option value="ZA">South Africa</option>
+          <option value="ZM">Zambia</option><option value="MZ">Mozambique</option>
+          <option value="BW">Botswana</option><option value="NA">Namibia</option>
+          <option value="TZ">Tanzania</option><option value="AO">Angola</option>
+          <option value="MW">Malawi</option><option value="SZ">Eswatini</option>
+          <option value="LS">Lesotho</option><option value="MG">Madagascar</option>
+          <option value="MU">Mauritius</option><option value="SC">Seychelles</option>
+          <option value="CD">DR Congo</option></select>
+        <label>Province / District</label><select id="district"></select>
+        <label>Town</label><select id="town"></select>
+        <label>Phone Number</label><input id="phone" type="text" placeholder="+263..." />
+      </section>
+
+      <!-- Step 3 -->
+      <div class="step-content" data-step="3">
+        <h3>Upload Certificates</h3>
+        <label>Upload Company Certificate</label><input id="certFile" type="file" />
+        <label>Upload Other Supporting Docs</label><input id="supportFile" type="file" />
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-content" data-step="4">
+        <h3>Company Type & Size</h3>
+        <label>Type of Company</label>
+        <select id="companyType">
+          <option value="">Select type</option><option>Private Limited</option>
+          <option>Public Limited</option><option>Non-Profit</option>
+          <option>Startup</option><option>Government</option>
+        </select>
+        <label>Number of Employees</label>
+        <select id="employeeCount">
+          <option value="">Select</option><option>1-10</option><option>11-50</option>
+          <option>51-200</option><option>201-500</option><option>500+</option>
+        </select>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-content" data-step="5">
+        <h3>Recruitment Focus</h3>
+        <label>Departments / Roles</label>
+        <textarea id="departments" placeholder="e.g. IT, Marketing, Sales..."></textarea>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step-content" data-step="6">
+        <h3>Online Presence</h3>
+        <label>Company Website</label><input id="website" type="text" placeholder="https://company.com" />
+        <label>LinkedIn</label><input id="linkedin" type="text" placeholder="https://linkedin.com/company/..." />
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step-content" data-step="7">
+        <h3>Review & Submit</h3>
+        <div id="reviewArea"></div>
+      </div>
+
+ <section class="success-screen" id="successScreen">
+        <div class="check">✓</div>
+        <p>Profile submitted successfully!</p>
+        <div class="muted">Welcome to Ntchito Recruiter Dashboard</div>
+      </section>
+       </main>
+
+     
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+<!-- links popup template -->
+<div id="linkPopup" style="display:none;">
+  <div class="overlay" id="overlay" onclick="closeLinkPopup()">
+    <div class="popup" onclick="event.stopPropagation()">
+      <h3 style="margin-bottom:8px">Add link</h3>
+      <label for="linkName">Name (e.g. Portfolio)</label>
+      <input id="linkName" type="text" placeholder="e.g. Portfolio" />
+      <label for="linkUrl" style="margin-top:8px">URL / Address</label>
+      <input id="linkUrl" type="text" placeholder="https://..." />
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn ghost" onclick="closeLinkPopup()">Cancel</button>
+        <button class="btn" onclick="saveLink()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
+ <script>
+    feather.replace();
+ /*===========================
+  helpers for escaping and debugging
+=========================== */
+window.persistFromInputs = persistFromInputs;
+window.goStep = goStep;
+window.addChip = addChip;
+window.editEdu = editEdu;
+window.removeEdu = removeEdu;
+window.openLinkPopup = openLinkPopup;
+window.closeLinkPopup = closeLinkPopup;
+window.saveLink = saveLink;
+window.removeLink = removeLink;
+
+/* expose updateStepper initially */
+updateStepper(1);
+
+/* Auto-save keys & data */
+const STORAGE_KEY = 'ntchito_v2';
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function loadState(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e){ return {}; } }
+
+/* initialize stepper UI */
+const stepsList = document.getElementById('stepsList');
+stepsMeta.forEach(s=>{
+  const el = document.createElement('div');
+  el.className = 'step-item';
+  el.dataset.step = s.id;
+  el.innerHTML = `
+    <div class="step-icon"><i data-feather="${s.icon}"></i></div>
+    <div class="step-labels"><div class="title">${s.id}. ${s.label}</div><div class="subtitle">${s.sub}</div></div>
+  `;
+  el.addEventListener('click', ()=>goStep(s.id));
+  stepsList.appendChild(el);
+});
+feather.replace();
+
+/* progress fill update */
+function updateStepper(active){
+  document.querySelectorAll('.step-item').forEach(si=>{
+    si.classList.toggle('active', Number(si.dataset.step)===active);
+  });
+  const pct = ((active-1)/(stepsMeta.length-1))*100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+/* ===========================
+  Step navigation
+=========================== */
+let current = 1;
+function goStep(n){
+  if(n<1 || n>7) return;
+  // save before moving
+  persistFromInputs();
+  current = n;
+  // show/hide panels
+  document.querySelectorAll('.step-content').forEach(sec=>{
+    sec.classList.toggle('active', Number(sec.dataset.step)===n);
+  });
+  // hide success screen if moving backwards
+  document.getElementById('successScreen').classList.remove('active');
+  // update left steps
+  updateStepper(n);
+  // restore review content if step 7
+  if(n===7) renderReview();
+}
+
+/* ===========================
+  Step 6: Links popup
+=========================== */
+let links = []; // {id,name,url}
+function openLinkPopup(){
+  document.body.insertAdjacentHTML('beforeend', document.getElementById('linkPopup').innerHTML);
+  document.getElementById('overlay').style.display='flex';
+}
+function closeLinkPopup(){ document.getElementById('overlay')?.remove(); }
+function saveLink(){
+  const name = document.getElementById('linkName').value.trim();
+  const url = document.getElementById('linkUrl').value.trim();
+  if(!name || !url) return alert('Please provide both a name and URL');
+  links.push({id:Date.now(),name,url});
+  renderLinks();
+  closeLinkPopup();
+  persistFromInputs();
+}
+function renderLinks(){
+  const area = document.getElementById('linksArea');
+  area.innerHTML = '';
+  links.forEach(l=>{
+    const div = document.createElement('div');
+    div.className = 'edu-card';
+    div.innerHTML = `<div class="edu-info"><div style="font-weight:700">${escapeHtml(l.name)}</div><div class="muted">${escapeHtml(l.url)}</div></div>
+      <div class="edu-actions"><button class="btn ghost" onclick='editLink(${l.id})'>Edit</button><button class="btn" onclick='removeLink(${l.id})'>Remove</button></div>`;
+    area.appendChild(div);
+  });
+}
+function editLink(id){
+  const found = links.find(l=>l.id===id);
+  if(!found) return;
+  openLinkPopup();
+  document.getElementById('linkName').value = found.name;
+  document.getElementById('linkUrl').value = found.url;
+  // remove original; save will push edited as new entry
+  links = links.filter(l=>l.id!==id);
+}
+function removeLink(id){ links = links.filter(l=>l.id!==id); renderLinks(); persistFromInputs(); }
+
+  function persist(){
+    const s=loadState();
+    s.companyName=document.getElementById('companyName').value;
+    s.industry=document.getElementById('industry').value;
+    s.regNo=document.getElementById('regNo').value;
+    s.country=document.getElementById('country').value;
+    s.district=document.getElementById('district').value;
+    s.town=document.getElementById('town').value;
+    s.phone=document.getElementById('phone').value;
+    s.companyType=document.getElementById('companyType').value;
+    s.employeeCount=document.getElementById('employeeCount').value;
+    s.departments=document.getElementById('departments').value;
+    s.website=document.getElementById('website').value;
+    s.linkedin=document.getElementById('linkedin').value;
+    saveState(s);
+  }
+
+  function submitRecruiter(){
+    persist();
+    const s=loadState();
+    document.getElementById('reviewArea').innerHTML=`
+      <div><strong>Company:</strong> ${s.companyName}</div>
+      <div><strong>Industry:</strong> ${s.industry}</div>
+      <div><strong>Reg No:</strong> ${s.regNo}</div>
+      <div><strong>Location:</strong> ${s.country} / ${s.district} / ${s.town}</div>
+      <div><strong>Phone:</strong> ${s.phone}</div>
+      <div><strong>Type:</strong> ${s.companyType}</div>
+      <div><strong>Employees:</strong> ${s.employeeCount}</div>
+      <div><strong>Departments:</strong> ${s.departments}</div>
+      <div><strong>Website:</strong> ${s.website}</div>
+      <div><strong>LinkedIn:</strong> ${s.linkedin}</div>`;
+    document.getElementById('successScreen').classList.add('active');
+    startConfetti();
+    setTimeout(()=>{modal.style.display='none';dash.style.display='block';document.getElementById('companyNameDisplay').textContent=s.companyName;},2500);
+  }
+
+  const STORAGE_KEY='ntchito_recruiter';
+  function saveState(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
+  function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return {};}}
+  
+  /* Confetti */
+  const canvas=document.getElementById('confettiCanvas');const ctx=canvas.getContext('2d');
+  function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  window.addEventListener('resize',resizeCanvas);resizeCanvas();
+  let confetti=[];
+  function startConfetti(){
+    confetti=[];for(let i=0;i<100;i++){confetti.push({x:Math.random()*canvas.width,y:Math.random()*-canvas.height,color:`hsl(${Math.random()*360},100%,60%)`,size:6+Math.random()*6,speed:2+Math.random()*3});}
+    requestAnimationFrame(drawConfetti);
+    setTimeout(()=>confetti=[],5000);
+  }
+  function drawConfetti(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confetti.forEach(p=>{ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,p.size,p.size);p.y+=p.speed;if(p.y>canvas.height)p.y=0;});
+    if(confetti.length)requestAnimationFrame(drawConfetti);
+  }
+
+/* =============== Override submitProfile =============== */
+function submitProfile(){
+  persistFromInputs();
+  const state = loadState();
+  document.getElementById('successScreen').classList.add('active');
+  startConfetti();
+
+  // Save permanently
+  saveState(state);
+
+  setTimeout(()=>{
+    document.getElementById('modal').style.display='none';
+    document.getElementById('jobsSection').style.display='block';
+    populateJobs(state);
+  }, 2000);
+}
+
+
+  </script>
+</body>
+</html>
