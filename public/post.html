@@ -651,6 +651,7 @@ const interestSuggestions = [
     el.addEventListener('click', () => goStep(s.id));
     stepsList.appendChild(el);
   });
+	feather.replace();
 
   function updateStepper(active) {
     document.querySelectorAll('.step-item').forEach(si => {
