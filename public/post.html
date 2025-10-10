@@ -509,84 +509,57 @@
   </div>
 </div>
 <script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
- <script>
-    feather.replace();
-	 
-  // ========== Global Setup ==========
+<script>
+  feather.replace();
+
+  // ========== Constants & Global State ==========
   const STORAGE_KEY = 'ntchito_recruiter';
   let current = 1;
   let links = [];
-	 
-const stepsMeta = [
-  { id: 1, label: "Company Details", sub: "Name, industry, reg no", icon: "briefcase" },
-  { id: 2, label: "Location & Contact", sub: "Country, district, phone", icon: "map-pin" },
-  { id: 3, label: "Certificates", sub: "Upload company docs", icon: "file-text" },
-  { id: 4, label: "Company Type", sub: "Size and structure", icon: "layers" },
-  { id: 5, label: "Recruitment Focus", sub: "Departments & roles", icon: "users" },
-  { id: 6, label: "Online Presence", sub: "Website & LinkedIn", icon: "globe" },
-  { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
-];
-const districts = {
-  'AO': ['Luanda', 'Benguela', 'Huíla'],
-  'BW': ['Gaborone', 'Francistown'],
-  'CD': ['Kinshasa', 'Lubumbashi', 'Goma'],
-  'KM': ['Moroni', 'Mitsamiouli'],
-  'LS': ['Maseru', 'Leribe'],
-  'MG': ['Antananarivo', 'Toamasina'],
-  'MW': ['Lilongwe', 'Blantyre'],
-  'MU': ['Port Louis', 'Curepipe'],
-  'MZ': ['Maputo', 'Beira'],
-  'NA': ['Khomas', 'Erongo'],
-  'SC': ['Victoria'],
-  'ZA': ['Gauteng', 'Western Cape', 'KwaZulu-Natal'],
-  'SZ': ['Mbabane', 'Manzini'],
-  'TZ': ['Dar es Salaam', 'Dodoma'],
-  'ZM': ['Lusaka', 'Ndola'],
-  'ZW': ['Harare', 'Bulawayo', 'Manicaland', 'Mashonaland Central']
-};
+  let interests = [];
+  const maxInterests = 7;
 
+  // ========== Step Metadata ==========
+  const stepsMeta = [
+    { id: 1, label: "Company Details", sub: "Name, industry, reg no", icon: "briefcase" },
+    { id: 2, label: "Location & Contact", sub: "Country, district, phone", icon: "map-pin" },
+    { id: 3, label: "Certificates", sub: "Upload company docs", icon: "file-text" },
+    { id: 4, label: "Company Type", sub: "Size and structure", icon: "layers" },
+    { id: 5, label: "Recruitment Focus", sub: "Departments & roles", icon: "users" },
+    { id: 6, label: "Online Presence", sub: "Website & LinkedIn", icon: "globe" },
+    { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
+  ];
+
+  // ========== Location Data ==========
+  const districts = {
+  'ZW':['Harare','Bulawayo','Manicaland','Mashonaland Central'],
+  'ZA':['Gauteng','Western Cape','KwaZulu-Natal'],
+  'BW':['Gaborone','Francistown'],
+  'NA':['Khomas','Erongo'],
+  'MZ':['Maputo','Beira'],
+  'ZM':['Lusaka','Ndola'],
+  'TZ':['Dar es Salaam','Dodoma']
+};
 const towns = {
-  'Luanda': ['Maianga', 'Talatona'],
-  'Gaborone': ['Broadhurst', 'Tlokweng'],
-  'Kinshasa': ['Gombe', 'Limete'],
-  'Moroni': ['Itsandra'],
-  'Maseru': ['Thetsane', 'Ha Hoohlo'],
-  'Antananarivo': ['Analakely', 'Ivandry'],
-  'Lilongwe': ['Area 18', 'Area 25'],
-  'Port Louis': ['Plaine Verte', 'Les Salines'],
-  'Maputo': ['Maputo City'],
-  'Khomas': ['Windhoek East', 'Katutura'],
-  'Victoria': ['Bel Air', 'Mont Fleuri'],
-  'Gauteng': ['Johannesburg', 'Pretoria'],
-  'Western Cape': ['Cape Town', 'Stellenbosch'],
-  'KwaZulu-Natal': ['Durban', 'Pietermaritzburg'],
-  'Mbabane': ['Sibebe', 'Ngwenya'],
-  'Dar es Salaam': ['Ilala', 'Kinondoni'],
-  'Lusaka': ['Lusaka Central'],
-  'Harare': ['Harare CBD', 'Chisipite', 'Borrowdale'],
-  'Bulawayo': ['Khami', 'Nkulumane']
+  'Harare':['Harare CBD','Chisipite','Borrowdale'],
+  'Bulawayo':['Khami','Nkulumane'],
+  'Gauteng':['Johannesburg','Pretoria'],
+  'Western Cape':['Cape Town','Stellenbosch'],
+  'KwaZulu-Natal':['Durban','Pietermaritzburg'],
+  'Maputo':['Maputo City'],
+  'Lusaka':['Lusaka Central']
+};
+const countryData = {
+  'ZW':{name:'Zimbabwe',flag:'🇿🇼',code:'+263'},
+  'ZA':{name:'South Africa',flag:'🇿🇦',code:'+27'},
+  'BW':{name:'Botswana',flag:'🇧🇼',code:'+267'},
+  'NA':{name:'Namibia',flag:'🇳🇦',code:'+264'},
+  'MZ':{name:'Mozambique',flag:'🇲🇿',code:'+258'},
+  'ZM':{name:'Zambia',flag:'🇿🇲',code:'+260'},
+  'TZ':{name:'Tanzania',flag:'🇹🇿',code:'+255'}
 };
 
-const countryData = {
-  'AO': { name: 'Angola', flag: '🇦🇴', code: '+244' },
-  'BW': { name: 'Botswana', flag: '🇧🇼', code: '+267' },
-  'CD': { name: 'DR Congo', flag: '🇨🇩', code: '+243' },
-  'KM': { name: 'Comoros', flag: '🇰🇲', code: '+269' },
-  'LS': { name: 'Lesotho', flag: '🇱🇸', code: '+266' },
-  'MG': { name: 'Madagascar', flag: '🇲🇬', code: '+261' },
-  'MW': { name: 'Malawi', flag: '🇲🇼', code: '+265' },
-  'MU': { name: 'Mauritius', flag: '🇲🇺', code: '+230' },
-  'MZ': { name: 'Mozambique', flag: '🇲🇿', code: '+258' },
-  'NA': { name: 'Namibia', flag: '🇳🇦', code: '+264' },
-  'SC': { name: 'Seychelles', flag: '🇸🇨', code: '+248' },
-  'ZA': { name: 'South Africa', flag: '🇿🇦', code: '+27' },
-  'SZ': { name: 'Eswatini', flag: '🇸🇿', code: '+268' },
-  'TZ': { name: 'Tanzania', flag: '🇹🇿', code: '+255' },
-  'ZM': { name: 'Zambia', flag: '🇿🇲', code: '+260' },
-  'ZW': { name: 'Zimbabwe', flag: '🇿🇼', code: '+263' }
-};
-let interests = [];
-const maxInterests = 7;
+  // ========== Interest Suggestions ==========
 const interestSuggestions = [
   'Accounting',
   'Administration',
@@ -632,70 +605,11 @@ const interestSuggestions = [
 ];
 
 
-function showSuggestions(input) {
-  const box = document.getElementById('suggestionsBox');
-  box.innerHTML = '';
-  if (!input.trim()) return;
-
-  const matches = interestSuggestions.filter(s =>
-    s.toLowerCase().includes(input.toLowerCase()) &&
-    !interests.includes(s)
-  ).slice(0, 5);
-
-  matches.forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'suggestion-item';
-    div.textContent = s;
-    div.onclick = () => addChip(s);
-    box.appendChild(div);
-  });
-}
-
-function handleInterestKey(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    const val = e.target.value.trim();
-    if (val && !interests.includes(val)) addChip(val);
-    e.target.value = '';
-    document.getElementById('suggestionsBox').innerHTML = '';
-  }
-}
-
-function addChip(label) {
-  if (interests.length >= maxInterests) return alert('You can only add up to 7 interests');
-  interests.push(label);
-  renderChips();
-  persistFromInputs();
-}
-
-function removeChip(label) {
-  interests = interests.filter(i => i !== label);
-  renderChips();
-  persistFromInputs();
-}
-
-function renderChips() {
-  const wrap = document.getElementById('chipsWrap');
-  wrap.innerHTML = '';
-  interests.forEach(i => {
-    const chip = document.createElement('div');
-    chip.className = 'chip';
-    chip.innerHTML = `${escapeHtml(i)} <button onclick="removeChip('${i}')">×</button>`;
-    wrap.appendChild(chip);
-  });
-}
-
-function persistFromInputs() {
-  const s = loadState();
-  s.interests = interests;
-  saveState(s);
-}
-
-
   // ========== Local Storage ==========
   function saveState(state) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
+
   function loadState() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -704,7 +618,26 @@ function persistFromInputs() {
     }
   }
 
-	 const stepsList = document.getElementById('stepsList');
+  function persistFromInputs() {
+    const s = loadState();
+    s.companyName = document.getElementById('companyName')?.value || '';
+    s.industry = document.getElementById('industry')?.value || '';
+    s.regNo = document.getElementById('regNo')?.value || '';
+    s.country = document.getElementById('country')?.value || '';
+    s.district = document.getElementById('district')?.value || '';
+    s.town = document.getElementById('town')?.value || '';
+    s.phone = document.getElementById('phone')?.value || '';
+    s.companyType = document.getElementById('companyType')?.value || '';
+    s.employeeCount = document.getElementById('employeeCount')?.value || '';
+    s.departments = document.getElementById('departments')?.value || '';
+    s.website = document.getElementById('website')?.value || '';
+    s.linkedin = document.getElementById('linkedin')?.value || '';
+    s.interests = interests;
+    saveState(s);
+  }
+
+  // ========== Stepper UI ==========
+  const stepsList = document.getElementById('stepsList');
   stepsMeta.forEach(s => {
     const el = document.createElement('div');
     el.className = 'step-item';
@@ -718,26 +651,7 @@ function persistFromInputs() {
     el.addEventListener('click', () => goStep(s.id));
     stepsList.appendChild(el);
   });
-  feather.replace();
-	 
-  function persistFromInputs() {
-    const s = loadState();
-    s.companyName = document.getElementById('companyName').value;
-    s.industry = document.getElementById('industry').value;
-    s.regNo = document.getElementById('regNo').value;
-    s.country = document.getElementById('country').value;
-    s.district = document.getElementById('district').value;
-    s.town = document.getElementById('town').value;
-    s.phone = document.getElementById('phone').value;
-    s.companyType = document.getElementById('companyType').value;
-    s.employeeCount = document.getElementById('employeeCount').value;
-    s.departments = document.getElementById('departments').value;
-    s.website = document.getElementById('website').value;
-    s.linkedin = document.getElementById('linkedin').value;
-    saveState(s);
-  }
 
-  // ========== Stepper UI ==========
   function updateStepper(active) {
     document.querySelectorAll('.step-item').forEach(si => {
       si.classList.toggle('active', Number(si.dataset.step) === active);
@@ -765,6 +679,59 @@ function persistFromInputs() {
     }[tag]));
   }
 
+  // ========== Interest Chips ==========
+  function showSuggestions(input) {
+    const box = document.getElementById('suggestionsBox');
+    box.innerHTML = '';
+    if (!input.trim()) return;
+
+    const matches = interestSuggestions.filter(s =>
+      s.toLowerCase().includes(input.toLowerCase()) &&
+      !interests.includes(s)
+    ).slice(0, 5);
+
+    matches.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.textContent = s;
+      div.onclick = () => addChip(s);
+      box.appendChild(div);
+    });
+  }
+
+  function handleInterestKey(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const val = e.target.value.trim();
+      if (val && !interests.includes(val)) addChip(val);
+      e.target.value = '';
+      document.getElementById('suggestionsBox').innerHTML = '';
+    }
+  }
+
+  function addChip(label) {
+    if (interests.length >= maxInterests) return alert('You can only add up to 7 interests');
+    interests.push(label);
+    renderChips();
+    persistFromInputs();
+  }
+
+  function removeChip(label) {
+    interests = interests.filter(i => i !== label);
+    renderChips();
+    persistFromInputs();
+  }
+
+  function renderChips() {
+    const wrap = document.getElementById('chipsWrap');
+    wrap.innerHTML = '';
+    interests.forEach(i => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `${escapeHtml(i)} <button onclick="removeChip('${i}')">×</button>`;
+      wrap.appendChild(chip);
+    });
+  }
 
 	 /* ===========================
   Step 2: Cascading dropdown + phone updates
