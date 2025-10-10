@@ -283,22 +283,101 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <h2>Hire the best talent across SADC</h2>
-    <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
-  </section>
+<!-- HERO -->
+<section class="hero">
+  <h2>Hire the best talent across SADC</h2>
+  <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
+</section>
 
-  <section id="recruiterDashboard">
-    <h2>Welcome, <span id="companyNameDisplay">Recruiter</span> 👋</h2>
-    <p>Here are your recent job posts and candidates.</p>
-    <div class="dashboard-grid" id="jobsList">
-      <div class="job-card"><h3>Software Engineer</h3><p>Applications: 42</p></div>
-      <div class="job-card"><h3>Marketing Lead</h3><p>Applications: 23</p></div>
-      <div class="job-card"><h3>Sales Manager</h3><p>Applications: 18</p></div>
+<!-- DASHBOARD -->
+<section id="recruiterDashboard">
+  <h2>Welcome, <span id="companyNameDisplay">Recruiter</span> </h2>
+  <p>Here are your job posts, candidate recommendations, and insights.</p>
+
+  <!-- Job Posts -->
+  <div class="section-title">📄 Your Job Posts</div>
+  <div class="dashboard-grid">
+    <div class="job-card" style="background:#e0f2fe;">
+      <i data-feather="code" style="color:#0ea5e9;"></i>
+      <h3>Software Engineer</h3>
+      <p>Applications: 42</p>
     </div>
-  </section>
+    <div class="job-card" style="background:#fef3c7;">
+      <i data-feather="megaphone" style="color:#f59e0b;"></i>
+      <h3>Marketing Lead</h3>
+      <p>Applications: 23</p>
+    </div>
+    <div class="job-card" style="background:#ede9fe;">
+      <i data-feather="briefcase" style="color:#8b5cf6;"></i>
+      <h3>Sales Manager</h3>
+      <p>Applications: 18</p>
+    </div>
+  </div>
 
-  <footer>© 2025 Ntchito Careers — All Rights Reserved.</footer>
+  <!-- Recommended Candidates -->
+  <div class="section-title" style="margin-top:40px;"> Recommended Candidates</div>
+  <div class="dashboard-grid">
+    <div class="job-card" style="background:#dcfce7;">
+      <i data-feather="user-check" style="color:#22c55e;"></i>
+      <h4>Jane Mwale</h4>
+      <p>UX Designer · Lusaka</p>
+    </div>
+    <div class="job-card" style="background:#fef2f2;">
+      <i data-feather="user" style="color:#ef4444;"></i>
+      <h4>Thabo Dlamini</h4>
+      <p>Backend Developer · Johannesburg</p>
+    </div>
+    <div class="job-card" style="background:#f0fdf4;">
+      <i data-feather="user-plus" style="color:#16a34a;"></i>
+      <h4>Chipo Banda</h4>
+      <p>Marketing Specialist · Blantyre</p>
+    </div>
+  </div>
+
+  <!-- Candidates by Location -->
+  <div class="section-title" style="margin-top:40px;"> Candidates by Location</div>
+  <div class="dashboard-grid">
+    <div class="job-card" style="background:#fff7ed;">
+      <i data-feather="map-pin" style="color:#f97316;"></i>
+      <h4>Lusaka</h4>
+      <p>12 active candidates</p>
+    </div>
+    <div class="job-card" style="background:#fef9c3;">
+      <i data-feather="map-pin" style="color:#eab308;"></i>
+      <h4>Harare</h4>
+      <p>9 active candidates</p>
+    </div>
+    <div class="job-card" style="background:#f3f4f6;">
+      <i data-feather="map-pin" style="color:#6b7280;"></i>
+      <h4>Gaborone</h4>
+      <p>6 active candidates</p>
+    </div>
+  </div>
+
+  <!-- Candidates by Category -->
+  <div class="section-title" style="margin-top:40px;"> Candidates by Category</div>
+  <div class="dashboard-grid">
+    <div class="job-card" style="background:#e0f7fa;">
+      <i data-feather="settings" style="color:#06b6d4;"></i>
+      <h4>Engineering</h4>
+      <p>15 candidates</p>
+    </div>
+    <div class="job-card" style="background:#fce7f3;">
+      <i data-feather="heart" style="color:#ec4899;"></i>
+      <h4>Healthcare</h4>
+      <p>8 candidates</p>
+    </div>
+    <div class="job-card" style="background:#f3e8ff;">
+      <i data-feather="book-open" style="color:#a855f7;"></i>
+      <h4>Education</h4>
+      <p>10 candidates</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>© 2025 Ntchito Careers — All Rights Reserved.</footer>
+
 
   <!-- Onboarding Modal -->
   <div class="center-modal">
@@ -960,6 +1039,19 @@ function removeCertificate(id) {
     });
     if (confetti.length) requestAnimationFrame(drawConfetti);
   }
+
+	function populateRecommendations(data) {
+  const container = document.getElementById('recommendedCandidates');
+  container.innerHTML = '';
+  data.forEach(c => {
+    container.insertAdjacentHTML('beforeend', `
+      <div class="job-card">
+        <h4>${c.name}</h4>
+        <p>${c.role} · ${c.location}</p>
+      </div>
+    `);
+  });
+}
 
   // ========== Init ==========
 
