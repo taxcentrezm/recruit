@@ -441,21 +441,23 @@
 </section>
 
 
-      <!-- Step 6 -->
+<!-- STEP 6: Additional info (links popup) -->
 <section class="step-content" data-step="6" id="step-6">
-  <h3>Online Presence</h3>
+  <h2>6. Additional links</h2>
 
-  <label for="website">Company Website</label>
-  <input id="website" type="text" placeholder="https://company.com" />
+  <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+    <button class="btn ghost" onclick="openLinkPopup()">+ Add link</button>
+    <div class="muted">Add portfolio, website, profiles</div>
+  </div>
 
-  <label for="linkedin">LinkedIn</label>
-  <input id="linkedin" type="text" placeholder="https://linkedin.com/company/..." />
+  <div id="linksArea"></div>
 
   <div class="actions">
     <button class="btn ghost" onclick="goStep(5)">← Back</button>
     <button class="btn" onclick="goStep(7)">Next →</button>
   </div>
 </section>
+
 
 
       <!-- Step 7 -->
