@@ -438,12 +438,21 @@
 <script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
  <script>
     feather.replace();
-<script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
-<script>
+	 
   // ========== Global Setup ==========
   const STORAGE_KEY = 'ntchito_recruiter';
   let current = 1;
   let links = [];
+	 
+const stepsMeta = [
+  { id: 1, label: "Company Details", sub: "Name, industry, reg no", icon: "briefcase" },
+  { id: 2, label: "Location & Contact", sub: "Country, district, phone", icon: "map-pin" },
+  { id: 3, label: "Certificates", sub: "Upload company docs", icon: "file-text" },
+  { id: 4, label: "Company Type", sub: "Size and structure", icon: "layers" },
+  { id: 5, label: "Recruitment Focus", sub: "Departments & roles", icon: "users" },
+  { id: 6, label: "Online Presence", sub: "Website & LinkedIn", icon: "globe" },
+  { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
+];
 
   // ========== Local Storage ==========
   function saveState(state) {
@@ -473,6 +482,15 @@
     s.linkedin = document.getElementById('linkedin').value;
     saveState(s);
   }
+const stepsMeta = [
+  { id: 1, label: "Company Details", sub: "Name, industry, reg no", icon: "briefcase" },
+  { id: 2, label: "Location & Contact", sub: "Country, district, phone", icon: "map-pin" },
+  { id: 3, label: "Certificates", sub: "Upload company docs", icon: "file-text" },
+  { id: 4, label: "Company Type", sub: "Size and structure", icon: "layers" },
+  { id: 5, label: "Recruitment Focus", sub: "Departments & roles", icon: "users" },
+  { id: 6, label: "Online Presence", sub: "Website & LinkedIn", icon: "globe" },
+  { id: 7, label: "Review & Submit", sub: "Final check", icon: "check-circle" }
+];
 
   // ========== Stepper UI ==========
   function updateStepper(active) {
@@ -627,7 +645,7 @@
   }
 
   // ========== Init ==========
-  feather.replace();
+
   updateStepper(1);
   setupConfetti();
 </script>
