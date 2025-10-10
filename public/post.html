@@ -977,7 +977,6 @@ function submitProfile() {
   const state = loadState();
   document.getElementById('successScreen').classList.add('active');
   startConfetti();
-
   saveState(state);
 
   setTimeout(() => {
@@ -988,8 +987,12 @@ function submitProfile() {
     if (modal) modal.style.display = 'none';
     if (jobsSection) jobsSection.style.display = 'block';
     if (nameDisplay) nameDisplay.textContent = state.companyName || 'Recruiter';
+
+ 
+    document.getElementById('overlay')?.remove();
   }, 2000);
 }
+
 
 
 	 let certificates = []; // {id, name, fileName}
