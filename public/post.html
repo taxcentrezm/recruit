@@ -369,8 +369,77 @@
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.2);
   z-index: 10000; 
 }
+.filter-bar {
+  background: #fff;
+  padding: 30px 60px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border-bottom: 1px solid #eee;
+}
 
+.filter-header h2 {
+  font-size: 1.5rem;
+  color: #bb0303;
+  margin-bottom: 6px;
+}
 
+.filter-header p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  color: #68707d;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e9f2;
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.filter-group.full-width {
+  grid-column: span 2;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.filter-actions .btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: #bb0303;
+  color: white;
+  border: none;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: #68707d;
+  border: 1px solid #ccc;
+}
 
 </style>
 </head>
@@ -392,6 +461,63 @@
 <section class="hero">
   <h2>Hire the best talent across SADC</h2>
   <p>Join thousands of recruiters connecting with skilled professionals effortlessly.</p>
+</section>
+<section class="filter-bar">
+  <div class="filter-header">
+    <h2>🎯 Advanced Filters</h2>
+    <p>Refine your candidate search by category, location, experience, and more.</p>
+  </div>
+
+  <div class="filter-grid">
+    <!-- Category Filter -->
+    <div class="filter-group">
+      <label for="categorySelect">Category</label>
+      <select id="categorySelect">
+        <option>All</option>
+        <option>Engineering</option>
+        <option>Healthcare</option>
+        <option>Education</option>
+        <option>Finance</option>
+        <option>Design</option>
+      </select>
+    </div>
+
+    <!-- Location Filter -->
+    <div class="filter-group">
+      <label for="locationSelect">Location</label>
+      <select id="locationSelect">
+        <option>All</option>
+        <option>Lusaka</option>
+        <option>Harare</option>
+        <option>Gaborone</option>
+        <option>Blantyre</option>
+        <option>Maputo</option>
+      </select>
+    </div>
+
+    <!-- Experience Filter -->
+    <div class="filter-group">
+      <label for="experienceSelect">Experience</label>
+      <select id="experienceSelect">
+        <option>Any</option>
+        <option>0–2 years</option>
+        <option>3–5 years</option>
+        <option>6+ years</option>
+      </select>
+    </div>
+
+    <!-- Keyword Search -->
+    <div class="filter-group full-width">
+      <label for="keywordInput">Keyword</label>
+      <input type="text" id="keywordInput" placeholder="e.g. React, Nursing, Sales" />
+    </div>
+
+    <!-- Filter Actions -->
+    <div class="filter-actions full-width">
+      <button class="btn secondary">Apply Filters</button>
+      <button class="btn ghost">Reset</button>
+    </div>
+  </div>
 </section>
 
 <!-- DASHBOARD -->
