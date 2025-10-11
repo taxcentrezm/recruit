@@ -1284,31 +1284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  handleProtectedClick(document.querySelector(".card:nth-child(1) button"), "/post-job.html");
-  handleProtectedClick(document.querySelector(".card:nth-child(2) button"), "/upload-cv.html");
-  handleProtectedClick(document.querySelector(".post-job-btn"), "/post-job.html");
 
-  document.querySelectorAll(".apply").forEach(btn =>
-    btn.addEventListener("click", () => {
-      if (!isUserLoggedIn()) {
-        setRedirectIntent("/apply.html");
-        showModal("loginModal");
-      } else {
-        showToast("📩 Application submitted", "success");
-      }
-    })
-  );
-
-  document.querySelectorAll("button i[data-feather='upload-cloud']").forEach(icon => {
-    icon.closest("button").addEventListener("click", () => {
-      if (!isUserLoggedIn()) {
-        setRedirectIntent("/upload-cv.html");
-        showModal("loginModal");
-      } else {
-        window.location.href = "/upload-cv.html";
-      }
-    });
-  });
   /* =========================================
      🧭 NAVBAR SCROLL EFFECT
   ========================================= */
