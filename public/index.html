@@ -802,18 +802,18 @@ footer {
     <div class="logo"><span>ntchi</span>to</div>
     <nav>
       <a href="#">Home</a>
-      <a href="#">Find Jobs</a>
-      <a href="#">Companies</a>
-      <a href="#">Candidates</a>
-      <a href="#">Internships</a>
-      <a href="#">Post Graduates</a>
-      <a href="#">Blog</a>
-      <a href="#">Payroll</a>
-      <a href="#">SAGE UK HR</a>
+      <a href="#" class="requires-login" data-redirect="jobs.html">Find Jobs</a>
+      <a href="company.html">Companies</a>
+      <a href="#" class="requires-login" data-redirect="post.html">Find Talent</a>
+      <a href="#" class="requires-login" data-redirect="intern.html">Internships</a>
+      <a href="#" class="requires-login" data-redirect="graduate.html">Post Graduates</a>
+      <a href="#" class="requires-login" data-redirect="blog.html">Blog</a>
+      <a href="payroll.html">Payroll</a>
+      <a href="sage.html">SAGE UK HR</a>
     </nav>
     <div class="nav-actions">
       <button class="login-btn"><i data-feather="log-in"></i> Login</button>
-      <button class="post-job-btn"><i data-feather="plus-circle"></i> Post a Job</button>
+      <button class="requires-login" data-redirect="post.html"><i data-feather="plus-circle"></i> Post a Job</button>
       <button class="menu-toggle" aria-label="Toggle menu"><i data-feather="menu"></i></button>
     </div>
       <div class="sadc-carousel">
@@ -875,25 +875,25 @@ footer {
       <i data-feather="briefcase"></i>
       <h3>Hire Talent</h3>
       <p>Find professionals from around the world and access all skills easily.</p>
-      <button><i data-feather="upload"></i> Post Jobs for Free</button>
+      <button class="requires-login" data-redirect="post.html"><i data-feather="upload"></i> Post Jobs for Free</button>
     </div>
     <div class="card">
       <i data-feather="user-check"></i>
       <h3>Find Jobs</h3>
       <p>Build your professional profile and discover the best new job opportunities.</p>
-      <button><i data-feather="upload-cloud"></i> Upload Your CV</button>
+      <button class="requires-login" data-redirect="jobs.html"><i data-feather="upload-cloud"></i> Upload Your CV</button>
     </div>
     <div class="card">
       <i data-feather="book-open"></i>
       <h3>Internships</h3>
       <p>Gain real-world experience and kickstart your career with top internships.</p>
-      <button><i data-feather="send"></i> Explore Internships</button>
+      <button class="requires-login" data-redirect="intern.html"><i data-feather="send"></i> Explore Internships</button>
     </div>
     <div class="card">
       <i data-feather="award"></i>
       <h3>Post-Graduate Opportunities</h3>
       <p>Advance your career with specialized programs and postgraduate roles.</p>
-      <button><i data-feather="send"></i> Explore Programs</button>
+      <button class="requires-login" data-redirect="graduate.html"><i data-feather="send"></i> Explore Programs</button>
     </div>
   </div>
 </section>
@@ -1107,6 +1107,50 @@ footer {
   <!-- ===============================
        SCRIPT
        =============================== -->
+  <script>
+  let pendingRedirect = null;
+
+  // Intercept protected links
+  document.querySelectorAll('.requires-login').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      pendingRedirect = this.getAttribute('data-redirect');
+      showModal('loginModal');
+    });
+  });
+
+  // Show modal utility
+  function showModal(id) {
+    document.getElementById(id).style.display = 'block';
+    feather.replace();
+  }
+
+  // Close modal utility
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.style.display = 'none';
+      });
+      pendingRedirect = null;
+    });
+  });
+
+  // Simulate login success
+  document.getElementById('loginSubmit').addEventListener('click', () => {
+    // TODO: Replace with real login validation
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    if (email && password) {
+      document.getElementById('loginModal').style.display = 'none';
+      if (pendingRedirect) {
+        window.location.href = pendingRedirect;
+      }
+    } else {
+      alert('Please enter email and password');
+    }
+  });
+</script>
  <script>
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================
