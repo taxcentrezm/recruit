@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SADC Payroll Calculator</title>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/all.css" />
   <script src="https://unpkg.com/feather-icons"></script>
 <style>
 body {
@@ -13,18 +14,6 @@ body {
   padding: 0;
   background: #f9f9f9;
   color: #333;
-}
-
-.main-header {
-  background: #bb0303;
-  color: white;
-  padding: 30px 40px;
-  text-align: center;
-}
-
-.logo {
-  font-size: 2rem;
-  margin-bottom: 10px;
 }
 
 .subtitle {
@@ -119,15 +108,36 @@ input[type="number"] {
 </style>
 </head>
 <body>
-  <header class="main-header">
-    <h1 class="logo">SADC Payroll Calculator</h1>
-    <p class="subtitle">Calculate PAYE, pension, and net income across SADC countries</p>
-  </header>
+  <header class="navbar">
+    <div class="logo"><span>ntchi</span>to</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#" class="requires-login" data-redirect="jobs.html">Find Jobs</a>
+      <a href="companies.html">Companies</a>
+      <a href="#" class="requires-login" data-redirect="post.html">Find Talent</a>
+      <a href="#" class="requires-login" data-redirect="intern.html">Internships</a>
+      <a href="#" class="requires-login" data-redirect="graduate.html">Post Graduates</a>
+      <a href="#" class="requires-login" data-redirect="blog.html">Blog</a>
+      <a href="payroll.html">Payroll</a>
+      <a href="sage.html">SAGE UK HR</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="login-btn"><i data-feather="log-in"></i> Login</button>
+      <button class="requires-login" data-redirect="post.html"><i data-feather="plus-circle"></i> Post a Job</button>
+      <button class="menu-toggle" aria-label="Toggle menu"><i data-feather="menu"></i></button>
+    </div>
+      <div class="sadc-carousel">
+    <div class="carousel-track" id="carousel-track">
+      <!-- JS will populate country cards here -->
+    </div>
+  </div>
+</header>
 
   <main class="calculator-section">
     <form id="payrollForm" class="payroll-form">
       <div class="form-row">
         <label for="countrySelect">Country:</label>
+        <select id="countrySelect" required>
          <option value="">Location</option>
   <option value="Angola">Angola</option>
   <option value="Botswana">Botswana</option>
