@@ -257,6 +257,161 @@ footer {
     gap: 10px;
   }
 }
+/* Section Styling */
+.company-section {
+  padding: 60px 40px;
+  background: #fff;
+}
+
+.company-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #bb0303;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Grid Layout */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* Company Card */
+.company-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+}
+
+.company-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.company-card h4 {
+  font-size: 1rem;
+  color: #0a66c2;
+  margin-bottom: 6px;
+}
+
+.company-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-actions .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.btn.apply {
+  background: #bb0303;
+  color: white;
+}
+
+.btn.save {
+  background: #e6e9f2;
+  color: #333;
+}
+
+/* Grid Header Controls */
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.grid-header h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #bb0303;
+  flex: 1 1 100%;
+  margin-bottom: 10px;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.grid-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* Pagination */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.pagination-controls button {
+  padding: 10px 20px;
+  background: #bb0303;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background: #a00202;
+}
+
+@media (max-width: 768px) {
+  .company-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .grid-header h2 {
+    font-size: 1.4rem;
+  }
+}
 
   </style>
 </head>
@@ -672,9 +827,54 @@ footer {
     &copy; 2025 Ntchito Platform. Built for Zambia & SADC.
   </footer>
 
-  <script>
-    feather.replace();
-    // TODO: Add JS logic for filtering, pagination, and dynamic rendering
-  </script>
+ <script>
+  feather.replace();
+
+  const grid = document.getElementById("companyGrid");
+  const pageSizeSelect = document.getElementById("pageSize");
+  const prevBtn = document.getElementById("prevPage");
+  const nextBtn = document.getElementById("nextPage");
+
+  let currentPage = 1;
+  let pageSize = parseInt(pageSizeSelect.value);
+  let allCards = [];
+
+  function paginate() {
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    grid.innerHTML = "";
+    allCards.slice(start, end).forEach(card => grid.appendChild(card));
+  }
+
+  function updatePagination() {
+    pageSize = parseInt(pageSizeSelect.value);
+    currentPage = 1;
+    paginate();
+  }
+
+  function initPagination() {
+    allCards = Array.from(grid.children);
+    updatePagination();
+  }
+
+  pageSizeSelect.addEventListener("change", updatePagination);
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      paginate();
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const maxPage = Math.ceil(allCards.length / pageSize);
+    if (currentPage < maxPage) {
+      currentPage++;
+      paginate();
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", initPagination);
+</script>
+
 </body>
 </html>
