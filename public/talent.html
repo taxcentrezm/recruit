@@ -307,6 +307,79 @@
 .pagination-controls i {
   stroke-width: 2;
 }
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 500px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.chat-widget.hidden {
+  display: none;
+}
+
+.chat-header {
+  background: #bb0303;
+  color: white;
+  padding: 10px 14px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-actions button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.chat-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  background: #bb0303;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -464,6 +537,23 @@
     <button id="nextPage">Next <i data-feather="arrow-right"></i></button>
   </div>
 </section>
+     <div id="chatWidget" class="chat-widget hidden">
+  <div class="chat-header">
+    <span>Secure Chat with Applicant</span>
+    <div class="chat-actions">
+      <button id="minimizeChat">_</button>
+      <button id="closeChat">×</button>
+    </div>
+  </div>
+  <div class="chat-body">
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="chatText" placeholder="Type your message..." />
+      <button id="sendChat"><i data-feather="send"></i></button>
+    </div>
+  </div>
+</div>
+
 <script>
 feather.replace();
 
@@ -673,6 +763,79 @@ filterJob.addEventListener("change", applyFilters);
 filterQualification.addEventListener("change", applyFilters);
 prevBtn.addEventListener("click", goToPreviousPage);
 nextBtn.addEventListener("click", goToNextPage);
+
+
+  const contactButtons = document.querySelectorAll(".btn.apply");
+const chatWidget = document.getElementById("chatWidget");
+const chatMessages = document.getElementById("chatMessages");
+const chatText = document.getElementById("chatText");
+const sendChat = document.getElementById("sendChat");
+const minimizeChat = document.getElementById("minimizeChat");
+const closeChat = document.getElementById("closeChat");
+
+contactButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    chatWidget.classList.remove("hidden");
+    showToast("Secure chat initiated");
+    playNotificationSound();
+    preloadPrompts();
+  });
+});
+
+sendChat.addEventListener("click", () => {
+  const message = chatText.value.trim();
+  if (message) {
+    appendMessage("You", message);
+    chatText.value = "";
+    // Simulate response
+    setTimeout(() => {
+      appendMessage("Applicant", "Thanks for reaching out!");
+    }, 1000);
+  }
+});
+
+minimizeChat.addEventListener("click", () => {
+  chatWidget.style.height = "40px";
+  chatMessages.style.display = "none";
+  document.querySelector(".chat-input").style.display = "none";
+});
+
+closeChat.addEventListener("click", () => {
+  chatWidget.classList.add("hidden");
+});
+
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function preloadPrompts() {
+  appendMessage("System", "You are now connected securely.");
+  appendMessage("System", "You can request to send this chat to your email.");
+  appendMessage("System", "Would you like to receive future updates via WhatsApp, SMS, or Email?");
+}
+
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.textContent = message;
+  toast.style.position = "fixed";
+  toast.style.bottom = "80px";
+  toast.style.right = "20px";
+  toast.style.background = "#333";
+  toast.style.color = "#fff";
+  toast.style.padding = "10px 16px";
+  toast.style.borderRadius = "6px";
+  toast.style.zIndex = "9999";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function playNotificationSound() {
+  const audio = new Audio("assets/sounds/notify.mp3");
+  audio.play();
+}
 
 // Init
 document.addEventListener("DOMContentLoaded", () => {
