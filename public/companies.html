@@ -1133,9 +1133,12 @@ companies = sampleNames.map((name, i) => {
   const types = ["Agriculture", "Banking", "Construction", "Education", "Energy", "Finance", "Healthcare", "Insurance", "Logistics", "Manufacturing", "Media", "Mining", "NGO / Non-Profit", "Oil & Gas", "Retail", "Technology", "Telecommunications", "Transport", "Utilities"];
   const capacities = ["Small", "Medium", "Large"];
 
+  const cleanName = name.replace(/\s*\(.*?\)/g, "").trim();
+  const logoFile = logoMap[cleanName] || "default.png";
+
   return {
     name,
-    logo: `assets/logos/${logoMap[company.name] || "default.png"}`,
+    logo: `assets/logos/${logoFile}`,
     type: types[i % types.length],
     capacity: capacities[i % capacities.length],
     location: countries[i % countries.length]
