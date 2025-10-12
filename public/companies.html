@@ -412,6 +412,156 @@ footer {
     font-size: 1.4rem;
   }
 }
+.company-section {
+  padding: 60px 40px;
+  background: #fff;
+}
+
+.company-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #bb0303;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.company-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+}
+
+.company-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.company-card h4 {
+  font-size: 1rem;
+  color: #0a66c2;
+  margin-bottom: 6px;
+}
+
+.company-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-actions .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.btn.apply {
+  background: #bb0303;
+  color: white;
+}
+
+.btn.save {
+  background: #e6e9f2;
+  color: #333;
+}
+
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.grid-header h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #bb0303;
+  flex: 1 1 100%;
+  margin-bottom: 10px;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.grid-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.pagination-controls button {
+  padding: 10px 20px;
+  background: #bb0303;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background: #a00202;
+}
+
+@media (max-width: 768px) {
+  .company-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .grid-header h2 {
+    font-size: 1.4rem;
+  }
+}
 
   </style>
 </head>
@@ -420,6 +570,8 @@ footer {
   <header class="main-header">
     <div class="nav-left">
       <h1 class="logo">Ntchito</h1>
+      <div class="filter-bar">
+  <input type="text" id="searchInput" placeholder="Search company name..." />
       <form class="form-group nav-filters">
         <div class="form-row">
           <select id="filterType">
@@ -490,6 +642,7 @@ footer {
           <button class="btn small" type="submit"><i data-feather="filter"></i> Apply</button>
         </div>
       </form>
+      </div>
     </div>
     <nav class="main-nav">
       <a href="index.html">Home</a>
