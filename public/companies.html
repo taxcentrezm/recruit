@@ -1021,6 +1021,113 @@ footer {
   });
 
   document.addEventListener("DOMContentLoaded", initPagination);
+
+
+const companyGrid = document.getElementById("companyGrid");
+const pageSizeSelect = document.getElementById("pageSize");
+const prevBtn = document.getElementById("prevPage");
+const nextBtn = document.getElementById("nextPage");
+
+const searchInput = document.getElementById("searchInput");
+const filterLocation = document.getElementById("filterLocation");
+const filterType = document.getElementById("filterType");
+const filterCapacity = document.getElementById("filterCapacity");
+
+let currentPage = 1;
+let pageSize = parseInt(pageSizeSelect.value);
+let companies = [];
+let filteredCompanies = [];
+
+// Generate 80 companies
+companies = Array.from({ length: 80 }, (_, i) => {
+  const countries = ["Angola", "Botswana", "Comoros", "DRC", "Eswatini", "Lesotho", "Madagascar", "Malawi", "Mauritius", "Mozambique", "Namibia", "Seychelles", "South Africa", "Tanzania", "Zambia", "Zimbabwe"];
+  const types = ["Agriculture", "Banking", "Construction", "Education", "Energy", "Finance", "Healthcare", "Insurance", "Logistics", "Manufacturing", "Media", "Mining", "NGO / Non-Profit", "Oil & Gas", "Retail", "Technology", "Telecommunications", "Transport", "Utilities"];
+  const capacities = ["Small", "Medium", "Large"];
+
+  return {
+    name: `Company ${i + 1}`,
+    logo: "assets/logos/default.png",
+    type: types[i % types.length],
+    capacity: capacities[i % capacities.length],
+    location: countries[i % countries.length]
+  };
+});
+
+function applyFilters() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const location = filterLocation.value;
+  const type = filterType.value;
+  const capacity = filterCapacity.value;
+
+  filteredCompanies = companies.filter(c => {
+    return (
+      (!searchTerm || c.name.toLowerCase().includes(searchTerm)) &&
+      (!location || c.location === location) &&
+      (!type || c.type === type) &&
+      (!capacity || c.capacity === capacity)
+    );
+  });
+
+  currentPage = 1;
+  renderCompanies();
+}
+
+function renderCompanies() {
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  companyGrid.innerHTML = "";
+
+  filteredCompanies.slice(start, end).forEach(company => {
+    const card = document.createElement("div");
+    card.className = "company-card";
+    card.innerHTML = `
+      <img src="${company.logo}" alt="${company.name}" />
+      <h4>${company.name}</h4>
+      <p><strong>Capacity:</strong> ${company.capacity}</p>
+      <p><strong>Type:</strong> ${company.type}</p>
+      <p><strong>Location:</strong> ${company.location}</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    `;
+    companyGrid.appendChild(card);
+  });
+
+  feather.replace();
+}
+
+function updatePagination() {
+  pageSize = parseInt(pageSizeSelect.value);
+  currentPage = 1;
+  renderCompanies();
+}
+
+pageSizeSelect.addEventListener("change", updatePagination);
+searchInput.addEventListener("input", applyFilters);
+filterLocation.addEventListener("change", applyFilters);
+filterType.addEventListener("change", applyFilters);
+filterCapacity.addEventListener("change", applyFilters);
+
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderCompanies();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const maxPage = Math.ceil(filteredCompanies.length / pageSize);
+  if (currentPage < maxPage) {
+    currentPage++;
+    renderCompanies();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  filteredCompanies = [...companies];
+  renderCompanies();
+});
 </script>
 
 </body>
