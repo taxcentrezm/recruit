@@ -1023,7 +1023,76 @@ footer {
           <p>Remote HR Manager</p>
         </div>
       </div>
-    </div>
+
+      <div class="carousel-slide">
+  <div class="company-card">
+    <img src="assets/logos/sonangol.png" alt="Sonangol" />
+    <h4>Sonangol (Angola)</h4>
+    <p>Remote Petroleum Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/lesotho-electricity.png" alt="LEC" />
+    <h4>Lesotho Electricity Co.</h4>
+    <p>Remote Grid Systems Engineer</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/eswatini-telecom.png" alt="Eswatini Telecom" />
+    <h4>Eswatini Telecom</h4>
+    <p>Remote Infrastructure Technician</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/airmadagascar.png" alt="Air Madagascar" />
+    <h4>Air Madagascar</h4>
+    <p>Remote Route Planner</p>
+  </div>
+</div>
+
+<div class="carousel-slide">
+  <div class="company-card">
+    <img src="assets/logos/mauritius-commercial-bank.png" alt="MCB" />
+    <h4>MCB (Mauritius)</h4>
+    <p>Remote Fintech Developer</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/seychelles-airport.png" alt="Seychelles Airport" />
+    <h4>Seychelles Airport Authority</h4>
+    <p>Remote Aviation Systems Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/angola-post.png" alt="Correios Angola" />
+    <h4>Correios Angola</h4>
+    <p>Remote Logistics Planner</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/lesotho-postbank.png" alt="Lesotho PostBank" />
+    <h4>Lesotho PostBank</h4>
+    <p>Remote Compliance Officer</p>
+  </div>
+</div>
+
+<div class="carousel-slide">
+  <div class="company-card">
+    <img src="assets/logos/eswatini-bank.png" alt="Eswatini Bank" />
+    <h4>Eswatini Bank</h4>
+    <p>Remote Treasury Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/madagascar-breweries.png" alt="Star Madagascar" />
+    <h4>Star Breweries (Madagascar)</h4>
+    <p>Remote Supply Chain Manager</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/mauritius-airports.png" alt="Mauritius Airports" />
+    <h4>Mauritius Airports Ltd</h4>
+    <p>Remote Operations Coordinator</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/seychelles-broadcasting.png" alt="SBC" />
+    <h4>Seychelles Broadcasting Corp.</h4>
+    <p>Remote Media Content Editor</p>
+  </div>
+</div>
+      </div>
   </div>
 </section>
   <!-- ===============================
@@ -1587,7 +1656,7 @@ observer.observe(optionsSection);
     <script>
   let currentSlide = 0;
   const track = document.querySelector('.carousel-track');
-  const totalSlides = document.querySelectorAll('.carousel-slide').length;
+  const totalSlides = 9;
 
   setInterval(() => {
     currentSlide = (currentSlide + 1) % totalSlides;
