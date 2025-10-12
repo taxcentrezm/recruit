@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Header Container */
+  /* ========== Header ========== */
 .main-header {
   background: #fff;
   padding: 30px 40px;
@@ -17,7 +17,6 @@
   align-items: center;
 }
 
-/* Logo */
 .logo {
   font-size: 2rem;
   font-weight: 700;
@@ -26,117 +25,7 @@
   text-align: center;
 }
 
-/* Filter Bar */
-.filter-bar {
-  width: 100%;
-  max-width: 960px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Search Input */
-#searchInput {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-/* Filter Form */
-.nav-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Filter Rows */
-.form-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Dropdowns */
-.form-row select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  min-width: 180px;
-}
-
-/* Chip Filter */
-.chip-filter {
-  text-align: center;
-}
-
-.chip-filter label {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 6px;
-}
-
-.chip {
-  background: #e6e9f2;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.chip.active {
-  background: #bb0303;
-  color: white;
-}
-
-/* Age Slider */
-.age-slider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-}
-
-#ageRange {
-  width: 200px;
-}
-
-/* Apply Button */
-.btn.small {
-  padding: 8px 16px;
-  background: #bb0303;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.3s ease;
-}
-
-.btn.small:hover {
-  background: #a00202;
-}
-
-/* Navigation Bar */
+/* ========== Navigation ========== */
 .main-nav {
   margin-top: 30px;
   display: flex;
@@ -165,6 +54,117 @@
   border-bottom: 2px solid #bb0303;
 }
 
+/* ========== Filter Bar ========== */
+.filter-bar {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.nav-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-row select,
+.filter-bar select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-width: 180px;
+}
+
+/* ========== Chip Filter ========== */
+.chip-filter {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.chip-filter label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.chip {
+  background: #e6e9f2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chip.active {
+  background: #bb0303;
+  color: white;
+}
+
+/* ========== Age Slider ========== */
+.age-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+#ageRange {
+  width: 200px;
+}
+
+/* ========== Apply Button ========== */
+.btn.small {
+  padding: 8px 16px;
+  background: #bb0303;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.btn.small:hover {
+  background: #a00202;
+}
+
+/* ========== Talent Section ========== */
 .talent-section {
   padding: 60px 40px;
   background: #fff;
@@ -181,6 +181,47 @@
   gap: 10px;
 }
 
+/* ========== Grid Header ========== */
+.grid-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.grid-header h2 {
+  font-size: 1.8rem;
+  color: #bb0303;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.grid-controls label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.grid-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* ========== Talent Grid ========== */
 .talent-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -220,6 +261,7 @@
   margin: 4px 0;
 }
 
+/* ========== Card Actions ========== */
 .card-actions {
   display: flex;
   justify-content: center;
@@ -248,101 +290,6 @@
   background: #e6e9f2;
   color: #333;
 }
-
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin: 30px 0;
-}
-
-.filter-bar input,
-.filter-bar select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  min-width: 180px;
-}
-
-    .chip-filter {
-  margin: 20px 0;
-  text-align: center;
-}
-
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.chip {
-  background: #e6e9f2;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.chip.active {
-  background: #bb0303;
-  color: white;
-}
-
-    .age-slider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-#ageRange {
-  width: 200px;
-}
-
-    .grid-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.grid-header h2 {
-  font-size: 1.8rem;
-  color: #bb0303;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-}
-
-.grid-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-}
-
-.grid-controls label {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.grid-controls select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-size: 14px;
-}
-
 
 </style>
    <body> 
@@ -529,7 +476,7 @@ const filterQualification = document.getElementById("filterQualification");
 let currentPage = 1;
 let pageSize = parseInt(pageSizeSelect.value);
 
-// Data
+// Data Pools
 const names = [
   "Chipo Banda", "Thabo Moyo", "Naledi Dlamini", "Mwansa Tembo", "Amina Yusuf",
   "Jean-Claude Mbuyi", "Tariro Chikafu", "Lebo Mashaba", "Fatima Issa", "Tendai Ncube"
@@ -543,19 +490,44 @@ const jobs = [
   "HR Manager", "Finance Officer"
 ];
 const qualifications = ["Diploma", "Bachelor's", "Master's", "PhD"];
-const avatars = [
-  "avatar1.jpg", "avatar2.jpg", "avatar3.jpg", "avatar4.jpg", "avatar5.jpg"
+
+const femaleAvatars = [
+  "avatars/female%20(1).jpg",
+  "avatars/female%20(2).jpg"
 ];
+const maleAvatars = [
+  "avatars/male%20(1).jpg",
+  "avatars/male%20(2).jpg",
+  "avatars/male%20(3).jpg"
+];
+const defaultAvatar = "avatars/stock.jpg";
+
+// Preload Avatars
+[...femaleAvatars, ...maleAvatars, defaultAvatar].forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
+
+// Avatar Assignment
+function getRandomAvatar(gender) {
+  const pool = gender === "female" ? femaleAvatars : maleAvatars;
+  const index = Math.floor(Math.random() * pool.length);
+  return pool[index];
+}
 
 // Generate Sample Applicants
-const applicants = Array.from({ length: 80 }, (_, i) => ({
-  name: names[i % names.length],
-  avatar: `assets/avatars/${avatars[i % avatars.length]}`,
-  location: locations[i % locations.length],
-  job: jobs[i % jobs.length],
-  qualification: qualifications[i % qualifications.length],
-  age: 22 + (i % 18)
-}));
+const applicants = Array.from({ length: 80 }, (_, i) => {
+  const gender = i % 2 === 0 ? "female" : "male";
+  return {
+    name: names[i % names.length],
+    gender,
+    avatar: getRandomAvatar(gender),
+    location: locations[i % locations.length],
+    job: jobs[i % jobs.length],
+    qualification: qualifications[i % qualifications.length],
+    age: 22 + (i % 18)
+  };
+});
 
 let filteredApplicants = [...applicants];
 
@@ -589,7 +561,7 @@ function renderApplicants() {
     const card = document.createElement("div");
     card.className = "talent-card";
     card.innerHTML = `
-      <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='assets/avatars/default.jpg'" />
+      <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='${defaultAvatar}'" />
       <h4>${applicant.name}</h4>
       <p><strong>Location:</strong> ${applicant.location}</p>
       <p><strong>Preference:</strong> ${applicant.job}</p>
@@ -642,5 +614,6 @@ document.addEventListener("DOMContentLoaded", () => {
   applyFilters();
 });
 </script>
+
 </body>
 </html>
