@@ -1653,7 +1653,7 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(optionsSection);
 
-    <script>
+
   let currentSlide = 0;
   const track = document.querySelector('.carousel-track');
   const totalSlides = 9;
@@ -1661,8 +1661,17 @@ observer.observe(optionsSection);
   setInterval(() => {
     currentSlide = (currentSlide + 1) % totalSlides;
     track.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }, 5000); // 5 seconds per slide
-</script>
+  }, 5000); // 8 seconds per slide
+    
+document.querySelectorAll('.see-more-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const target = this.getAttribute('data-redirect');
+    if (target) {
+      window.location.href = target;
+    }
+  });
+});
+
 
 </script>
 
