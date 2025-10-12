@@ -90,7 +90,246 @@
   background: #e6e9f2;
   color: #333;
 }
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.filter-bar input,
+.filter-bar select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-width: 180px;
+}
+
+    .chip-filter {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.chip {
+  background: #e6e9f2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chip.active {
+  background: #bb0303;
+  color: white;
+}
+
+    .age-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+#ageRange {
+  width: 200px;
+}
+
+    .grid-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.grid-header h2 {
+  font-size: 1.8rem;
+  color: #bb0303;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.grid-controls label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.grid-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+}
+
+
 </style>
+   <body> 
+  <header class="main-header">
+  <div class="nav-left">
+    <h1 class="logo">Ntchito</h1>
+
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="Search applicant name or skill..." />
+
+      <form class="form-group nav-filters">
+        <div class="form-row">
+          <select id="filterJob">
+           
+  <option value="">Job Preference</option>
+  <option value="Accountant">Accountant</option>
+  <option value="Administrative Assistant">Administrative Assistant</option>
+  <option value="Agricultural Technician">Agricultural Technician</option>
+  <option value="Architect">Architect</option>
+  <option value="Backend Developer">Backend Developer</option>
+  <option value="Business Analyst">Business Analyst</option>
+  <option value="Civil Engineer">Civil Engineer</option>
+  <option value="Content Writer">Content Writer</option>
+  <option value="Customer Support">Customer Support</option>
+  <option value="Data Analyst">Data Analyst</option>
+  <option value="Data Scientist">Data Scientist</option>
+  <option value="Digital Marketer">Digital Marketer</option>
+  <option value="Electrical Engineer">Electrical Engineer</option>
+  <option value="Environmental Consultant">Environmental Consultant</option>
+  <option value="Finance Officer">Finance Officer</option>
+  <option value="Frontend Developer">Frontend Developer</option>
+  <option value="Graphic Designer">Graphic Designer</option>
+  <option value="HR Manager">HR Manager</option>
+  <option value="IT Support Specialist">IT Support Specialist</option>
+  <option value="Legal Advisor">Legal Advisor</option>
+  <option value="Logistics Coordinator">Logistics Coordinator</option>
+  <option value="Marketing Specialist">Marketing Specialist</option>
+  <option value="Mechanical Engineer">Mechanical Engineer</option>
+  <option value="Mobile App Developer">Mobile App Developer</option>
+  <option value="Network Administrator">Network Administrator</option>
+  <option value="Operations Lead">Operations Lead</option>
+  <option value="Pharmacist">Pharmacist</option>
+  <option value="Product Manager">Product Manager</option>
+  <option value="Project Manager">Project Manager</option>
+  <option value="Public Relations Officer">Public Relations Officer</option>
+  <option value="Quality Assurance Analyst">Quality Assurance Analyst</option>
+  <option value="Receptionist">Receptionist</option>
+  <option value="Sales Executive">Sales Executive</option>
+  <option value="Software Engineer">Software Engineer</option>
+  <option value="Supply Chain Manager">Supply Chain Manager</option>
+  <option value="Teacher">Teacher</option>
+  <option value="UI/UX Designer">UI/UX Designer</option>
+  <option value="Veterinary Technician">Veterinary Technician</option>
+  <option value="Web Developer">Web Developer</option>
+  <option value="Youth Program Coordinator">Youth Program Coordinator</option>
+  <option value="Zoning Compliance Officer">Zoning Compliance Officer</option>
+</select>
+        </div>
+
+        <div class="form-row">
+          <select id="filterLocation">
+            <option value="">Location</option>
+            <option value="Angola">Angola</option>
+            <option value="Botswana">Botswana</option>
+            <option value="Comoros">Comoros</option>
+            <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+            <option value="Eswatini">Eswatini</option>
+            <option value="Lesotho">Lesotho</option>
+            <option value="Madagascar">Madagascar</option>
+            <option value="Malawi">Malawi</option>
+            <option value="Mauritius">Mauritius</option>
+            <option value="Mozambique">Mozambique</option>
+            <option value="Namibia">Namibia</option>
+            <option value="Seychelles">Seychelles</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Zambia">Zambia</option>
+            <option value="Zimbabwe">Zimbabwe</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+<div class="chip-filter">
+  <label>Skills:</label>
+  <div class="chip-group" id="skillChips">
+    <span class="chip" data-skill="JavaScript">JavaScript</span>
+    <span class="chip" data-skill="Python">Python</span>
+    <span class="chip" data-skill="SQL">SQL</span>
+    <span class="chip" data-skill="React">React</span>
+    <span class="chip" data-skill="Node.js">Node.js</span>
+    <span class="chip" data-skill="Excel">Excel</span>
+    <span class="chip" data-skill="Communication">Communication</span>
+    <span class="chip" data-skill="Leadership">Leadership</span>
+    <span class="chip" data-skill="Project Management">Project Management</span>
+  </div>
+</div>
+        </div>
+        
+<div class="form-row">
+        <div class="age-slider">
+  <label for="ageRange">Age Range:</label>
+  <input type="range" id="ageRange" min="18" max="60" value="60" />
+  <span id="ageValue">Up to 60</span>
+</div>
+</div>
+
+        
+        <div class="form-row">
+  <select id="filterProximity">
+    <option value="">Proximity</option>
+    <option value="Near Me">Near Me</option>
+    <option value="Remote">Remote</option>
+    <option value="Onsite">Onsite</option>
+  </select>
+</div>
+    </div>
+
+
+        <div class="form-row">
+          <select id="filterQualification">
+            <option value="">Qualification</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Bachelor's">Bachelor's</option>
+            <option value="Master's">Master's</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <button class="btn small" type="submit"><i data-feather="filter"></i> Apply</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Find Jobs</a>
+    <a href="companies.html">Companies</a>
+    <a href="talent.html" class="active">Find Talent</a>
+    <a href="intern.html">Internships</a>
+    <a href="graduate.html">Post Graduates</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+</header>
 <section class="talent-section">
   <div class="grid-header">
     <h2><i data-feather="users"></i> Available Talent</h2>
@@ -105,32 +344,6 @@
     </div>
   </div>
 
-  <div class="filter-bar">
-    <input type="text" id="searchInput" placeholder="Search name or skill..." />
-    <select id="filterLocation">
-      <option value="">All Locations</option>
-      <option value="Zambia">Zambia</option>
-      <option value="South Africa">South Africa</option>
-      <option value="Botswana">Botswana</option>
-      <!-- Add all SADC countries -->
-    </select>
-    <select id="filterJob">
-      <option value="">All Preferences</option>
-      <option value="Frontend Developer">Frontend Developer</option>
-      <option value="Backend Developer">Backend Developer</option>
-      <option value="Data Analyst">Data Analyst</option>
-      <option value="HR Manager">HR Manager</option>
-      <option value="Finance Officer">Finance Officer</option>
-    </select>
-    <select id="filterQualification">
-      <option value="">All Qualifications</option>
-      <option value="Diploma">Diploma</option>
-      <option value="Bachelor's">Bachelor's</option>
-      <option value="Master's">Master's</option>
-      <option value="PhD">PhD</option>
-    </select>
-  </div>
-
   <div class="talent-grid" id="talentGrid">
     <!-- Applicant cards will be injected here -->
   </div>
@@ -143,6 +356,7 @@
 <script>
 feather.replace();
 
+// DOM Elements
 const talentGrid = document.getElementById("talentGrid");
 const pageSizeSelect = document.getElementById("pageSize");
 const prevBtn = document.getElementById("prevPage");
@@ -153,41 +367,53 @@ const filterLocation = document.getElementById("filterLocation");
 const filterJob = document.getElementById("filterJob");
 const filterQualification = document.getElementById("filterQualification");
 
+// Pagination State
 let currentPage = 1;
 let pageSize = parseInt(pageSizeSelect.value);
-let applicants = [];
-let filteredApplicants = [];
 
-// Sample dataset
-const names = ["Chipo Banda", "Thabo Moyo", "Naledi Dlamini", "Mwansa Tembo", "Amina Yusuf", "Jean-Claude Mbuyi", "Tariro Chikafu", "Lebo Mashaba", "Fatima Issa", "Tendai Ncube"];
-const locations = ["Zambia", "South Africa", "Botswana", "Malawi", "Zimbabwe", "Namibia", "Mozambique", "Lesotho", "Eswatini", "DRC"];
-const jobs = ["Frontend Developer", "Backend Developer", "Data Analyst", "HR Manager", "Finance Officer"];
+// Data
+const names = [
+  "Chipo Banda", "Thabo Moyo", "Naledi Dlamini", "Mwansa Tembo", "Amina Yusuf",
+  "Jean-Claude Mbuyi", "Tariro Chikafu", "Lebo Mashaba", "Fatima Issa", "Tendai Ncube"
+];
+const locations = [
+  "Zambia", "South Africa", "Botswana", "Malawi", "Zimbabwe", "Namibia",
+  "Mozambique", "Lesotho", "Eswatini", "DRC"
+];
+const jobs = [
+  "Frontend Developer", "Backend Developer", "Data Analyst",
+  "HR Manager", "Finance Officer"
+];
 const qualifications = ["Diploma", "Bachelor's", "Master's", "PhD"];
-const avatars = ["avatar1.jpg", "avatar2.jpg", "avatar3.jpg", "avatar4.jpg", "avatar5.jpg"];
+const avatars = [
+  "avatar1.jpg", "avatar2.jpg", "avatar3.jpg", "avatar4.jpg", "avatar5.jpg"
+];
 
-applicants = Array.from({ length: 80 }, (_, i) => {
-  return {
-    name: names[i % names.length],
-    avatar: `assets/avatars/${avatars[i % avatars.length]}`,
-    location: locations[i % locations.length],
-    job: jobs[i % jobs.length],
-    qualification: qualifications[i % qualifications.length],
-    age: 22 + (i % 18)
-  };
-});
+// Generate Sample Applicants
+const applicants = Array.from({ length: 80 }, (_, i) => ({
+  name: names[i % names.length],
+  avatar: `assets/avatars/${avatars[i % avatars.length]}`,
+  location: locations[i % locations.length],
+  job: jobs[i % jobs.length],
+  qualification: qualifications[i % qualifications.length],
+  age: 22 + (i % 18)
+}));
 
+let filteredApplicants = [...applicants];
+
+// Filter Logic
 function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase();
   const location = filterLocation.value;
   const job = filterJob.value;
   const qualification = filterQualification.value;
 
-  filteredApplicants = applicants.filter(a => {
+  filteredApplicants = applicants.filter(applicant => {
     return (
-      (!searchTerm || a.name.toLowerCase().includes(searchTerm)) &&
-      (!location || a.location === location) &&
-      (!job || a.job === job) &&
-      (!qualification || a.qualification === qualification)
+      (!searchTerm || applicant.name.toLowerCase().includes(searchTerm)) &&
+      (!location || applicant.location === location) &&
+      (!job || applicant.job === job) &&
+      (!qualification || applicant.qualification === qualification)
     );
   });
 
@@ -195,6 +421,7 @@ function applyFilters() {
   renderApplicants();
 }
 
+// Render Cards
 function renderApplicants() {
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
@@ -204,7 +431,7 @@ function renderApplicants() {
     const card = document.createElement("div");
     card.className = "talent-card";
     card.innerHTML = `
-      <img src="${applicant.avatar}" alt="${applicant.name}" />
+      <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='assets/avatars/default.jpg'" />
       <h4>${applicant.name}</h4>
       <p><strong>Location:</strong> ${applicant.location}</p>
       <p><strong>Preference:</strong> ${applicant.job}</p>
@@ -221,36 +448,40 @@ function renderApplicants() {
   feather.replace();
 }
 
+// Pagination Controls
 function updatePagination() {
   pageSize = parseInt(pageSizeSelect.value);
   currentPage = 1;
   renderApplicants();
 }
 
-pageSizeSelect.addEventListener("change", updatePagination);
-searchInput.addEventListener("input", applyFilters);
-filterLocation.addEventListener("change", applyFilters);
-filterJob.addEventListener("change", applyFilters);
-filterQualification.addEventListener("change", applyFilters);
-
-prevBtn.addEventListener("click", () => {
+function goToPreviousPage() {
   if (currentPage > 1) {
     currentPage--;
     renderApplicants();
   }
-});
+}
 
-nextBtn.addEventListener("click", () => {
+function goToNextPage() {
   const maxPage = Math.ceil(filteredApplicants.length / pageSize);
   if (currentPage < maxPage) {
     currentPage++;
     renderApplicants();
   }
-});
+}
 
+// Event Listeners
+pageSizeSelect.addEventListener("change", updatePagination);
+searchInput.addEventListener("input", applyFilters);
+filterLocation.addEventListener("change", applyFilters);
+filterJob.addEventListener("change", applyFilters);
+filterQualification.addEventListener("change", applyFilters);
+prevBtn.addEventListener("click", goToPreviousPage);
+nextBtn.addEventListener("click", goToNextPage);
+
+// Init
 document.addEventListener("DOMContentLoaded", () => {
-  filteredApplicants = [...applicants];
-  renderApplicants();
+  applyFilters();
 });
 </script>
 </body>
