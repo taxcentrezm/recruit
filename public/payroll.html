@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SADC Payroll Calculator</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+<style>
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+.main-header {
+  background: #bb0303;
+  color: white;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.calculator-section {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.payroll-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+select,
+input[type="number"] {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.btn.calculate {
+  background: #bb0303;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn.calculate:hover {
+  background: #a00202;
+}
+
+.results-section {
+  margin-top: 30px;
+}
+
+.results-section.hidden {
+  display: none;
+}
+
+.results-section h2 {
+  font-size: 1.4rem;
+  color: #bb0303;
+  margin-bottom: 20px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.results-grid p {
+  font-size: 14px;
+  background: #f2f2f2;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.main-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #777;
+}
+</style>
+</head>
+<body>
+  <header class="main-header">
+    <h1 class="logo">SADC Payroll Calculator</h1>
+    <p class="subtitle">Calculate PAYE, pension, and net income across SADC countries</p>
+  </header>
+
+  <main class="calculator-section">
+    <form id="payrollForm" class="payroll-form">
+      <div class="form-row">
+        <label for="countrySelect">Country:</label>
+         <option value="">Location</option>
+  <option value="Angola">Angola</option>
+  <option value="Botswana">Botswana</option>
+  <option value="Comoros">Comoros</option>
+  <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+  <option value="Eswatini">Eswatini</option>
+  <option value="Lesotho">Lesotho</option>
+  <option value="Madagascar">Madagascar</option>
+  <option value="Malawi">Malawi</option>
+  <option value="Mauritius">Mauritius</option>
+  <option value="Mozambique">Mozambique</option>
+  <option value="Namibia">Namibia</option>
+  <option value="Seychelles">Seychelles</option>
+  <option value="South Africa">South Africa</option>
+  <option value="Tanzania">Tanzania</option>
+  <option value="Zambia">Zambia</option>
+  <option value="Zimbabwe">Zimbabwe</option>
+</select>
+      </div>
+
+      <div class="form-row">
+        <label for="grossIncome">Gross Monthly Income:</label>
+        <input type="number" id="grossIncome" placeholder="Enter amount" required />
+      </div>
+
+      <div class="form-row">
+        <button type="submit" class="btn calculate"><i data-feather="calculator"></i> Calculate</button>
+      </div>
+    </form>
+
+    <section id="payrollResults" class="results-section hidden">
+      <h2>Payroll Summary</h2>
+      <div class="results-grid">
+        <p><strong>Country:</strong> <span id="resultCountry"></span></p>
+        <p><strong>Gross Income:</strong> <span id="resultGross"></span></p>
+        <p><strong>PAYE:</strong> <span id="resultPAYE"></span></p>
+        <p><strong>Pension:</strong> <span id="resultPension"></span></p>
+        <p><strong>Health Insurance:</strong> <span id="resultHealth"></span></p>
+        <p><strong>Net Income:</strong> <span id="resultNet"></span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <p>&copy; 2025 Ntchito Platform. All rights reserved.</p>
+  </footer>
+
+  <script src="payroll.js"></script>
+  <script>
+    feather.replace();
+
+const countryMeta = {
+  "Zambia":      { currency: "ZMW", flag: "🇿🇲" },
+  "South Africa": { currency: "ZAR", flag: "🇿🇦" },
+  "Botswana":    { currency: "BWP", flag: "🇧🇼" },
+  "Namibia":     { currency: "NAD", flag: "🇳🇦" },
+  "Zimbabwe":    { currency: "ZWL", flag: "🇿🇼" },
+  "Malawi":      { currency: "MWK", flag: "🇲🇼" },
+  "Mozambique":  { currency: "MZN", flag: "🇲🇿" },
+  "Lesotho":     { currency: "LSL", flag: "🇱🇸" },
+  "Eswatini":    { currency: "SZL", flag: "🇸🇿" },
+  "DRC":         { currency: "CDF", flag: "🇨🇩" },
+  "Angola":      { currency: "AOA", flag: "🇦🇴" },
+  "Tanzania":    { currency: "TZS", flag: "🇹🇿" },
+  "Mauritius":   { currency: "MUR", flag: "🇲🇺" },
+  "Seychelles":  { currency: "SCR", flag: "🇸🇨" },
+  "Comoros":     { currency: "KMF", flag: "🇰🇲" }
+};
+
+const countrySelect = document.getElementById("countrySelect");
+const grossIncomeInput = document.getElementById("grossIncome");
+const payrollForm = document.getElementById("payrollForm");
+const payrollResults = document.getElementById("payrollResults");
+
+const resultCountry = document.getElementById("resultCountry");
+const resultGross = document.getElementById("resultGross");
+const resultPAYE = document.getElementById("resultPAYE");
+const resultPension = document.getElementById("resultPension");
+const resultHealth = document.getElementById("resultHealth");
+const resultNet = document.getElementById("resultNet");
+
+function formatCurrency(amount, country) {
+  const meta = countryMeta[country] || { currency: "", flag: "" };
+  return `${meta.flag} ${meta.currency} ${amount.toFixed(2)}`;
+}
+
+function calculatePayroll(country, gross) {
+  let paye = 0, pension = 0, health = 0;
+
+  switch (country) {
+    case "Zambia":
+      if (gross <= 4800) paye = 0;
+      else if (gross <= 6900) paye = (gross - 4800) * 0.25;
+      else if (gross <= 9900) paye = 525 + (gross - 6900) * 0.30;
+      else paye = 1425 + (gross - 9900) * 0.375;
+      pension = gross * 0.05;
+      health = gross * 0.01;
+      break;
+
+    case "South Africa":
+      paye = gross * 0.18;
+      pension = gross * 0.075;
+      health = gross * 0.02;
+      break;
+
+    case "Botswana":
+      paye = gross > 3000 ? (gross - 3000) * 0.25 : 0;
+      pension = gross * 0.05;
+      health = gross * 0.015;
+      break;
+
+    case "Namibia":
+      paye = gross * 0.20;
+      pension = gross * 0.075;
+      health = gross * 0.015;
+      break;
+
+    case "Zimbabwe":
+      paye = gross * 0.25;
+      pension = gross * 0.05;
+      health = gross * 0.02;
+      break;
+
+    default:
+      paye = gross * 0.15;
+      pension = gross * 0.05;
+      health = gross * 0.01;
+  }
+
+  const net = gross - (paye + pension + health);
+  return { paye, pension, health, net };
+}
+
+payrollForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const country = countrySelect.value;
+  const gross = parseFloat(grossIncomeInput.value);
+
+  if (!country || isNaN(gross)) return;
+
+  const { paye, pension, health, net } = calculatePayroll(country, gross);
+
+  resultCountry.textContent = `${countryMeta[country].flag} ${country}`;
+  resultGross.textContent = formatCurrency(gross, country);
+  resultPAYE.textContent = formatCurrency(paye, country);
+  resultPension.textContent = formatCurrency(pension, country);
+  resultHealth.textContent = formatCurrency(health, country);
+  resultNet.textContent = formatCurrency(net, country);
+
+  payrollResults.classList.remove("hidden");
+});
+
+  </script>
+</body>
+</html>
