@@ -981,10 +981,22 @@ footer {
   const pageSizeSelect = document.getElementById("pageSize");
   const prevBtn = document.getElementById("prevPage");
   const nextBtn = document.getElementById("nextPage");
+   const companyGrid = document.getElementById("companyGrid");
 
+const searchInput = document.getElementById("searchInput");
+const filterLocation = document.getElementById("filterLocation");
+const filterType = document.getElementById("filterType");
+const filterCapacity = document.getElementById("filterCapacity");
+   
+let companies = [];
+let filteredCompanies = [];
   let currentPage = 1;
   let pageSize = parseInt(pageSizeSelect.value);
   let allCards = [];
+
+
+ 
+ 
 
   function paginate() {
     const start = (currentPage - 1) * pageSize;
@@ -1023,20 +1035,7 @@ footer {
   document.addEventListener("DOMContentLoaded", initPagination);
 
 
-const companyGrid = document.getElementById("companyGrid");
-const pageSizeSelect = document.getElementById("pageSize");
-const prevBtn = document.getElementById("prevPage");
-const nextBtn = document.getElementById("nextPage");
 
-const searchInput = document.getElementById("searchInput");
-const filterLocation = document.getElementById("filterLocation");
-const filterType = document.getElementById("filterType");
-const filterCapacity = document.getElementById("filterCapacity");
-
-let currentPage = 1;
-let pageSize = parseInt(pageSizeSelect.value);
-let companies = [];
-let filteredCompanies = [];
 
 // Generate 80 companies
 companies = Array.from({ length: 80 }, (_, i) => {
