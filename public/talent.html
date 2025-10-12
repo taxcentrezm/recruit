@@ -7,6 +7,164 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* Header Container */
+.main-header {
+  background: #fff;
+  padding: 30px 40px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo */
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #bb0303;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Filter Bar */
+.filter-bar {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Search Input */
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Filter Form */
+.nav-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Filter Rows */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Dropdowns */
+.form-row select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-width: 180px;
+}
+
+/* Chip Filter */
+.chip-filter {
+  text-align: center;
+}
+
+.chip-filter label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.chip {
+  background: #e6e9f2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chip.active {
+  background: #bb0303;
+  color: white;
+}
+
+/* Age Slider */
+.age-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+#ageRange {
+  width: 200px;
+}
+
+/* Apply Button */
+.btn.small {
+  padding: 8px 16px;
+  background: #bb0303;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.btn.small:hover {
+  background: #a00202;
+}
+
+/* Navigation Bar */
+.main-nav {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.main-nav a:hover {
+  background: #f2f2f2;
+}
+
+.main-nav a.active {
+  color: #bb0303;
+  font-weight: 600;
+  border-bottom: 2px solid #bb0303;
+}
+
 .talent-section {
   padding: 60px 40px;
   background: #fff;
