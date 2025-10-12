@@ -555,6 +555,7 @@
 </div>
 
 <script>
+<script>
 feather.replace();
 
 // DOM Elements
@@ -571,65 +572,21 @@ const filterProximity = document.getElementById("filterProximity");
 const ageRange = document.getElementById("ageRange");
 const ageValue = document.getElementById("ageValue");
 const skillChips = document.querySelectorAll(".chip");
-  
-function applyFilters() {
-  const searchTerm = searchInput.value.toLowerCase();
-  const location = filterLocation.value;
-  const job = filterJob.value;
-  const qualification = filterQualification.value;
-  const proximity = filterProximity.value;
 
-let maxAge = parseInt(ageRange.value);
-let selectedSkills = [];
-
-ageRange.addEventListener("input", () => {
-  maxAge = parseInt(ageRange.value);
-  ageValue.textContent = `Up to ${maxAge}`;
-  applyFilters();
-});
-
-skillChips.forEach(chip => {
-  chip.addEventListener("click", () => {
-    const skill = chip.dataset.skill;
-    chip.classList.toggle("active");
-
-    if (selectedSkills.includes(skill)) {
-      selectedSkills = selectedSkills.filter(s => s !== skill);
-    } else {
-      selectedSkills.push(skill);
-    }
-
-    applyFilters();
-  });
-});
-
-searchInput.addEventListener("input", applyFilters);
-filterLocation.addEventListener("change", applyFilters);
-filterJob.addEventListener("change", applyFilters);
-filterQualification.addEventListener("change", applyFilters);
-filterProximity.addEventListener("change", applyFilters);
-
-// Inside applyFilters(), include these conditions:
-
-  filteredApplicants = applicants.filter(applicant => {
-    return (
-      (!searchTerm || applicant.name.toLowerCase().includes(searchTerm)) &&
-      (!location || applicant.location === location) &&
-      (!job || applicant.job === job) &&
-      (!qualification || applicant.qualification === qualification) &&
-      (!proximity || applicant.proximity === proximity) &&
-      (!selectedSkills.length || selectedSkills.every(skill => applicant.skills?.includes(skill))) &&
-      applicant.age <= maxAge
-    );
-  });
-
-  currentPage = 1;
-  renderApplicants();
-}
+const chatWidget = document.getElementById("chatWidget");
+const chatMessages = document.getElementById("chatMessages");
+const chatText = document.getElementById("chatText");
+const sendChat = document.getElementById("sendChat");
+const minimizeChat = document.getElementById("minimizeChat");
+const closeChat = document.getElementById("closeChat");
 
 // Pagination State
 let currentPage = 1;
 let pageSize = parseInt(pageSizeSelect.value);
+
+// Filter State
+let maxAge = parseInt(ageRange.value);
+let selectedSkills = [];
 
 // Data Pools
 const names = [
@@ -666,8 +623,7 @@ const defaultAvatar = "assets/avatars/stock.jpg";
 // Avatar Assignment
 function getRandomAvatar(gender) {
   const pool = gender === "female" ? femaleAvatars : maleAvatars;
-  const index = Math.floor(Math.random() * pool.length);
-  return pool[index];
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 // Generate Sample Applicants
@@ -680,7 +636,9 @@ const applicants = Array.from({ length: 80 }, (_, i) => {
     location: locations[i % locations.length],
     job: jobs[i % jobs.length],
     qualification: qualifications[i % qualifications.length],
-    age: 22 + (i % 18)
+    age: 22 + (i % 18),
+    proximity: i % 3 === 0 ? "Remote" : i % 3 === 1 ? "Onsite" : "Near Me",
+    skills: ["JavaScript", "React", "SQL", "Communication"].filter((_, j) => (i + j) % 2 === 0)
   };
 });
 
@@ -692,13 +650,17 @@ function applyFilters() {
   const location = filterLocation.value;
   const job = filterJob.value;
   const qualification = filterQualification.value;
+  const proximity = filterProximity.value;
 
   filteredApplicants = applicants.filter(applicant => {
     return (
       (!searchTerm || applicant.name.toLowerCase().includes(searchTerm)) &&
       (!location || applicant.location === location) &&
       (!job || applicant.job === job) &&
-      (!qualification || applicant.qualification === qualification)
+      (!qualification || applicant.qualification === qualification) &&
+      (!proximity || applicant.proximity === proximity) &&
+      (!selectedSkills.length || selectedSkills.every(skill => applicant.skills.includes(skill))) &&
+      applicant.age <= maxAge
     );
   });
 
@@ -711,84 +673,59 @@ function renderApplicants() {
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   talentGrid.innerHTML = "";
-  
-filteredApplicants.slice(start, end).forEach((applicant, index) => {
-  const card = document.createElement("div");
-  card.className = "talent-card";
-  card.innerHTML = `
-    <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='${defaultAvatar}'" />
-    <h4>${applicant.name}</h4>
-    <p><strong>Location:</strong> ${applicant.location}</p>
-    <p><strong>Preference:</strong> ${applicant.job}</p>
-    <p><strong>Qualification:</strong> ${applicant.qualification}</p>
-    <p><strong>Age:</strong> ${applicant.age}</p>
-    <div class="card-actions">
-      <button class="btn apply" data-index="${start + index}"><i data-feather="send"></i> Contact</button>
-      <button class="btn save"><i data-feather="bookmark"></i> Save</button>
-    </div>
-  `;
-  talentGrid.appendChild(card);
-});
 
+  filteredApplicants.slice(start, end).forEach((applicant, index) => {
+    const card = document.createElement("div");
+    card.className = "talent-card";
+    card.innerHTML = `
+      <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='${defaultAvatar}'" />
+      <h4>${applicant.name}</h4>
+      <p><strong>Location:</strong> ${applicant.location}</p>
+      <p><strong>Preference:</strong> ${applicant.job}</p>
+      <p><strong>Qualification:</strong> ${applicant.qualification}</p>
+      <p><strong>Age:</strong> ${applicant.age}</p>
+      <div class="card-actions">
+        <button class="btn apply" data-index="${start + index}"><i data-feather="send"></i> Contact</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    `;
+    talentGrid.appendChild(card);
+  });
 
   feather.replace();
+  bindChatTriggers();
 }
 
-// Pagination Controls
-function updatePagination() {
-  pageSize = parseInt(pageSizeSelect.value);
-  currentPage = 1;
-  renderApplicants();
-}
-
-function goToPreviousPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    renderApplicants();
-  }
-}
-
-function goToNextPage() {
-  const maxPage = Math.ceil(filteredApplicants.length / pageSize);
-  if (currentPage < maxPage) {
-    currentPage++;
-    renderApplicants();
-  }
-}
-
-// Event Listeners
-pageSizeSelect.addEventListener("change", updatePagination);
-searchInput.addEventListener("input", applyFilters);
-filterLocation.addEventListener("change", applyFilters);
-filterJob.addEventListener("change", applyFilters);
-filterQualification.addEventListener("change", applyFilters);
-prevBtn.addEventListener("click", goToPreviousPage);
-nextBtn.addEventListener("click", goToNextPage);
-
-
-  const contactButtons = document.querySelectorAll(".btn-apply");
-const chatWidget = document.getElementById("chatWidget");
-const chatMessages = document.getElementById("chatMessages");
-const chatText = document.getElementById("chatText");
-const sendChat = document.getElementById("sendChat");
-const minimizeChat = document.getElementById("minimizeChat");
-const closeChat = document.getElementById("closeChat");
-
-contactButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    chatWidget.classList.remove("hidden");
-    showToast("Secure chat initiated");
-    playNotificationSound();
-    preloadPrompts();
+// Chat Trigger Binding
+function bindChatTriggers() {
+  document.querySelectorAll(".btn.apply").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = parseInt(button.dataset.index);
+      const applicant = filteredApplicants[index];
+      openChatWindow(applicant);
+    });
   });
-});
+}
+
+// Chat Window Logic
+function openChatWindow(applicant) {
+  chatWidget.classList.remove("hidden");
+  chatWidget.style.height = "500px";
+  chatMessages.innerHTML = "";
+
+  appendMessage("System", `You're now chatting with ${applicant.name}.`);
+  appendMessage("System", `This is a secure channel. You may share contact details after verification.`);
+  appendMessage("System", `Would you like to receive future updates via Email, WhatsApp, or SMS?`);
+
+  showToast(`Chat started with ${applicant.name}`);
+  playNotificationSound();
+}
 
 sendChat.addEventListener("click", () => {
   const message = chatText.value.trim();
   if (message) {
     appendMessage("You", message);
     chatText.value = "";
-    // Simulate response
     setTimeout(() => {
       appendMessage("Applicant", "Thanks for reaching out!");
     }, 1000);
@@ -805,17 +742,12 @@ closeChat.addEventListener("click", () => {
   chatWidget.classList.add("hidden");
 });
 
+// Chat Helpers
 function appendMessage(sender, text) {
   const msg = document.createElement("div");
   msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
   chatMessages.appendChild(msg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function preloadPrompts() {
-  appendMessage("System", "You are now connected securely.");
-  appendMessage("System", "You can request to send this chat to your email.");
-  appendMessage("System", "Would you like to receive future updates via WhatsApp, SMS, or Email?");
 }
 
 function showToast(message) {
@@ -838,10 +770,60 @@ function playNotificationSound() {
   audio.play();
 }
 
-// Init
+// Filter Events
+ageRange.addEventListener("input", () => {
+  maxAge = parseInt(ageRange.value);
+  ageValue.textContent = `Up to ${maxAge}`;
+  applyFilters();
+});
+
+skillChips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    const skill = chip.dataset.skill;
+    chip.classList.toggle("active");
+
+    if (selectedSkills.includes(skill)) {
+      selectedSkills = selectedSkills.filter(s => s !== skill);
+    } else {
+      selectedSkills.push(skill);
+    }
+
+    applyFilters();
+  });
+});
+
+searchInput.addEventListener("input", applyFilters);
+filterLocation.addEventListener("change", applyFilters);
+filterJob.addEventListener("change", applyFilters);
+filterQualification.addEventListener("change", applyFilters);
+filterProximity.addEventListener("change", applyFilters);
+
+pageSizeSelect.addEventListener("change", () => {
+  pageSize = parseInt(pageSizeSelect.value);
+  currentPage = 1;
+  renderApplicants();
+});
+
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderApplicants();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const maxPage = Math.ceil(filteredApplicants.length / pageSize);
+  if (currentPage < maxPage) {
+    currentPage++;
+    renderApplicants();
+  }
+});
+
+// Initialize on load
 document.addEventListener("DOMContentLoaded", () => {
   applyFilters();
 });
+
 </script>
 
 </body>
