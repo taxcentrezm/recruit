@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Talent | Ntchito</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+.talent-section {
+  padding: 60px 40px;
+  background: #fff;
+}
+
+.talent-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #bb0303;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.talent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.talent-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.talent-card:hover {
+  transform: translateY(-4px);
+}
+
+.talent-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.talent-card h4 {
+  font-size: 1rem;
+  color: #0a66c2;
+  margin-bottom: 6px;
+}
+
+.talent-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-actions .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+.btn.apply {
+  background: #bb0303;
+  color: white;
+}
+
+.btn.save {
+  background: #e6e9f2;
+  color: #333;
+}
+</style>
+<section class="talent-section">
+  <div class="grid-header">
+    <h2><i data-feather="users"></i> Available Talent</h2>
+    <div class="grid-controls">
+      <label>Show:</label>
+      <select id="pageSize">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="Search name or skill..." />
+    <select id="filterLocation">
+      <option value="">All Locations</option>
+      <option value="Zambia">Zambia</option>
+      <option value="South Africa">South Africa</option>
+      <option value="Botswana">Botswana</option>
+      <!-- Add all SADC countries -->
+    </select>
+    <select id="filterJob">
+      <option value="">All Preferences</option>
+      <option value="Frontend Developer">Frontend Developer</option>
+      <option value="Backend Developer">Backend Developer</option>
+      <option value="Data Analyst">Data Analyst</option>
+      <option value="HR Manager">HR Manager</option>
+      <option value="Finance Officer">Finance Officer</option>
+    </select>
+    <select id="filterQualification">
+      <option value="">All Qualifications</option>
+      <option value="Diploma">Diploma</option>
+      <option value="Bachelor's">Bachelor's</option>
+      <option value="Master's">Master's</option>
+      <option value="PhD">PhD</option>
+    </select>
+  </div>
+
+  <div class="talent-grid" id="talentGrid">
+    <!-- Applicant cards will be injected here -->
+  </div>
+
+  <div class="pagination-controls">
+    <button id="prevPage"><i data-feather="arrow-left"></i> Back</button>
+    <button id="nextPage">Next <i data-feather="arrow-right"></i></button>
+  </div>
+</section>
+<script>
+feather.replace();
+
+const talentGrid = document.getElementById("talentGrid");
+const pageSizeSelect = document.getElementById("pageSize");
+const prevBtn = document.getElementById("prevPage");
+const nextBtn = document.getElementById("nextPage");
+
+const searchInput = document.getElementById("searchInput");
+const filterLocation = document.getElementById("filterLocation");
+const filterJob = document.getElementById("filterJob");
+const filterQualification = document.getElementById("filterQualification");
+
+let currentPage = 1;
+let pageSize = parseInt(pageSizeSelect.value);
+let applicants = [];
+let filteredApplicants = [];
+
+// Sample dataset
+const names = ["Chipo Banda", "Thabo Moyo", "Naledi Dlamini", "Mwansa Tembo", "Amina Yusuf", "Jean-Claude Mbuyi", "Tariro Chikafu", "Lebo Mashaba", "Fatima Issa", "Tendai Ncube"];
+const locations = ["Zambia", "South Africa", "Botswana", "Malawi", "Zimbabwe", "Namibia", "Mozambique", "Lesotho", "Eswatini", "DRC"];
+const jobs = ["Frontend Developer", "Backend Developer", "Data Analyst", "HR Manager", "Finance Officer"];
+const qualifications = ["Diploma", "Bachelor's", "Master's", "PhD"];
+const avatars = ["avatar1.jpg", "avatar2.jpg", "avatar3.jpg", "avatar4.jpg", "avatar5.jpg"];
+
+applicants = Array.from({ length: 80 }, (_, i) => {
+  return {
+    name: names[i % names.length],
+    avatar: `assets/avatars/${avatars[i % avatars.length]}`,
+    location: locations[i % locations.length],
+    job: jobs[i % jobs.length],
+    qualification: qualifications[i % qualifications.length],
+    age: 22 + (i % 18)
+  };
+});
+
+function applyFilters() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const location = filterLocation.value;
+  const job = filterJob.value;
+  const qualification = filterQualification.value;
+
+  filteredApplicants = applicants.filter(a => {
+    return (
+      (!searchTerm || a.name.toLowerCase().includes(searchTerm)) &&
+      (!location || a.location === location) &&
+      (!job || a.job === job) &&
+      (!qualification || a.qualification === qualification)
+    );
+  });
+
+  currentPage = 1;
+  renderApplicants();
+}
+
+function renderApplicants() {
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  talentGrid.innerHTML = "";
+
+  filteredApplicants.slice(start, end).forEach(applicant => {
+    const card = document.createElement("div");
+    card.className = "talent-card";
+    card.innerHTML = `
+      <img src="${applicant.avatar}" alt="${applicant.name}" />
+      <h4>${applicant.name}</h4>
+      <p><strong>Location:</strong> ${applicant.location}</p>
+      <p><strong>Preference:</strong> ${applicant.job}</p>
+      <p><strong>Qualification:</strong> ${applicant.qualification}</p>
+      <p><strong>Age:</strong> ${applicant.age}</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Contact</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    `;
+    talentGrid.appendChild(card);
+  });
+
+  feather.replace();
+}
+
+function updatePagination() {
+  pageSize = parseInt(pageSizeSelect.value);
+  currentPage = 1;
+  renderApplicants();
+}
+
+pageSizeSelect.addEventListener("change", updatePagination);
+searchInput.addEventListener("input", applyFilters);
+filterLocation.addEventListener("change", applyFilters);
+filterJob.addEventListener("change", applyFilters);
+filterQualification.addEventListener("change", applyFilters);
+
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderApplicants();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const maxPage = Math.ceil(filteredApplicants.length / pageSize);
+  if (currentPage < maxPage) {
+    currentPage++;
+    renderApplicants();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  filteredApplicants = [...applicants];
+  renderApplicants();
+});
+</script>
+</body>
+</html>
