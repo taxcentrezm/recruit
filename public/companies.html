@@ -1074,19 +1074,38 @@ let filteredCompanies = [];
 
 
 // Generate 80 companies
-companies = Array.from({ length: 80 }, (_, i) => {
+const sampleNames = [
+  "Sonangol", "Debswana", "Comoros Air", "Gécamines", "Eswatini Telecom", "Lesotho Electricity Co.",
+  "Star Breweries", "Illovo Sugar", "Mauritius Commercial Bank", "Mozal Aluminium", "Namdeb",
+  "Seychelles Broadcasting Corp.", "Standard Bank", "TANESCO", "Zanaco", "EcoCash",
+  "SeedCo", "Zoho Africa", "DFCU Bank", "Correios Angola", "Lesotho PostBank", "Eswatini Bank",
+  "Mauritius Airports Ltd", "SBC Seychelles", "Air Madagascar", "MCB Mauritius", "Zimnat",
+  "Namport", "BCI Bank", "Air Botswana", "Afrox Zambia", "First Capital Bank", "Stanbic Bank",
+  "Zoona", "Zamtel", "MTN Zambia", "Airtel Africa", "ABSA Bank", "Sasol", "LEC Lesotho",
+  "Tanzania Breweries", "Comoros Telecom", "Madagascar Oil", "Malawi Post", "Mauritius Telecom",
+  "Mozambique Ports", "Namibia Breweries", "Seychelles Ports Authority", "South African Airways",
+  "Tanzania Electric Supply", "Zambia Sugar", "Zimbabwe Broadcasting", "Angola Telecom",
+  "Botswana Railways", "DRC Mining Corp", "Eswatini Rail", "Lesotho Bank", "Madagascar Airlines",
+  "Malawi Telecom", "Mauritius Energy", "Mozambique Telecom", "Namibia Power", "Seychelles Energy",
+  "South Africa Post", "Tanzania Railways", "Zambia Railways", "Zimbabwe Telecom",
+  "Angola Energy", "Botswana Telecom", "DRC Railways", "Eswatini Energy", "Lesotho Telecom",
+  "Madagascar Ports", "Malawi Energy", "Mauritius Ports", "Mozambique Energy"
+];
+
+companies = sampleNames.map((name, i) => {
   const countries = ["Angola", "Botswana", "Comoros", "DRC", "Eswatini", "Lesotho", "Madagascar", "Malawi", "Mauritius", "Mozambique", "Namibia", "Seychelles", "South Africa", "Tanzania", "Zambia", "Zimbabwe"];
   const types = ["Agriculture", "Banking", "Construction", "Education", "Energy", "Finance", "Healthcare", "Insurance", "Logistics", "Manufacturing", "Media", "Mining", "NGO / Non-Profit", "Oil & Gas", "Retail", "Technology", "Telecommunications", "Transport", "Utilities"];
   const capacities = ["Small", "Medium", "Large"];
 
   return {
-    name: `Company ${i + 1}`,
+    name,
     logo: "assets/logos/default.png",
     type: types[i % types.length],
     capacity: capacities[i % capacities.length],
     location: countries[i % countries.length]
   };
 });
+
 
 function applyFilters() {
   const searchTerm = searchInput.value.toLowerCase();
