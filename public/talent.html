@@ -723,8 +723,8 @@ function renderApplicants() {
       <p><strong>Qualification:</strong> ${applicant.qualification}</p>
       <p><strong>Age:</strong> ${applicant.age}</p>
       <div class="card-actions">
-        <button class="btn apply"><i data-feather="send"></i> Contact</button>
-        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+        <button class="btn-apply"><i data-feather="send"></i> Contact</button>
+        <button class="btn-save"><i data-feather="bookmark"></i> Save</button>
       </div>
     `;
     talentGrid.appendChild(card);
@@ -765,7 +765,7 @@ prevBtn.addEventListener("click", goToPreviousPage);
 nextBtn.addEventListener("click", goToNextPage);
 
 
-  const contactButtons = document.querySelectorAll(".btn.apply");
+  const contactButtons = document.querySelectorAll(".btn-apply");
 const chatWidget = document.getElementById("chatWidget");
 const chatMessages = document.getElementById("chatMessages");
 const chatText = document.getElementById("chatText");
