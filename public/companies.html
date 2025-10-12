@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Hiring Companies | Ntchito</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+  <!-- 🔺 Header -->
+  <header class="main-header">
+    <div class="nav-left">
+      <h1 class="logo">Ntchito</h1>
+      <form class="form-group nav-filters">
+        <div class="form-row">
+          <select><option>Category</option><option>Tech</option><option>Finance</option></select>
+        </div>
+        <div class="form-row">
+          <select><option>Location</option><option>Zambia</option><option>South Africa</option></select>
+        </div>
+        <div class="form-row">
+          <select><option>Experience</option><option>0–2 yrs</option><option>3–5 yrs</option></select>
+        </div>
+        <div class="form-row">
+          <button class="btn small" type="submit"><i data-feather="filter"></i> Apply</button>
+        </div>
+      </form>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="#" class="requires-login" data-redirect="jobs.html">Find Jobs</a>
+      <a href="companies.html" class="active">Companies</a>
+      <a href="#" class="requires-login" data-redirect="post.html">Find Talent</a>
+      <a href="#" class="requires-login" data-redirect="intern.html">Internships</a>
+      <a href="#" class="requires-login" data-redirect="graduate.html">Post Graduates</a>
+      <a href="#" class="requires-login" data-redirect="blog.html">Blog</a>
+      <a href="#">Payroll</a>
+      <a href="#">SAGE UK HR</a>
+    </nav>
+  </header>
+
+  <!-- 🏢 Carousel Section -->
+  <section class="carousel-section">
+    <div class="carousel-header">
+      <h2><i data-feather="briefcase"></i> Top Hiring Companies & Remote Jobs</h2>
+      <button class="see-more-btn">See More</button>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track">
+        <!-- Include all 6 carousel-slide blocks here (24 companies total) -->
+        <!-- You already have these from our previous messages -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔻 Footer -->
+  <footer>
+    &copy; 2025 Ntchito Platform. Built for Zambia & SADC.
+  </footer>
+
+  <!-- 🔧 Scripts -->
+  <script>
+    feather.replace();
+
+    let currentSlide = 0;
+    const track = document.querySelector('.carousel-track');
+    const totalSlides = document.querySelectorAll('.carousel-slide').length;
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }, 5000);
+
+    let pendingRedirect = null;
+    document.querySelectorAll('.requires-login').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        pendingRedirect = this.getAttribute('data-redirect');
+        document.getElementById('loginModal').style.display = 'block';
+        feather.replace();
+      });
+    });
+
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+          modal.style.display = 'none';
+        });
+        pendingRedirect = null;
+      });
+    });
+
+    document.getElementById('loginSubmit').addEventListener('click', () => {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      if (email && password) {
+        document.getElementById('loginModal').style.display = 'none';
+        if (pendingRedirect) window.location.href = pendingRedirect;
+      } else {
+        alert('Please enter email and password');
+      }
+    });
+  </script>
+</body>
+</html>
