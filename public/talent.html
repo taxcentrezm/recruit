@@ -711,24 +711,25 @@ function renderApplicants() {
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   talentGrid.innerHTML = "";
+  
+filteredApplicants.slice(start, end).forEach((applicant, index) => {
+  const card = document.createElement("div");
+  card.className = "talent-card";
+  card.innerHTML = `
+    <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='${defaultAvatar}'" />
+    <h4>${applicant.name}</h4>
+    <p><strong>Location:</strong> ${applicant.location}</p>
+    <p><strong>Preference:</strong> ${applicant.job}</p>
+    <p><strong>Qualification:</strong> ${applicant.qualification}</p>
+    <p><strong>Age:</strong> ${applicant.age}</p>
+    <div class="card-actions">
+      <button class="btn apply" data-index="${start + index}"><i data-feather="send"></i> Contact</button>
+      <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+    </div>
+  `;
+  talentGrid.appendChild(card);
+});
 
-  filteredApplicants.slice(start, end).forEach(applicant => {
-    const card = document.createElement("div");
-    card.className = "talent-card";
-    card.innerHTML = `
-      <img src="${applicant.avatar}" alt="${applicant.name}" onerror="this.src='${defaultAvatar}'" />
-      <h4>${applicant.name}</h4>
-      <p><strong>Location:</strong> ${applicant.location}</p>
-      <p><strong>Preference:</strong> ${applicant.job}</p>
-      <p><strong>Qualification:</strong> ${applicant.qualification}</p>
-      <p><strong>Age:</strong> ${applicant.age}</p>
-      <div class="card-actions">
-        <button class="btn-apply"><i data-feather="send"></i> Contact</button>
-        <button class="btn-save"><i data-feather="bookmark"></i> Save</button>
-      </div>
-    `;
-    talentGrid.appendChild(card);
-  });
 
   feather.replace();
 }
