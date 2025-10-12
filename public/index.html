@@ -790,6 +790,87 @@ footer {
       margin-bottom: 1rem;
     }
 
+    .carousel-section {
+  background: #fff;
+  padding: 40px 60px;
+  border-top: 1px solid #eee;
+}
+
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.carousel-header h2 {
+  font-size: 1.6rem;
+  color: #bb0303;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.see-more-btn {
+  background: transparent;
+  border: 1px solid #bb0303;
+  color: #bb0303;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 300%;
+}
+
+.carousel-slide {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.company-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-4px);
+}
+
+.company-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.company-card h4 {
+  font-size: 1rem;
+  color: #0a66c2;
+  margin-bottom: 6px;
+}
+
+.company-card p {
+  font-size: 0.85rem;
+  color: #555;
+}
+
   </style>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -1016,6 +1097,87 @@ footer {
       <p><i data-feather="dollar-sign"></i> $2200 / month</p>
       <button class="apply"><i data-feather="send"></i> Apply</button>
       <button class="save"><i data-feather="bookmark"></i> Save</button>
+    </div>
+  </div>
+</section>
+
+  <section class="carousel-section">
+  <div class="carousel-header">
+    <h2><i data-feather="briefcase"></i> Top Hiring Companies & Remote Jobs</h2>
+    <button class="see-more-btn">See More</button>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+      <!-- Company Cards (12 total, 4 per slide) -->
+      <div class="carousel-slide">
+        <div class="company-card">
+          <img src="assets/logos/mtn.png" alt="MTN" />
+          <h4>MTN Zambia</h4>
+          <p>Remote Software Engineer</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/zamtel.png" alt="Zamtel" />
+          <h4>Zamtel</h4>
+          <p>Network Operations Analyst</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/absa.png" alt="ABSA" />
+          <h4>ABSA Bank</h4>
+          <p>Remote Financial Advisor</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/zoona.png" alt="Zoona" />
+          <h4>Zoona</h4>
+          <p>Remote UX Designer</p>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <div class="company-card">
+          <img src="assets/logos/airtel.png" alt="Airtel" />
+          <h4>Airtel Africa</h4>
+          <p>Remote DevOps Engineer</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/stanbic.png" alt="Stanbic" />
+          <h4>Stanbic Bank</h4>
+          <p>Remote Data Analyst</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/firstcapital.png" alt="First Capital" />
+          <h4>First Capital</h4>
+          <p>Remote Compliance Officer</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/afrox.png" alt="Afrox" />
+          <h4>Afrox Zambia</h4>
+          <p>Remote Procurement Lead</p>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <div class="company-card">
+          <img src="assets/logos/seedco.png" alt="SeedCo" />
+          <h4>SeedCo</h4>
+          <p>Remote Agritech Consultant</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/zoho.png" alt="Zoho" />
+          <h4>Zoho Africa</h4>
+          <p>Remote CRM Specialist</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/zanaco.png" alt="Zanaco" />
+          <h4>Zanaco</h4>
+          <p>Remote Risk Analyst</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/dfcu.png" alt="DFCU" />
+          <h4>DFCU Bank</h4>
+          <p>Remote HR Manager</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1421,6 +1583,17 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 
 observer.observe(optionsSection);
+
+    <script>
+  let currentSlide = 0;
+  const track = document.querySelector('.carousel-track');
+  const totalSlides = document.querySelectorAll('.carousel-slide').length;
+
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }, 5000); // 5 seconds per slide
+</script>
 
 </script>
 
