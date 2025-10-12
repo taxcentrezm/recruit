@@ -1168,22 +1168,21 @@ function renderCompanies() {
   companyGrid.innerHTML = "";
 
   filteredCompanies.slice(start, end).forEach(company => {
-    const card = document.createElement("div");
-    card.className = "company-card";
-    card.innerHTML = `
-      card.innerHTML = `
-  <img src="${company.logo}" alt="${company.name}" />
-  <h4>${company.name}</h4>
-  <p><strong>Capacity:</strong> ${company.capacity}</p>
-  <p><strong>Type:</strong> ${company.type}</p>
-  <p><strong>Location:</strong> ${company.location}</p>
-  <div class="card-actions">
-    <button class="btn apply"><i data-feather="send"></i> Apply</button>
-    <button class="btn save"><i data-feather="bookmark"></i> Save</button>
-  </div>
-`;
-    companyGrid.appendChild(card);
-  });
+  const card = document.createElement("div");
+  card.className = "company-card";
+  card.innerHTML = `
+    <img src="${company.logo}" alt="${company.name}" />
+    <h4>${company.name}</h4>
+    <p><strong>Capacity:</strong> ${company.capacity}</p>
+    <p><strong>Type:</strong> ${company.type}</p>
+    <p><strong>Location:</strong> ${company.location}</p>
+    <div class="card-actions">
+      <button class="btn apply"><i data-feather="send"></i> Apply</button>
+      <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+    </div>
+  `;
+  companyGrid.appendChild(card);
+});
 
   feather.replace();
 }
