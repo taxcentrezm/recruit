@@ -261,20 +261,75 @@ footer {
   </style>
 </head>
 <body>
-
   <!-- 🔺 Header -->
   <header class="main-header">
     <div class="nav-left">
       <h1 class="logo">Ntchito</h1>
       <form class="form-group nav-filters">
         <div class="form-row">
-          <select><option>Category</option><option>Tech</option><option>Finance</option></select>
+          <select id="filterType">
+  <option value="">Type</option>
+  <option value="Agriculture">Agriculture</option>
+  <option value="Automotive">Automotive</option>
+  <option value="Banking">Banking</option>
+  <option value="Construction">Construction</option>
+  <option value="Consulting">Consulting</option>
+  <option value="Education">Education</option>
+  <option value="Energy">Energy</option>
+  <option value="Engineering">Engineering</option>
+  <option value="Entertainment">Entertainment</option>
+  <option value="Finance">Finance</option>
+  <option value="Food & Beverage">Food & Beverage</option>
+  <option value="Government">Government</option>
+  <option value="Healthcare">Healthcare</option>
+  <option value="Hospitality">Hospitality</option>
+  <option value="Insurance">Insurance</option>
+  <option value="Legal">Legal</option>
+  <option value="Logistics">Logistics</option>
+  <option value="Manufacturing">Manufacturing</option>
+  <option value="Media">Media</option>
+  <option value="Mining">Mining</option>
+  <option value="NGO / Non-Profit">NGO / Non-Profit</option>
+  <option value="Oil & Gas">Oil & Gas</option>
+  <option value="Pharmaceutical">Pharmaceutical</option>
+  <option value="Real Estate">Real Estate</option>
+  <option value="Retail">Retail</option>
+  <option value="Technology">Technology</option>
+  <option value="Telecommunications">Telecommunications</option>
+  <option value="Transport">Transport</option>
+  <option value="Utilities">Utilities</option>
+</select>
+
         </div>
         <div class="form-row">
-          <select><option>Location</option><option>Zambia</option><option>South Africa</option></select>
+          <select id="filterLocation">
+  <option value="">Location</option>
+  <option value="Angola">Angola</option>
+  <option value="Botswana">Botswana</option>
+  <option value="Comoros">Comoros</option>
+  <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+  <option value="Eswatini">Eswatini</option>
+  <option value="Lesotho">Lesotho</option>
+  <option value="Madagascar">Madagascar</option>
+  <option value="Malawi">Malawi</option>
+  <option value="Mauritius">Mauritius</option>
+  <option value="Mozambique">Mozambique</option>
+  <option value="Namibia">Namibia</option>
+  <option value="Seychelles">Seychelles</option>
+  <option value="South Africa">South Africa</option>
+  <option value="Tanzania">Tanzania</option>
+  <option value="Zambia">Zambia</option>
+  <option value="Zimbabwe">Zimbabwe</option>
+</select>
+
         </div>
         <div class="form-row">
-          <select><option>Experience</option><option>0–2 yrs</option><option>3–5 yrs</option></select>
+          <select id="filterCapacity">
+            <option value="">Capacity</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+          </select>
         </div>
         <div class="form-row">
           <button class="btn small" type="submit"><i data-feather="filter"></i> Apply</button>
@@ -283,29 +338,332 @@ footer {
     </div>
     <nav class="main-nav">
       <a href="index.html">Home</a>
-      <a href="#" class="requires-login" data-redirect="jobs.html">Find Jobs</a>
+      <a href="jobs.html">Find Jobs</a>
       <a href="companies.html" class="active">Companies</a>
-      <a href="#" class="requires-login" data-redirect="post.html">Find Talent</a>
-      <a href="#" class="requires-login" data-redirect="intern.html">Internships</a>
-      <a href="#" class="requires-login" data-redirect="graduate.html">Post Graduates</a>
-      <a href="#" class="requires-login" data-redirect="blog.html">Blog</a>
-      <a href="#">Payroll</a>
-      <a href="#">SAGE UK HR</a>
+      <a href="post.html">Find Talent</a>
+      <a href="intern.html">Internships</a>
+      <a href="graduate.html">Post Graduates</a>
+      <a href="blog.html">Blog</a>
     </nav>
   </header>
 
-  <!-- 🏢 Carousel Section -->
-  <section class="carousel-section">
-    <div class="carousel-header">
-      <h2><i data-feather="briefcase"></i> Top Hiring Companies & Remote Jobs</h2>
-      <button class="see-more-btn">See More</button>
+  <!-- 🆕 Latest Posts -->
+  <section class="company-section">
+    <h2><i data-feather="clock"></i> Latest Company Posts</h2>
+    <div class="company-grid">
+    
+        <div class="company-card">
+          <img src="assets/logos/seedco.jpg" alt="SeedCo" />
+          <h4>SeedCo</h4>
+          <p>Remote Agritech Consultant</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/zoho.png" alt="Zoho" />
+          <h4>Zoho Africa</h4>
+          <p>Remote CRM Specialist</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/ZANACO.png" alt="Zanaco" />
+          <h4>Zanaco</h4>
+          <p>Remote Risk Analyst</p>
+        </div>
+        <div class="company-card">
+          <img src="assets/logos/dfcu.png" alt="DFCU" />
+          <h4>DFCU Bank</h4>
+          <p>Remote HR Manager</p>
+        </div>
+ 
+
+ 
+  <div class="company-card">
+    <img src="assets/logos/sonangol.png" alt="Sonangol" />
+    <h4>Sonangol (Angola)</h4>
+    <p>Remote Petroleum Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/lec.png" alt="LEC" />
+    <h4>Lesotho Electricity Co.</h4>
+    <p>Remote Grid Systems Engineer</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/eswatini.jpg" alt="Eswatini Telecom" />
+    <h4>Eswatini Telecom</h4>
+    <p>Remote Infrastructure Technician</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/air-madagascar.png" alt="Air Madagascar" />
+    <h4>Air Madagascar</h4>
+    <p>Remote Route Planner</p>
+  </div>
+</div>
+
+ 
+  <div class="company-card">
+    <img src="assets/logos/MCB.jpg" alt="MCB" />
+    <h4>MCB (Mauritius)</h4>
+    <p>Remote Fintech Developer</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/seychelles.webp" alt="Seychelles Airport" />
+    <h4>Seychelles Airport Authority</h4>
+    <p>Remote Aviation Systems Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/angola.png" alt="Correios Angola" />
+    <h4>Correios Angola</h4>
+    <p>Remote Logistics Planner</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/lpb.png" alt="Lesotho PostBank" />
+    <h4>Lesotho PostBank</h4>
+    <p>Remote Compliance Officer</p>
+  </div>
+ 
+
+ 
+  <div class="company-card">
+    <img src="assets/logos/eswatini-bank.png" alt="Eswatini Bank" />
+    <h4>Eswatini Bank</h4>
+    <p>Remote Treasury Analyst</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/star.png" alt="Star Madagascar" />
+    <h4>Star Breweries (Madagascar)</h4>
+    <p>Remote Supply Chain Manager</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/am.png" alt="Mauritius Airports" />
+    <h4>Mauritius Airports Ltd</h4>
+    <p>Remote Operations Coordinator</p>
+  </div>
+  <div class="company-card">
+    <img src="assets/logos/sbc.png" alt="SBC" />
+    <h4>Seychelles Broadcasting Corp.</h4>
+    <p>Remote Media Content Editor</p>
+  </div>
+ 
+    </div>
+  </section>
+
+  <section class="company-section">
+  <h2><i data-feather="map-pin"></i> Recommended by Location</h2>
+  <div class="company-grid">
+
+    <div class="company-card">
+      <img src="assets/logos/sonangol.png" alt="Sonangol" />
+      <h4>Sonangol</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Oil & Gas</p>
+      <p><strong>Location:</strong> Luanda, Angola</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
     </div>
 
-    <div class="carousel-wrapper">
-      <div class="carousel-track">
-        <!-- Include all 6 carousel-slide blocks here (24 companies total) -->
-        <!-- You already have these from our previous messages -->
+    <div class="company-card">
+      <img src="assets/logos/debswana.png" alt="Debswana" />
+      <h4>Debswana</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Mining</p>
+      <p><strong>Location:</strong> Gaborone, Botswana</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
       </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/comoros-air.png" alt="Comoros Air" />
+      <h4>Comoros Air</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Transport</p>
+      <p><strong>Location:</strong> Moroni, Comoros</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/gecamines.png" alt="Gécamines" />
+      <h4>Gécamines</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Mining</p>
+      <p><strong>Location:</strong> Lubumbashi, DRC</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/eswatini.jpg" alt="Eswatini Telecom" />
+      <h4>Eswatini Telecom</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Telecommunications</p>
+      <p><strong>Location:</strong> Mbabane, Eswatini</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/lec.png" alt="LEC" />
+      <h4>Lesotho Electricity Co.</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Utilities</p>
+      <p><strong>Location:</strong> Maseru, Lesotho</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/star.png" alt="Star Madagascar" />
+      <h4>Star Breweries</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Food & Beverage</p>
+      <p><strong>Location:</strong> Antananarivo, Madagascar</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/illovo.png" alt="Illovo" />
+      <h4>Illovo Sugar</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Agriculture</p>
+      <p><strong>Location:</strong> Blantyre, Malawi</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/mcb.png" alt="MCB" />
+      <h4>Mauritius Commercial Bank</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Banking</p>
+      <p><strong>Location:</strong> Port Louis, Mauritius</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/mozal.png" alt="Mozal" />
+      <h4>Mozal Aluminium</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Manufacturing</p>
+      <p><strong>Location:</strong> Maputo, Mozambique</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/namdeb.png" alt="Namdeb" />
+      <h4>Namdeb</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Mining</p>
+      <p><strong>Location:</strong> Windhoek, Namibia</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/sbc.png" alt="SBC" />
+      <h4>Seychelles Broadcasting Corp.</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Media</p>
+      <p><strong>Location:</strong> Victoria, Seychelles</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/absa.png" alt="absa" />
+      <h4>Standard Bank</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Finance</p>
+      <p><strong>Location:</strong> Johannesburg, South Africa</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+       <div class="company-card">
+      <img src="assets/logos/tanesco.png" alt="TANESCO" />
+      <h4>TANESCO</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Utilities</p>
+      <p><strong>Location:</strong> Dar es Salaam, Tanzania</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/ZANACO.png" alt="Zanaco" />
+      <h4>Zanaco</h4>
+      <p><strong>Capacity:</strong> Large</p>
+      <p><strong>Type:</strong> Banking</p>
+      <p><strong>Location:</strong> Lusaka, Zambia</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <img src="assets/logos/ecocash.png" alt="EcoCash" />
+      <h4>EcoCash</h4>
+      <p><strong>Capacity:</strong> Medium</p>
+      <p><strong>Type:</strong> Fintech</p>
+      <p><strong>Location:</strong> Harare, Zimbabwe</p>
+      <div class="card-actions">
+        <button class="btn apply"><i data-feather="send"></i> Apply</button>
+        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+      </div>
+    </div>
+
+
+  <!-- 🧮 Filterable Grid -->
+  <section class="company-section">
+    <div class="grid-header">
+      <h2><i data-feather="grid"></i> All Companies</h2>
+      <div class="grid-controls">
+        <label>Show:</label>
+        <select id="pageSize">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="company-grid" id="companyGrid">
+      <!-- Repeat company-card blocks -->
+    </div>
+
+    <div class="pagination-controls">
+      <button id="prevPage"><i data-feather="arrow-left"></i> Back</button>
+      <button id="nextPage">Next <i data-feather="arrow-right"></i></button>
     </div>
   </section>
 
@@ -314,48 +672,9 @@ footer {
     &copy; 2025 Ntchito Platform. Built for Zambia & SADC.
   </footer>
 
-  <!-- 🔧 Scripts -->
   <script>
     feather.replace();
-
-    let currentSlide = 0;
-    const track = document.querySelector('.carousel-track');
-    const totalSlides = document.querySelectorAll('.carousel-slide').length;
-
-    setInterval(() => {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }, 5000);
-
-    let pendingRedirect = null;
-    document.querySelectorAll('.requires-login').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        pendingRedirect = this.getAttribute('data-redirect');
-        document.getElementById('loginModal').style.display = 'block';
-        feather.replace();
-      });
-    });
-
-    document.querySelectorAll('.close-modal').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-          modal.style.display = 'none';
-        });
-        pendingRedirect = null;
-      });
-    });
-
-    document.getElementById('loginSubmit').addEventListener('click', () => {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      if (email && password) {
-        document.getElementById('loginModal').style.display = 'none';
-        if (pendingRedirect) window.location.href = pendingRedirect;
-      } else {
-        alert('Please enter email and password');
-      }
-    });
+    // TODO: Add JS logic for filtering, pagination, and dynamic rendering
   </script>
 </body>
 </html>
