@@ -1072,6 +1072,42 @@ let filteredCompanies = [];
 
 
 
+const logoMap = {
+  "AFROX": "AFROX.png",
+  "Correios Angola": "Correios_de_Angola.htm",
+  "EcoCash": "EcoCash.png",
+  "MCB": "MCB.jpg",
+  "Mozal Aluminium": "Mozal_logo.png",
+  "Namdeb": "Namdeb.png",
+  "Zanaco": "ZANACO.png",
+  "ABSA Bank": "absa.png",
+  "Air Madagascar": "air-madagascar.png",
+  "Airtel Africa": "airtel.png",
+  "Mauritius Airports Ltd": "am.jpg",
+  "Angola Telecom": "angola.png",
+  "Comoros Air": "comoros.png",
+  "Debswana": "debswana.png",
+  "DFCU Bank": "dfcu.png",
+  "Eswatini Bank": "eb.jpg",
+  "Eswatini Telecom": "eswatini.jpg",
+  "First Capital Bank": "first cap.png",
+  "Gécamines": "gecemines.jpg",
+  "Illovo Sugar": "illovo.png",
+  "Lesotho Electricity Co.": "lec.png",
+  "Lesotho PostBank": "lpb.png",
+  "Mauritius Commercial Bank": "mcb.png",
+  "MTN Zambia": "mtn.jpg",
+  "Seychelles Broadcasting Corp.": "sbc.png",
+  "SeedCo": "seedco.jpg",
+  "Seychelles Airport Authority": "seychelles.webp",
+  "Sonangol": "sonangol.png",
+  "Stanbic Bank": "stanbic.png",
+  "Star Breweries": "star.png",
+  "TANESCO": "tanesco.png",
+  "Zamtel": "zamtel.gif",
+  "Zoho Africa": "zoho.png",
+  "Zoona": "zoona.jpg"
+};
 
 // Generate 80 companies
 const sampleNames = [
@@ -1099,7 +1135,7 @@ companies = sampleNames.map((name, i) => {
 
   return {
     name,
-    logo: "assets/logos/default.png",
+    logo: `assets/logos/${logoMap[company.name] || "default.png"}`,
     type: types[i % types.length],
     capacity: capacities[i % capacities.length],
     location: countries[i % countries.length]
@@ -1135,16 +1171,17 @@ function renderCompanies() {
     const card = document.createElement("div");
     card.className = "company-card";
     card.innerHTML = `
-      <img src="${company.logo}" alt="${company.name}" />
-      <h4>${company.name}</h4>
-      <p><strong>Capacity:</strong> ${company.capacity}</p>
-      <p><strong>Type:</strong> ${company.type}</p>
-      <p><strong>Location:</strong> ${company.location}</p>
-      <div class="card-actions">
-        <button class="btn apply"><i data-feather="send"></i> Apply</button>
-        <button class="btn save"><i data-feather="bookmark"></i> Save</button>
-      </div>
-    `;
+      card.innerHTML = `
+  <img src="${company.logo}" alt="${company.name}" />
+  <h4>${company.name}</h4>
+  <p><strong>Capacity:</strong> ${company.capacity}</p>
+  <p><strong>Type:</strong> ${company.type}</p>
+  <p><strong>Location:</strong> ${company.location}</p>
+  <div class="card-actions">
+    <button class="btn apply"><i data-feather="send"></i> Apply</button>
+    <button class="btn save"><i data-feather="bookmark"></i> Save</button>
+  </div>
+`;
     companyGrid.appendChild(card);
   });
 
