@@ -500,28 +500,40 @@ body {
   }
 
   // Convert amount to selected currency
-  function convertAmount(amount, currency) {
-    const rate = rates[currency] || 22.5;
-    return (amount / rate).toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  }
+  function convertAmount(amount, fromCurrency, toCurrency) {
+  const fromRate = rates[fromCurrency];
+  const toRate = rates[toCurrency];
+
+  if (!fromRate || !toRate) return "N/A";
+
+  const converted = amount * (toRate / fromRate);
+  return converted.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
 
   // Handle conversion
-  convertBtn.addEventListener("click", () => {
-    const currency = convertCurrency.value;
-    resultCurrencyLabel.textContent = currency;
+convertBtn.addEventListener("click", () => {
+  const targetCurrency = convertCurrency.value;
+  const sourceCountry = countrySelect.value;
+  const sourceCurrency = countryMeta[sourceCountry]?.currency;
 
-    const gross = parseFloat(grossIncomeInput.value);
-    const { paye, pension, health, net } = calculatePayroll(countrySelect.value, gross);
+  resultCurrencyLabel.textContent = targetCurrency;
 
-    convertedGross.textContent = `${currency} ${convertAmount(gross, currency)}`;
-    convertedPAYE.textContent = `${currency} ${convertAmount(paye, currency)}`;
-    convertedPension.textContent = `${currency} ${convertAmount(pension, currency)}`;
-    convertedHealth.textContent = `${currency} ${convertAmount(health, currency)}`;
-    convertedNet.textContent = `${currency} ${convertAmount(net, currency)}`;
-  });
+  const gross = parseFloat(grossIncomeInput.value);
+  if (!sourceCurrency || isNaN(gross)) return;
+
+  const { paye, pension, health, net } = calculatePayroll(sourceCountry, gross);
+
+  convertedGross.textContent   = `${targetCurrency} ${convertAmount(gross, sourceCurrency, targetCurrency)}`;
+  convertedPAYE.textContent    = `${targetCurrency} ${convertAmount(paye, sourceCurrency, targetCurrency)}`;
+  convertedPension.textContent = `${targetCurrency} ${convertAmount(pension, sourceCurrency, targetCurrency)}`;
+  convertedHealth.textContent  = `${targetCurrency} ${convertAmount(health, sourceCurrency, targetCurrency)}`;
+  convertedNet.textContent     = `${targetCurrency} ${convertAmount(net, sourceCurrency, targetCurrency)}`;
+});
+
 
   // Handle payroll calculation
   payrollForm.addEventListener("submit", e => {
