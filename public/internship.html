@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internships – Ntchito</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/all.css" />
+  <style>
+    .internship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.internship-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.chat-sidebar {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.chat-header {
+  background: #bb0303;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+#chatForm {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+#chatInput {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  font-size: 14px;
+}
+
+#chatForm button {
+  background: #bb0303;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><span>ntchi</span>to</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#" class="requires-login" data-redirect="jobs.html">Find Jobs</a>
+      <a href="companies.html">Companies</a>
+      <a href="#" class="requires-login" data-redirect="post.html">Find Talent</a>
+      <a href="#" class="requires-login" data-redirect="intern.html">Internships</a>
+      <a href="#" class="requires-login" data-redirect="graduate.html">Post Graduates</a>
+      <a href="#" class="requires-login" data-redirect="blog.html">Blog</a>
+      <a href="payroll.html">Payroll</a>
+      <a href="sage.html">SAGE UK HR</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="login-btn"><i data-feather="log-in"></i> Login</button>
+      <button class="requires-login" data-redirect="post.html"><i data-feather="plus-circle"></i> Post a Job</button>
+      <button class="menu-toggle" aria-label="Toggle menu"><i data-feather="menu"></i></button>
+    </div>
+      <div class="sadc-carousel">
+    <div class="carousel-track" id="carousel-track">
+      <!-- JS will populate country cards here -->
+    </div>
+  </div>
+</header>
+  
+  <main class="layout-grid">
+    <section class="internship-section">
+      <h1>Explore Internships</h1>
+
+      <div class="filter-bar">
+        <select id="locationFilter">
+          <option value="">All Locations</option>
+          <option value="Zambia">Zambia</option>
+          <option value="South Africa">South Africa</option>
+          <option value="Botswana">Botswana</option>
+          <!-- Add more SADC countries -->
+        </select>
+
+        <select id="fieldFilter">
+          <option value="">All Fields</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+          <option value="ICT">ICT</option>
+        </select>
+
+        <input type="text" id="keywordSearch" placeholder="Search internships..." />
+      </div>
+
+      <div class="internship-grid" id="internshipGrid">
+        <!-- Internship cards injected here -->
+      </div>
+    </section>
+
+    <aside class="chat-sidebar" id="chatSidebar">
+      <div class="chat-header">
+        <h3>Live Chat</h3>
+        <button id="closeChat">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <form id="chatForm">
+        <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </aside>
+  </main>
+
+  <script>
+    document.getElementById("chatForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const input = document.getElementById("chatInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  const chatMessages = document.getElementById("chatMessages");
+  const bubble = document.createElement("div");
+  bubble.textContent = message;
+  bubble.className = "chat-bubble user";
+  chatMessages.appendChild(bubble);
+  input.value = "";
+
+  // Simulated response
+  setTimeout(() => {
+    const reply = document.createElement("div");
+    reply.textContent = "Thanks for reaching out! We'll get back to you shortly.";
+    reply.className = "chat-bubble bot";
+    chatMessages.appendChild(reply);
+  }, 1000);
+});
+
+document.getElementById("closeChat").addEventListener("click", () => {
+  document.getElementById("chatSidebar").style.display = "none";
+});
+
+    const track = document.querySelector(".carousel-track");
+const countries = [
+  "Angola","Botswana","Comoros","DR Congo","Eswatini","Lesotho","Madagascar",
+  "Malawi","Mauritius","Mozambique","Namibia","Seychelles","South Africa","Tanzania","Zambia","Zimbabwe"
+];
+
+// Duplicate array to allow seamless scrolling
+const fullList = [...countries, ...countries];
+
+fullList.forEach((country, index) => {
+  const card = document.createElement("div");
+  card.classList.add("country-card");
+  card.textContent = country;
+  
+  // Stagger fade effect
+  card.style.animationDelay = `${index * 0.8}s`;
+
+  track.appendChild(card);
+});
+    });
+    const optionsSection = document.querySelector('.options');
+const cards = document.querySelectorAll('.options .card');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      cards.forEach((card, i) => {
+        card.style.animationDelay = `${i * 0.2}s`;
+        card.classList.add('fade-in-up');
+      });
+      observer.unobserve(optionsSection); // run once
+    }
+  });
+}, { threshold: 0.2 });
+
+observer.observe(optionsSection);
+
+
+  let currentSlide = 0;
+  const track = document.querySelector('.carousel-track');
+  const totalSlides = 9;
+
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }, 5000); // 8 seconds per slide
+    
+document.querySelectorAll('.see-more-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const target = this.getAttribute('data-redirect');
+    if (target) {
+      window.location.href = target;
+    }
+  });
+});
+
+  </script>
+</body>
+</html>
