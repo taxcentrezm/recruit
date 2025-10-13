@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/all.css" />
   <script src="https://unpkg.com/feather-icons"></script>
-<style>
+  <style>
 body {
   font-family: "Segoe UI", sans-serif;
   margin: 0;
@@ -21,6 +21,32 @@ body {
   font-weight: 400;
 }
 
+.main-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Layout */
+.layout-grid {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 40px auto;
+}
+
+.calculator-section {
+  width: 60%;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Form */
 .payroll-form {
   display: flex;
   flex-direction: column;
@@ -32,17 +58,49 @@ body {
   flex-direction: column;
 }
 
+.triple-input-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.triple-input-row .input-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-group label,
 label {
+  display: block;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
+.input-group select,
+.input-group input,
 select,
 input[type="number"] {
+  width: 100%;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+}
+
+/* Buttons */
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.button-row .btn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn.calculate {
@@ -54,8 +112,6 @@ input[type="number"] {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
   gap: 6px;
 }
 
@@ -63,6 +119,19 @@ input[type="number"] {
   background: #a00202;
 }
 
+.btn.convert {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  gap: 6px;
+}
+
+/* Results */
 .results-section {
   margin-top: 30px;
 }
@@ -94,66 +163,14 @@ input[type="number"] {
   min-width: 140px;
   text-align: center;
 }
-.main-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 13px;
-  color: #777;
-}
 
-.layout-grid {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr;
-  gap: 30px;
-  max-width: 1100px;
-  margin: 40px auto;
-}
-
-.calculator-section {
-  width: 60%;
-  margin: 40px auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* Button row styling */
-.button-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.button-row .btn {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.btn.convert {
-  background: #444;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
+/* ERP Sidebar */
 .erp-sidebar {
   background: url('assets/img/erp-bg.jpg') center/cover no-repeat;
   padding: 20px;
   border-radius: 12px;
   color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   margin-top: 40px;
 }
 
@@ -193,11 +210,15 @@ input[type="number"] {
   margin-top: 10px;
 }
 
- @media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
   .results-grid {
     flex-direction: column;
   }
-}
 
   .button-row {
     flex-direction: column;
@@ -207,34 +228,8 @@ input[type="number"] {
     margin-top: 30px;
   }
 }
-.triple-input-row {
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
+    </style>
 
-.triple-input-row .input-group {
-  flex: 1;
-  min-width: 200px;
-}
-
-.input-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.input-group select,
-.input-group input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-</style>
 </head>
 <body>
   <header class="navbar">
@@ -304,13 +299,13 @@ input[type="number"] {
     </select>
   </div>
 </div>
-  </form>
+  
 
      <div class="form-row button-row">
   <button type="submit" class="btn calculate"><i data-feather="dollar-sign"></i> Calculate</button>
   <button type="button" class="btn convert" id="convertBtn"><i data-feather="refresh-ccw"></i> Convert</button>
 </div>
-
+</form>
 <section id="payrollResults" class="results-section hidden">
   <h2>Payroll Summary</h2>
   <div class="results-grid">
