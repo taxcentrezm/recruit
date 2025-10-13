@@ -290,13 +290,52 @@ body {
 
   <div class="input-group">
     <label for="convertCurrency">Convert Net Income to:</label>
-    <select id="convertCurrency">
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="GBP">GBP</option>
-      <option value="KES">KES</option>
-      <option value="NGN">NGN</option>
-    </select>
+  <select id="convertCurrency">
+  <option value="AOA">🇦🇴 AOA – Angolan Kwanza</option>
+  <option value="BWP">🇧🇼 BWP – Botswana Pula</option>
+  <option value="BIF">🇧🇮 BIF – Burundian Franc</option>
+  <option value="CVE">🇨🇻 CVE – Cape Verdean Escudo</option>
+  <option value="XAF">🇨🇲 XAF – Central African CFA Franc</option>
+  <option value="KMF">🇰🇲 KMF – Comorian Franc</option>
+  <option value="CDF">🇨🇩 CDF – Congolese Franc</option>
+  <option value="DJF">🇩🇯 DJF – Djiboutian Franc</option>
+  <option value="EGP">🇪🇬 EGP – Egyptian Pound</option>
+  <option value="ERN">🇪🇷 ERN – Eritrean Nakfa</option>
+  <option value="SZL">🇸🇿 SZL – Eswatini Lilangeni</option>
+  <option value="ETB">🇪🇹 ETB – Ethiopian Birr</option>
+  <option value="XAF">🇬🇦 XAF – CFA Franc BEAC (Gabon)</option>
+  <option value="GMD">🇬🇲 GMD – Gambian Dalasi</option>
+  <option value="GHS">🇬🇭 GHS – Ghanaian Cedi</option>
+  <option value="GNF">🇬🇳 GNF – Guinean Franc</option>
+  <option value="XOF">🇬🇼 XOF – CFA Franc BCEAO (Guinea-Bissau)</option>
+  <option value="KES">🇰🇪 KES – Kenyan Shilling</option>
+  <option value="LSL">🇱🇸 LSL – Lesotho Loti</option>
+  <option value="LRD">🇱🇷 LRD – Liberian Dollar</option>
+  <option value="LYD">🇱🇾 LYD – Libyan Dinar</option>
+  <option value="MGA">🇲🇬 MGA – Malagasy Ariary</option>
+  <option value="MWK">🇲🇼 MWK – Malawian Kwacha</option>
+  <option value="MRO">🇲🇷 MRO – Mauritanian Ouguiya</option>
+  <option value="MUR">🇲🇺 MUR – Mauritian Rupee</option>
+  <option value="MAD">🇲🇦 MAD – Moroccan Dirham</option>
+  <option value="MZN">🇲🇿 MZN – Mozambican Metical</option>
+  <option value="NAD">🇳🇦 NAD – Namibian Dollar</option>
+  <option value="XOF">🇳🇪 XOF – CFA Franc BCEAO (Niger)</option>
+  <option value="NGN">🇳🇬 NGN – Nigerian Naira</option>
+  <option value="RWF">🇷🇼 RWF – Rwandan Franc</option>
+  <option value="STN">🇸🇹 STN – São Tomé and Príncipe Dobra</option>
+  <option value="SCR">🇸🇨 SCR – Seychellois Rupee</option>
+  <option value="SLL">🇸🇱 SLL – Sierra Leonean Leone</option>
+  <option value="SOS">🇸🇴 SOS – Somali Shilling</option>
+  <option value="ZAR">🇿🇦 ZAR – South African Rand</option>
+  <option value="SSP">🇸🇸 SSP – South Sudanese Pound</option>
+  <option value="SDG">🇸🇩 SDG – Sudanese Pound</option>
+  <option value="TZS">🇹🇿 TZS – Tanzanian Shilling</option>
+  <option value="XOF">🇹🇬 XOF – CFA Franc BCEAO (Togo)</option>
+  <option value="TND">🇹🇳 TND – Tunisian Dinar</option>
+  <option value="UGX">🇺🇬 UGX – Ugandan Shilling</option>
+  <option value="ZMW">🇿🇲 ZMW – Zambian Kwacha</option>
+  <option value="ZWL">🇿🇼 ZWL – Zimbabwean Dollar</option>
+</select>
   </div>
 </div>
   
@@ -450,13 +489,52 @@ const convertedPension = document.getElementById("convertedPension");
 const convertedHealth = document.getElementById("convertedHealth");
 const convertedNet = document.getElementById("convertedNet");
 
-const rates = {
-  USD: 22.5,
-  EUR: 24.8,
-  GBP: 29.1,
-  KES: 0.15,
-  NGN: 0.012
-};
+  const rates = {
+    AOA: 925.0,
+    BWP: 13.5,
+    BIF: 2900.0,
+    CVE: 102.0,
+    XAF: 620.0,
+    KMF: 445.0,
+    CDF: 2850.0,
+    DJF: 178.0,
+    EGP: 48.0,
+    ERN: 15.0,
+    SZL: 18.3,
+    ETB: 115.0,
+    GMD: 68.0,
+    GHS: 15.5,
+    GNF: 8750.0,
+    XOF: 620.0,
+    KES: 130.0,
+    LSL: 18.3,
+    LRD: 190.0,
+    LYD: 4.9,
+    MGA: 4650.0,
+    MWK: 1770.0,
+    MRO: 39.5,
+    MUR: 46.0,
+    MAD: 10.2,
+    MZN: 63.0,
+    NAD: 18.3,
+    NGN: 1600.0,
+    RWF: 1360.0,
+    STN: 23.0,
+    SCR: 14.3,
+    SLL: 20800.0,
+    SOS: 570.0,
+    ZAR: 18.3,
+    SSP: 1000.0,
+    SDG: 610.0,
+    TZS: 2640.0,
+    TND: 3.2,
+    UGX: 3760.0,
+    ZMW: 22.5,
+    ZWL: 26.0,
+    USD: 1.0,
+    EUR: 0.94,
+    GBP: 0.82
+  };
 
 function convertAmount(amount, currency) {
   const rate = rates[currency] || 22.5;
