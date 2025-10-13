@@ -207,9 +207,20 @@ input[type="number"] {
 </select>
       </div>
 
-    <div class="form-row">
+      <div class="form-row">
         <label for="grossIncome">Gross Monthly Income:</label>
         <input type="number" id="grossIncome" placeholder="Enter amount" required />
+      </div>
+
+      <div class="form-row">
+        <label for="convertCurrency">Convert Net Income to:</label>
+        <select id="convertCurrency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="KES">KES</option>
+          <option value="NGN">NGN</option>
+        </select>
       </div>
 
       <div class="form-row">
@@ -226,12 +237,23 @@ input[type="number"] {
         <p><strong>Pension:</strong> <span id="resultPension"></span></p>
         <p><strong>Health Insurance:</strong> <span id="resultHealth"></span></p>
         <p><strong>Net Income:</strong> <span id="resultNet"></span></p>
-        <p><strong>Net in USD:</strong> <span id="resultUSD"></span></p>
+        <p><strong>Net in <span id="resultCurrencyLabel">USD</span>:</strong> <span id="resultConverted"></span></p>
       </div>
     </section>
   </div>
 
- 
+  <!-- Sidebar Ad -->
+  <aside class="erp-sidebar">
+    <h3>Upgrade to Payroll ERP</h3>
+    <p>Automate PAYE, NAPSA, NHIMA, and multi-country compliance with our enterprise-grade ERP.</p>
+    <ul>
+      <li>✅ SADC-wide tax rules</li>
+      <li>✅ Payslip generation</li>
+      <li>✅ Bulk uploads & audit logs</li>
+      <li>✅ HR & finance integration</li>
+    </ul>
+    <a href="erp.html" class="btn erp-cta">Explore Plans</a>
+  </aside>
 </main>
 
   <footer class="main-footer">
@@ -334,19 +356,31 @@ function formatCurrency(amount, country) {
   })}`;
 }
 
-function convertToUSD(amountZMW) {
-  const rate = 22.5; // Placeholder rate
-  const usd = amountZMW / rate;
-  return `💵 USD ${usd.toLocaleString(undefined, {
+const convertCurrency = document.getElementById("convertCurrency");
+const resultCurrencyLabel = document.getElementById("resultCurrencyLabel");
+const resultConverted = document.getElementById("resultConverted");
+
+function convertNet(net, targetCurrency) {
+  const rates = {
+    USD: 22.5,
+    EUR: 24.8,
+    GBP: 29.1,
+    KES: 0.15,
+    NGN: 0.012
+  };
+  const rate = rates[targetCurrency] || 22.5;
+  const converted = net / rate;
+  return converted.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  })}`;
+  });
 }
 
 payrollForm.addEventListener("submit", e => {
   e.preventDefault();
   const country = countrySelect.value;
   const gross = parseFloat(grossIncomeInput.value);
+  const targetCurrency = convertCurrency.value;
 
   if (!country || isNaN(gross)) return;
 
@@ -358,27 +392,9 @@ payrollForm.addEventListener("submit", e => {
   resultPension.textContent = formatCurrency(pension, country);
   resultHealth.textContent = formatCurrency(health, country);
   resultNet.textContent = formatCurrency(net, country);
-  resultUSD.textContent = convertToUSD(net);
 
-  payrollResults.classList.remove("hidden");
-});
-
-
-payrollForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const country = countrySelect.value;
-  const gross = parseFloat(grossIncomeInput.value);
-
-  if (!country || isNaN(gross)) return;
-
-  const { paye, pension, health, net } = calculatePayroll(country, gross);
-
-  resultCountry.textContent = `${countryMeta[country].flag} ${country}`;
-  resultGross.textContent = formatCurrency(gross, country);
-  resultPAYE.textContent = formatCurrency(paye, country);
-  resultPension.textContent = formatCurrency(pension, country);
-  resultHealth.textContent = formatCurrency(health, country);
-  resultNet.textContent = formatCurrency(net, country);
+  resultCurrencyLabel.textContent = targetCurrency;
+  resultConverted.textContent = `${targetCurrency} ${convertNet(net, targetCurrency)}`;
 
   payrollResults.classList.remove("hidden");
 });
