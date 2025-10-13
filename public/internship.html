@@ -427,27 +427,30 @@ document.querySelectorAll('.see-more-btn').forEach(button => {
 function bindChatTriggers() {
   document.querySelectorAll(".btn.apply").forEach(button => {
     button.addEventListener("click", () => {
-      const index = parseInt(button.dataset.index);
-      const applicant = filteredApplicants[index];
-      openChatWindow(applicant);
+      const card = button.closest(".internship-card");
+      const company = card.querySelector("h4")?.textContent || "Unknown Company";
+      const role = card.querySelector("p strong")?.nextSibling?.textContent?.trim() || "Internship";
+      const location = [...card.querySelectorAll("p")].find(p => p.textContent.includes("Location:"))?.textContent || "";
+
+      openChatWindow({ company, role, location });
     });
   });
 }
 
 // Chat Window Logic
-function openChatWindow(applicant) {
+function openChatWindow({ company, role, location }) {
   chatWidget.classList.remove("hidden");
   chatWidget.style.height = "500px";
   chatMessages.innerHTML = "";
 
-  appendMessage("System", `You're now chatting with ${applicant.name}.`);
+  appendMessage("System", `You're now chatting about the ${role} position at ${company}.`);
+  if (location) appendMessage("System", `Location: ${location}`);
   appendMessage("System", `This is a secure channel. You may share contact details after verification.`);
   appendMessage("System", `Would you like to receive future updates via Email, WhatsApp, or SMS?`);
 
-  showToast(`Chat started with ${applicant.name}`);
+  showToast(`Chat started for ${role} at ${company}`);
   playNotificationSound();
 }
-
 sendChat.addEventListener("click", () => {
   const message = chatText.value.trim();
   if (message) {
@@ -496,6 +499,8 @@ function playNotificationSound() {
   const audio = new Audio("assets/sounds/notify.mp3");
   audio.play();
 }
+    bindChatTriggers();
+    feather.replace();
 });
   </script>
 </body>
