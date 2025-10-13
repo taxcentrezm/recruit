@@ -360,31 +360,6 @@
   </div>
 </div>
   <script>
-    document.getElementById("chatForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const input = document.getElementById("chatInput");
-  const message = input.value.trim();
-  if (!message) return;
-
-  const chatMessages = document.getElementById("chatMessages");
-  const bubble = document.createElement("div");
-  bubble.textContent = message;
-  bubble.className = "chat-bubble user";
-  chatMessages.appendChild(bubble);
-  input.value = "";
-
-  // Simulated response
-  setTimeout(() => {
-    const reply = document.createElement("div");
-    reply.textContent = "Thanks for reaching out! We'll get back to you shortly.";
-    reply.className = "chat-bubble bot";
-    chatMessages.appendChild(reply);
-  }, 1000);
-});
-
-document.getElementById("closeChat").addEventListener("click", () => {
-  document.getElementById("chatSidebar").style.display = "none";
-});
 
     const track = document.querySelector(".carousel-track");
 const countries = [
@@ -405,7 +380,7 @@ fullList.forEach((country, index) => {
 
   track.appendChild(card);
 });
-    });
+  
     const optionsSection = document.querySelector('.options');
 const cards = document.querySelectorAll('.options .card');
 
