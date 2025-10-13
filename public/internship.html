@@ -296,6 +296,236 @@
 </header>
   
   <main class="layout-grid">
+    <!-- Confetti canvas -->
+<canvas id="confettiCanvas"></canvas>
+
+<div class="center-modal">
+<div class="modal" id="modal">
+  <div class="container">
+
+    <!-- LEFT: stepper + progress -->
+    <aside class="left">
+      <div class="brand">
+        <div class="logo">JS</div>
+        <div>
+          <h3>Job Seeker Signup</h3>
+          <div class="muted">Setup your profile — 7 quick steps</div>
+        </div>
+      </div>
+
+      <div class="steps" id="stepsList">
+        <!-- Step items will be rendered by JS for dynamic active states -->
+      </div>
+
+      <div class="progress-line" aria-hidden>
+        <div class="progress-bg"></div>
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: content -->
+    <main class="right">
+
+      <!-- STEP 1: Username, Gender, DOB -->
+      <section class="step-content active" data-step="1" id="step-1">
+        <h2>1. Basic info</h2>
+        <div class="field-row">
+          <label for="username">Preferred username</label>
+          <input id="username" type="text" placeholder="e.g. jane.dev42" />
+        </div>
+
+        <div class="row">
+          <div class="col field-row">
+            <label for="gender">Gender</label>
+            <select id="gender" aria-label="gender">
+              <option value="">Choose gender</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="nonbinary">Non-binary</option>
+              <option value="other">Other / Prefer not to say</option>
+            </select>
+          </div>
+          <div class="col field-row">
+            <label for="dob">Date of birth</label>
+            <input id="dob" type="date" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 2: Country > District > Town + phone w/ flag & code -->
+      <section class="step-content" data-step="2" id="step-2">
+        <h2>2. Location & phone</h2>
+
+        <div class="field-row">
+          <label for="country">Country (SADC)</label>
+          <select id="country">
+            <option value="">Select country</option>
+            <option value="ZW">Zimbabwe</option>
+            <option value="ZA">South Africa</option>
+            <option value="BW">Botswana</option>
+            <option value="NA">Namibia</option>
+            <option value="MZ">Mozambique</option>
+            <option value="ZM">Zambia</option>
+            <option value="TZ">Tanzania</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="col field-row">
+            <label for="district">District / Province</label>
+            <select id="district"><option value="">Select district</option></select>
+          </div>
+          <div class="col field-row">
+            <label for="town">Town</label>
+            <select id="town"><option value="">Select town</option></select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label for="phone">Phone number</label>
+          <div class="phone-wrap">
+            <div class="flag-block" id="flagBlock" aria-hidden>
+              <div class="flag-emoji" id="flagEmoji">🏳️</div>
+              <div class="country-code" id="countryCode">+000</div>
+            </div>
+            <div class="phone-input" style="flex:1">
+              <input id="phone" type="tel" placeholder="e.g. 772 123 456" />
+              <div class="muted" style="margin-top:6px">Country code is auto-filled from selected country</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(1)">← Back</button>
+          <button class="btn" onclick="goStep(3)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 3: Interests (suggestions, chips) -->
+      <section class="step-content" data-step="3" id="step-3">
+        <h2>3. What are your interests</h2>
+
+        <label for="interestInput">Type and select from suggestions (max 7)</label>
+        <input id="interestInput" type="text" placeholder="e.g. JavaScript, UX, Marketing..." oninput="showSuggestions(this.value)" />
+        <div class="suggestions" id="suggestionsBox" role="listbox" aria-label="suggestions"></div>
+        <div class="chip-container" id="chipsWrap" aria-live="polite"></div>
+
+        <div class="small muted">We show suggestions when you type; click one to add it. You can add custom ones too (press Enter).</div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(2)">← Back</button>
+          <button class="btn" onclick="goStep(4)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 4: Job Prefs (multi select) -->
+      <section class="step-content" data-step="4" id="step-4">
+        <h2>4. Job preferences</h2>
+
+        <div class="field-row">
+          <label for="jobtype">Preferred work type (multi-select)</label>
+          <select id="jobtype" multiple>
+            <option value="fulltime">Full-Time</option>
+            <option value="parttime">Part-Time</option>
+            <option value="freelance">Freelance</option>
+            <option value="remote">Remote</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <label for="desiredjob">Desired job titles (comma-separated)</label>
+          <input id="desiredjob" type="text" placeholder="e.g. Frontend Engineer, Product Designer" />
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(3)">← Back</button>
+          <button class="btn" onclick="goStep(5)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 5: Education stage with cards -->
+      <section class="step-content" data-step="5" id="step-5">
+        <h2>5. Education</h2>
+
+        <div class="edu-controls">
+          <button class="btn ghost" id="addEduBtn">+ Add education</button>
+          <div class="muted">You can create up to 7 education cards</div>
+        </div>
+
+        <div id="eduFormArea">
+          <!-- A template dynamic area will appear to enter one education before "Done" -->
+        </div>
+
+        <div class="edu-list" id="eduList"></div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(4)">← Back</button>
+          <button class="btn" onclick="goStep(6)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 6: Additional info (links popup) -->
+      <section class="step-content" data-step="6" id="step-6">
+        <h2>6. Additional links</h2>
+
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+          <button class="btn ghost" onclick="openLinkPopup()">+ Add link</button>
+          <div class="muted">Add portfolio, website, profiles</div>
+        </div>
+
+        <div id="linksArea"></div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(5)">← Back</button>
+          <button class="btn" onclick="goStep(7)">Next →</button>
+        </div>
+      </section>
+
+      <!-- STEP 7: Review & Submit -->
+      <section class="step-content" data-step="7" id="step-7">
+        <h2>7. Review & Submit</h2>
+
+        <div id="reviewArea" class="muted" style="margin-bottom:18px"></div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="goStep(6)">← Back</button>
+          <button class="btn secondary" onclick="submitProfile()">Submit</button>
+        </div>
+      </section>
+
+      <!-- Success Screen -->
+      <section class="success-screen" id="successScreen">
+        <div class="check">✓</div>
+        <p>Profile submitted successfully!</p>
+        <div class="muted">We sent a confirmation to your email (if provided).</div>
+      </section>
+
+    </main>
+  </div>
+</div></div>
+
+<!-- links popup template -->
+<div id="linkPopup" style="display:none;">
+  <div class="overlay" id="overlay" onclick="closeLinkPopup()">
+    <div class="popup" onclick="event.stopPropagation()">
+      <h3 style="margin-bottom:8px">Add link</h3>
+      <label for="linkName">Name (e.g. Portfolio)</label>
+      <input id="linkName" type="text" placeholder="e.g. Portfolio" />
+      <label for="linkUrl" style="margin-top:8px">URL / Address</label>
+      <input id="linkUrl" type="text" placeholder="https://..." />
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn ghost" onclick="closeLinkPopup()">Cancel</button>
+        <button class="btn" onclick="saveLink()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <canvas id="confettiCanvas"></canvas>
     <section class="internship-section">
        <h2><i data-feather="clock"></i> Latest Internship Posts By Company</h2>
 
@@ -653,236 +883,7 @@
   .field-row{margin-bottom:12px}
 </style>
 
-<!-- Confetti canvas -->
-<canvas id="confettiCanvas"></canvas>
 
-<div class="center-modal">
-<div class="modal" id="modal">
-  <div class="container">
-
-    <!-- LEFT: stepper + progress -->
-    <aside class="left">
-      <div class="brand">
-        <div class="logo">JS</div>
-        <div>
-          <h3>Job Seeker Signup</h3>
-          <div class="muted">Setup your profile — 7 quick steps</div>
-        </div>
-      </div>
-
-      <div class="steps" id="stepsList">
-        <!-- Step items will be rendered by JS for dynamic active states -->
-      </div>
-
-      <div class="progress-line" aria-hidden>
-        <div class="progress-bg"></div>
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </aside>
-
-    <!-- RIGHT: content -->
-    <main class="right">
-
-      <!-- STEP 1: Username, Gender, DOB -->
-      <section class="step-content active" data-step="1" id="step-1">
-        <h2>1. Basic info</h2>
-        <div class="field-row">
-          <label for="username">Preferred username</label>
-          <input id="username" type="text" placeholder="e.g. jane.dev42" />
-        </div>
-
-        <div class="row">
-          <div class="col field-row">
-            <label for="gender">Gender</label>
-            <select id="gender" aria-label="gender">
-              <option value="">Choose gender</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="nonbinary">Non-binary</option>
-              <option value="other">Other / Prefer not to say</option>
-            </select>
-          </div>
-          <div class="col field-row">
-            <label for="dob">Date of birth</label>
-            <input id="dob" type="date" />
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(2)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 2: Country > District > Town + phone w/ flag & code -->
-      <section class="step-content" data-step="2" id="step-2">
-        <h2>2. Location & phone</h2>
-
-        <div class="field-row">
-          <label for="country">Country (SADC)</label>
-          <select id="country">
-            <option value="">Select country</option>
-            <option value="ZW">Zimbabwe</option>
-            <option value="ZA">South Africa</option>
-            <option value="BW">Botswana</option>
-            <option value="NA">Namibia</option>
-            <option value="MZ">Mozambique</option>
-            <option value="ZM">Zambia</option>
-            <option value="TZ">Tanzania</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="col field-row">
-            <label for="district">District / Province</label>
-            <select id="district"><option value="">Select district</option></select>
-          </div>
-          <div class="col field-row">
-            <label for="town">Town</label>
-            <select id="town"><option value="">Select town</option></select>
-          </div>
-        </div>
-
-        <div class="field-row">
-          <label for="phone">Phone number</label>
-          <div class="phone-wrap">
-            <div class="flag-block" id="flagBlock" aria-hidden>
-              <div class="flag-emoji" id="flagEmoji">🏳️</div>
-              <div class="country-code" id="countryCode">+000</div>
-            </div>
-            <div class="phone-input" style="flex:1">
-              <input id="phone" type="tel" placeholder="e.g. 772 123 456" />
-              <div class="muted" style="margin-top:6px">Country code is auto-filled from selected country</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(1)">← Back</button>
-          <button class="btn" onclick="goStep(3)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 3: Interests (suggestions, chips) -->
-      <section class="step-content" data-step="3" id="step-3">
-        <h2>3. What are your interests</h2>
-
-        <label for="interestInput">Type and select from suggestions (max 7)</label>
-        <input id="interestInput" type="text" placeholder="e.g. JavaScript, UX, Marketing..." oninput="showSuggestions(this.value)" />
-        <div class="suggestions" id="suggestionsBox" role="listbox" aria-label="suggestions"></div>
-        <div class="chip-container" id="chipsWrap" aria-live="polite"></div>
-
-        <div class="small muted">We show suggestions when you type; click one to add it. You can add custom ones too (press Enter).</div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(2)">← Back</button>
-          <button class="btn" onclick="goStep(4)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 4: Job Prefs (multi select) -->
-      <section class="step-content" data-step="4" id="step-4">
-        <h2>4. Job preferences</h2>
-
-        <div class="field-row">
-          <label for="jobtype">Preferred work type (multi-select)</label>
-          <select id="jobtype" multiple>
-            <option value="fulltime">Full-Time</option>
-            <option value="parttime">Part-Time</option>
-            <option value="freelance">Freelance</option>
-            <option value="remote">Remote</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
-        </div>
-
-        <div class="field-row">
-          <label for="desiredjob">Desired job titles (comma-separated)</label>
-          <input id="desiredjob" type="text" placeholder="e.g. Frontend Engineer, Product Designer" />
-        </div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(3)">← Back</button>
-          <button class="btn" onclick="goStep(5)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 5: Education stage with cards -->
-      <section class="step-content" data-step="5" id="step-5">
-        <h2>5. Education</h2>
-
-        <div class="edu-controls">
-          <button class="btn ghost" id="addEduBtn">+ Add education</button>
-          <div class="muted">You can create up to 7 education cards</div>
-        </div>
-
-        <div id="eduFormArea">
-          <!-- A template dynamic area will appear to enter one education before "Done" -->
-        </div>
-
-        <div class="edu-list" id="eduList"></div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(4)">← Back</button>
-          <button class="btn" onclick="goStep(6)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 6: Additional info (links popup) -->
-      <section class="step-content" data-step="6" id="step-6">
-        <h2>6. Additional links</h2>
-
-        <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
-          <button class="btn ghost" onclick="openLinkPopup()">+ Add link</button>
-          <div class="muted">Add portfolio, website, profiles</div>
-        </div>
-
-        <div id="linksArea"></div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(5)">← Back</button>
-          <button class="btn" onclick="goStep(7)">Next →</button>
-        </div>
-      </section>
-
-      <!-- STEP 7: Review & Submit -->
-      <section class="step-content" data-step="7" id="step-7">
-        <h2>7. Review & Submit</h2>
-
-        <div id="reviewArea" class="muted" style="margin-bottom:18px"></div>
-
-        <div class="actions">
-          <button class="btn ghost" onclick="goStep(6)">← Back</button>
-          <button class="btn secondary" onclick="submitProfile()">Submit</button>
-        </div>
-      </section>
-
-      <!-- Success Screen -->
-      <section class="success-screen" id="successScreen">
-        <div class="check">✓</div>
-        <p>Profile submitted successfully!</p>
-        <div class="muted">We sent a confirmation to your email (if provided).</div>
-      </section>
-
-    </main>
-  </div>
-</div></div>
-
-<!-- links popup template -->
-<div id="linkPopup" style="display:none;">
-  <div class="overlay" id="overlay" onclick="closeLinkPopup()">
-    <div class="popup" onclick="event.stopPropagation()">
-      <h3 style="margin-bottom:8px">Add link</h3>
-      <label for="linkName">Name (e.g. Portfolio)</label>
-      <input id="linkName" type="text" placeholder="e.g. Portfolio" />
-      <label for="linkUrl" style="margin-top:8px">URL / Address</label>
-      <input id="linkUrl" type="text" placeholder="https://..." />
-      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
-        <button class="btn ghost" onclick="closeLinkPopup()">Cancel</button>
-        <button class="btn" onclick="saveLink()">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <canvas id="confettiCanvas"></canvas>
 <script src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script>
 <script>
     feather.replace();
@@ -1557,14 +1558,53 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const companies = [
-  "SeedCo", "Zoho Africa", "Zanaco", "DFCU Bank", "Sonangol", "LEC", "Eswatini Telecom",
-  "Air Madagascar", "ABSA Bank", "Zoona", "MCB", "Seychelles Airport", "Correios Angola",
-  "Lesotho PostBank", "Eswatini Bank", "Star Breweries", "Mauritius Airports", "SBC",
-  "MTN Zambia", "Illovo Sugar", "Namdeb", "EcoCash", "Debswana", "Comoros Air", "Gécamines"
+  "AFROX", "Correios Angola", "EcoCash", "MCB", "Mozal Aluminium", "Namdeb", "Zanaco", "ABSA Bank",
+  "Air Madagascar", "Airtel Africa", "Mauritius Airports", "Angola Telecom", "Comoros Air", "Debswana",
+  "DFCU Bank", "Eswatini Bank", "Eswatini Telecom", "First Capital Bank", "Gécamines", "Illovo Sugar",
+  "Lesotho Electricity Co.", "Lesotho PostBank", "Mauritius Commercial Bank", "MTN Zambia", "SBC",
+  "SeedCo", "Seychelles Airport Authority", "Sonangol", "Stanbic Bank", "Star Breweries", "TANESCO",
+  "Zamtel", "Zoho Africa", "Zoona"
 ];
 
+const logoMap = {
+  "AFROX": "AFROX.png",
+  "Correios Angola": "Correios_de_Angola.htm",
+  "EcoCash": "EcoCash.png",
+  "MCB": "MCB.jpg",
+  "Mozal Aluminium": "Mozal_logo.png",
+  "Namdeb": "Namdeb.png",
+  "Zanaco": "ZANACO.png",
+  "ABSA Bank": "absa.png",
+  "Air Madagascar": "air-madagascar.png",
+  "Airtel Africa": "airtel.png",
+  "Mauritius Airports": "am.jpg",
+  "Angola Telecom": "angola.png",
+  "Comoros Air": "comoros.png",
+  "Debswana": "debswana.png",
+  "DFCU Bank": "dfcu.png",
+  "Eswatini Bank": "eb.jpg",
+  "Eswatini Telecom": "eswatini.jpg",
+  "First Capital Bank": "first cap.png",
+  "Gécamines": "gecemines.jpg",
+  "Illovo Sugar": "illovo.png",
+  "Lesotho Electricity Co.": "lec.png",
+  "Lesotho PostBank": "lpb.png",
+  "Mauritius Commercial Bank": "mcb.png",
+  "MTN Zambia": "mtn.jpg",
+  "SBC": "sbc.png",
+  "SeedCo": "seedco.jpg",
+  "Seychelles Airport Authority": "seychelles.webp",
+  "Sonangol": "sonangol.png",
+  "Stanbic Bank": "stanbic.png",
+  "Star Breweries": "star.png",
+  "TANESCO": "tanesco.png",
+  "Zamtel": "zamtel.gif",
+  "Zoho Africa": "zoho.png",
+  "Zoona": "zoona.jpg"
+};
+
 const roles = [
-  "HR Intern", "Finance Intern", "Marketing Intern", "UX Design Intern", "Engineering Intern",
+  "Finance Intern", "Marketing Intern", "HR Intern", "UX Design Intern", "Engineering Intern",
   "Compliance Intern", "Data Analyst Intern", "Operations Intern", "Agritech Intern",
   "Media Intern", "IT Support Intern", "Supply Chain Intern", "Aviation Intern"
 ];
@@ -1577,14 +1617,15 @@ const locations = [
 
 function generateInternshipCard(index) {
   const company = companies[index % companies.length];
-  const role = roles[index % roles.length];
-  const location = locations[index % locations.length];
-  const duration = `${6 + (index % 7) * 2} weeks`;
+  const role = roles[Math.floor(Math.random() * roles.length)];
+  const location = locations[Math.floor(Math.random() * locations.length)];
+  const duration = `${6 + (index % 4) * 2} weeks`;
+  const logo = logoMap[company] || "default.png";
 
   const card = document.createElement("div");
   card.className = "internship-card";
   card.innerHTML = `
-    <img src="assets/logos/${company.toLowerCase().replace(/ /g, "-")}.png" alt="${company}" />
+    <img src="assets/logos/${logo}" alt="${company}" />
     <h4>${company}</h4>
     <p><strong>Role:</strong> ${role}</p>
     <p><strong>Location:</strong> ${location}</p>
@@ -1603,6 +1644,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 feather.replace(); // Refresh icons
+
 
   </script>
 </body>
