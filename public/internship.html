@@ -7,28 +7,138 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/all.css" />
   <style>
-    .internship-grid {
+:root {
+  --primary: #bb0303;
+  --muted: #555;
+  --bg: #f9fafb;
+  --card: #ffffff;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Internship Grid */
+.internship-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
   margin-top: 30px;
 }
 
 .internship-card {
-  background: white;
-  border-radius: 12px;
+  background: var(--bg);
+  border-radius: var(--radius);
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
 }
+
+.internship-card:hover {
+  transform: translateY(-4px);
+}
+
+.internship-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.internship-card h4 {
+  font-size: 1rem;
+  color: #0a66c2;
+  margin-bottom: 6px;
+}
+
+.internship-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.filter-bar select,
+.filter-bar input[type="text"] {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+  min-width: 160px;
+  flex: 1;
+}
+
+.filter-bar input[type="text"]::placeholder {
+  color: #999;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn.apply {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.apply:hover {
+  background: #a00202;
+}
+
+.btn.save {
+  background: #e6e9f2;
+  color: #333;
+}
+
+.btn.save:hover {
+  background: #d4d7e0;
+}
+
+.btn i {
+  width: 16px;
+  height: 16px;
+}
+
+/* Section Header */
+.internship-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Chat Widget */
 .chat-widget {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 320px;
   max-height: 500px;
-  background: #fff;
+  background: var(--card);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -41,7 +151,7 @@
 }
 
 .chat-header {
-  background: #bb0303;
+  background: var(--primary);
   color: white;
   padding: 10px 14px;
   font-weight: 600;
@@ -86,120 +196,14 @@
 }
 
 .chat-input button {
-  background: #bb0303;
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 6px;
   padding: 8px;
   cursor: pointer;
 }
-.internship-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
-}
 
-.internship-card {
-  background: #f9fafb;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease;
-}
-
-.internship-card:hover {
-  transform: translateY(-4px);
-}
-
-.internship-card img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 12px;
-}
-
-.internship-card h4 {
-  font-size: 1rem;
-  color: #0a66c2;
-  margin-bottom: 6px;
-}
-
-.internship-card p {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 4px 0;
-}
-
-    .filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 20px 0;
-  align-items: center;
-}
-
-.filter-bar select,
-.filter-bar input[type="text"] {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-size: 14px;
-  min-width: 160px;
-  flex: 1;
-}
-
-.filter-bar input[type="text"]::placeholder {
-  color: #999;
-}
-
-    .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn.apply {
-  background: #bb0303;
-  color: white;
-}
-
-.btn.apply:hover {
-  background: #a00202;
-}
-
-.btn.save {
-  background: #e6e9f2;
-  color: #333;
-}
-
-.btn.save:hover {
-  background: #d4d7e0;
-}
-
-    .btn i {
-  width: 16px;
-  height: 16px;
-}
-
-.internship-section h2 {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #bb0303;
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
   </style>
 </head>
 <body>
@@ -360,7 +364,7 @@
   </div>
 </div>
   <script>
-
+document.addEventListener("DOMContentLoaded", () => {
     const track = document.querySelector(".carousel-track");
 const countries = [
   "Angola","Botswana","Comoros","DR Congo","Eswatini","Lesotho","Madagascar",
@@ -381,22 +385,24 @@ fullList.forEach((country, index) => {
   track.appendChild(card);
 });
   
-    const optionsSection = document.querySelector('.options');
+  const optionsSection = document.querySelector('.options');
 const cards = document.querySelectorAll('.options .card');
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      cards.forEach((card, i) => {
-        card.style.animationDelay = `${i * 0.2}s`;
-        card.classList.add('fade-in-up');
-      });
-      observer.unobserve(optionsSection); // run once
-    }
-  });
-}, { threshold: 0.2 });
+if (optionsSection && cards.length > 0) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        cards.forEach((card, i) => {
+          card.style.animationDelay = `${i * 0.2}s`;
+          card.classList.add('fade-in-up');
+        });
+        observer.unobserve(optionsSection); // run once
+      }
+    });
+  }, { threshold: 0.2 });
 
-observer.observe(optionsSection);
+  observer.observe(optionsSection);
+}
 
 
   let currentSlide = 0;
@@ -489,6 +495,7 @@ function playNotificationSound() {
   const audio = new Audio("assets/sounds/notify.mp3");
   audio.play();
 }
+});
   </script>
 </body>
 </html>
