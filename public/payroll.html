@@ -105,6 +105,55 @@ input[type="number"] {
   font-size: 13px;
   color: #777;
 }
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  max-width: 960px;
+  margin: 40px auto;
+}
+
+.erp-sidebar {
+  background: #fff7f7;
+  border-left: 4px solid #bb0303;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.erp-sidebar h3 {
+  color: #bb0303;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.erp-sidebar p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.erp-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.erp-sidebar li {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.btn.erp-cta {
+  background: #bb0303;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+}
+
 </style>
 </head>
 <body>
@@ -158,13 +207,13 @@ input[type="number"] {
 </select>
       </div>
 
-      <div class="form-row">
+    <div class="form-row">
         <label for="grossIncome">Gross Monthly Income:</label>
         <input type="number" id="grossIncome" placeholder="Enter amount" required />
       </div>
 
       <div class="form-row">
-        <button type="submit" class="btn calculate"><i data-feather="calculator"></i> Calculate</button>
+        <button type="submit" class="btn calculate"><i data-feather="dollar-sign"></i> Calculate</button>
       </div>
     </form>
 
@@ -177,9 +226,23 @@ input[type="number"] {
         <p><strong>Pension:</strong> <span id="resultPension"></span></p>
         <p><strong>Health Insurance:</strong> <span id="resultHealth"></span></p>
         <p><strong>Net Income:</strong> <span id="resultNet"></span></p>
+        <p><strong>Net in USD:</strong> <span id="resultUSD"></span></p>
       </div>
     </section>
-  </main>
+  </div>
+
+  <aside class="erp-sidebar">
+    <h3>Upgrade to Payroll ERP</h3>
+    <p>Automate PAYE, NAPSA, NHIMA, and multi-country compliance with our enterprise-grade ERP.</p>
+    <ul>
+      <li>✅ SADC-wide tax rules</li>
+      <li>✅ Payslip generation</li>
+      <li>✅ Bulk uploads & audit logs</li>
+      <li>✅ HR & finance integration</li>
+    </ul>
+    <a href="erp.html" class="btn erp-cta">Explore Plans</a>
+  </aside>
+</main>
 
   <footer class="main-footer">
     <p>&copy; 2025 Ntchito Platform. All rights reserved.</p>
@@ -270,6 +333,46 @@ function calculatePayroll(country, gross) {
   const net = gross - (paye + pension + health);
   return { paye, pension, health, net };
 }
+
+const resultUSD = document.getElementById("resultUSD");
+
+function formatCurrency(amount, country) {
+  const meta = countryMeta[country] || { currency: "", flag: "" };
+  return `${meta.flag} ${meta.currency} ${amount.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+}
+
+function convertToUSD(amountZMW) {
+  const rate = 22.5; // Placeholder rate
+  const usd = amountZMW / rate;
+  return `💵 USD ${usd.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
+}
+
+payrollForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const country = countrySelect.value;
+  const gross = parseFloat(grossIncomeInput.value);
+
+  if (!country || isNaN(gross)) return;
+
+  const { paye, pension, health, net } = calculatePayroll(country, gross);
+
+  resultCountry.textContent = `${countryMeta[country].flag} ${country}`;
+  resultGross.textContent = formatCurrency(gross, country);
+  resultPAYE.textContent = formatCurrency(paye, country);
+  resultPension.textContent = formatCurrency(pension, country);
+  resultHealth.textContent = formatCurrency(health, country);
+  resultNet.textContent = formatCurrency(net, country);
+  resultUSD.textContent = convertToUSD(net);
+
+  payrollResults.classList.remove("hidden");
+});
+
 
 payrollForm.addEventListener("submit", e => {
   e.preventDefault();
