@@ -490,51 +490,51 @@ const convertedHealth = document.getElementById("convertedHealth");
 const convertedNet = document.getElementById("convertedNet");
 
   const rates = {
-    AOA: 925.0,
-    BWP: 13.5,
-    BIF: 2900.0,
-    CVE: 102.0,
-    XAF: 620.0,
-    KMF: 445.0,
-    CDF: 2850.0,
-    DJF: 178.0,
-    EGP: 48.0,
-    ERN: 15.0,
-    SZL: 18.3,
-    ETB: 115.0,
-    GMD: 68.0,
-    GHS: 15.5,
-    GNF: 8750.0,
-    XOF: 620.0,
-    KES: 130.0,
-    LSL: 18.3,
-    LRD: 190.0,
-    LYD: 4.9,
-    MGA: 4650.0,
-    MWK: 1770.0,
-    MRO: 39.5,
-    MUR: 46.0,
-    MAD: 10.2,
-    MZN: 63.0,
-    NAD: 18.3,
-    NGN: 1600.0,
-    RWF: 1360.0,
-    STN: 23.0,
-    SCR: 14.3,
-    SLL: 20800.0,
-    SOS: 570.0,
-    ZAR: 18.3,
-    SSP: 1000.0,
-    SDG: 610.0,
-    TZS: 2640.0,
-    TND: 3.2,
-    UGX: 3760.0,
-    ZMW: 22.5,
-    ZWL: 26.0,
-    USD: 1.0,
-    EUR: 0.94,
-    GBP: 0.82
-  };
+  AOA: 911.98,     // Angolan Kwanza
+  BIF: 2933.83,    // Burundian Franc
+  BWP: 13.24,      // Botswana Pula
+  CDF: 2760.50,    // Congolese Franc
+  DJF: 177.72,     // Djiboutian Franc
+  DZD: 135.60,     // Algerian Dinar
+  EGP: 30.90,      // Egyptian Pound
+  ETB: 57.20,      // Ethiopian Birr
+  GHS: 14.19,      // Ghanaian Cedi
+  GNF: 8600.00,    // Guinean Franc
+  KES: 148.50,     // Kenyan Shilling
+  KMF: 460.00,     // Comorian Franc
+  LRD: 190.00,     // Liberian Dollar
+  LSL: 18.20,      // Lesotho Loti
+  LYD: 4.85,       // Libyan Dinar
+  MAD: 10.10,      // Moroccan Dirham
+  MRU: 39.00,      // Mauritanian Ouguiya
+  MUR: 45.50,      // Mauritian Rupee
+  MWK: 1700.00,    // Malawian Kwacha
+  MZN: 63.00,      // Mozambican Metical
+  NAD: 18.20,      // Namibian Dollar
+  NGN: 1250.00,    // Nigerian Naira
+  RWF: 1300.00,    // Rwandan Franc
+  SCR: 14.00,      // Seychellois Rupee
+  SDG: 670.00,     // Sudanese Pound
+  SHP: 1.20,       // Saint Helena Pound
+  SLL: 22.50,      // Sierra Leonean Leone
+  SOS: 570.00,     // Somali Shilling
+  SSP: 1300.00,    // South Sudanese Pound
+  SZL: 18.20,      // Swazi Lilangeni
+  TND: 3.10,       // Tunisian Dinar
+  TZS: 2550.00,    // Tanzanian Shilling
+  UGX: 3800.00,    // Ugandan Shilling
+  XAF: 620.00,     // Central African CFA Franc
+  XOF: 620.00,     // West African CFA Franc
+  ZAR: 17.21,      // South African Rand
+  ZMW: 24.50,      // Zambian Kwacha
+  ZWL: 5700.00,    // Zimbabwean Dollar
+
+  // Global references
+  USD: 1.00,
+  EUR: 0.94,
+  GBP: 0.81
+};
+
 
 function convertAmount(amount, currency) {
   const rate = rates[currency] || 22.5;
