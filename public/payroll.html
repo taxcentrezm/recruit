@@ -383,200 +383,167 @@ body {
   <footer class="main-footer">
     <p>&copy; 2025 Ntchito Platform. All rights reserved.</p>
   </footer>
-  <script>
-    feather.replace();
+<script>
+  feather.replace();
 
-const countryMeta = {
-  "Zambia":      { currency: "ZMW", flag: "🇿🇲" },
-  "South Africa": { currency: "ZAR", flag: "🇿🇦" },
-  "Botswana":    { currency: "BWP", flag: "🇧🇼" },
-  "Namibia":     { currency: "NAD", flag: "🇳🇦" },
-  "Zimbabwe":    { currency: "ZWL", flag: "🇿🇼" },
-  "Malawi":      { currency: "MWK", flag: "🇲🇼" },
-  "Mozambique":  { currency: "MZN", flag: "🇲🇿" },
-  "Lesotho":     { currency: "LSL", flag: "🇱🇸" },
-  "Eswatini":    { currency: "SZL", flag: "🇸🇿" },
-  "DRC":         { currency: "CDF", flag: "🇨🇩" },
-  "Angola":      { currency: "AOA", flag: "🇦🇴" },
-  "Tanzania":    { currency: "TZS", flag: "🇹🇿" },
-  "Mauritius":   { currency: "MUR", flag: "🇲🇺" },
-  "Seychelles":  { currency: "SCR", flag: "🇸🇨" },
-  "Comoros":     { currency: "KMF", flag: "🇰🇲" }
-};
+  // Country metadata
+  const countryMeta = {
+    "Zambia":      { currency: "ZMW", flag: "🇿🇲" },
+    "South Africa": { currency: "ZAR", flag: "🇿🇦" },
+    "Botswana":    { currency: "BWP", flag: "🇧🇼" },
+    "Namibia":     { currency: "NAD", flag: "🇳🇦" },
+    "Zimbabwe":    { currency: "ZWL", flag: "🇿🇼" },
+    "Malawi":      { currency: "MWK", flag: "🇲🇼" },
+    "Mozambique":  { currency: "MZN", flag: "🇲🇿" },
+    "Lesotho":     { currency: "LSL", flag: "🇱🇸" },
+    "Eswatini":    { currency: "SZL", flag: "🇸🇿" },
+    "DRC":         { currency: "CDF", flag: "🇨🇩" },
+    "Angola":      { currency: "AOA", flag: "🇦🇴" },
+    "Tanzania":    { currency: "TZS", flag: "🇹🇿" },
+    "Mauritius":   { currency: "MUR", flag: "🇲🇺" },
+    "Seychelles":  { currency: "SCR", flag: "🇸🇨" },
+    "Comoros":     { currency: "KMF", flag: "🇰🇲" }
+  };
 
-const countrySelect = document.getElementById("countrySelect");
-const grossIncomeInput = document.getElementById("grossIncome");
-const payrollForm = document.getElementById("payrollForm");
-const payrollResults = document.getElementById("payrollResults");
+  // DOM elements
+  const countrySelect = document.getElementById("countrySelect");
+  const grossIncomeInput = document.getElementById("grossIncome");
+  const payrollForm = document.getElementById("payrollForm");
+  const payrollResults = document.getElementById("payrollResults");
+  const erpAd = document.getElementById("erpAd");
 
-const resultCountry = document.getElementById("resultCountry");
-const resultGross = document.getElementById("resultGross");
-const resultPAYE = document.getElementById("resultPAYE");
-const resultPension = document.getElementById("resultPension");
-const resultHealth = document.getElementById("resultHealth");
-const resultNet = document.getElementById("resultNet");
+  const resultCountry = document.getElementById("resultCountry");
+  const resultGross = document.getElementById("resultGross");
+  const resultPAYE = document.getElementById("resultPAYE");
+  const resultPension = document.getElementById("resultPension");
+  const resultHealth = document.getElementById("resultHealth");
+  const resultNet = document.getElementById("resultNet");
 
-function formatCurrency(amount, country) {
-  const meta = countryMeta[country] || { currency: "", flag: "" };
-  return `${meta.flag} ${meta.currency} ${amount.toFixed(2)}`;
-}
+  const convertBtn = document.getElementById("convertBtn");
+  const convertCurrency = document.getElementById("convertCurrency");
+  const resultCurrencyLabel = document.getElementById("resultCurrencyLabel");
 
-function calculatePayroll(country, gross) {
-  let paye = 0, pension = 0, health = 0;
+  const convertedGross = document.getElementById("convertedGross");
+  const convertedPAYE = document.getElementById("convertedPAYE");
+  const convertedPension = document.getElementById("convertedPension");
+  const convertedHealth = document.getElementById("convertedHealth");
+  const convertedNet = document.getElementById("convertedNet");
 
-  switch (country) {
-    case "Zambia":
-      if (gross <= 4800) paye = 0;
-      else if (gross <= 6900) paye = (gross - 4800) * 0.25;
-      else if (gross <= 9900) paye = 525 + (gross - 6900) * 0.30;
-      else paye = 1425 + (gross - 9900) * 0.375;
-      pension = gross * 0.05;
-      health = gross * 0.01;
-      break;
+  // Currency rates (USD base)
+  const rates = {
+    AOA: 911.98, BIF: 2933.83, BWP: 13.24, CDF: 2760.50, DJF: 177.72,
+    DZD: 135.60, EGP: 30.90, ETB: 57.20, GHS: 14.19, GNF: 8600.00,
+    KES: 148.50, KMF: 460.00, LRD: 190.00, LSL: 18.20, LYD: 4.85,
+    MAD: 10.10, MRU: 39.00, MUR: 45.50, MWK: 1700.00, MZN: 63.00,
+    NAD: 18.20, NGN: 1250.00, RWF: 1300.00, SCR: 14.00, SDG: 670.00,
+    SHP: 1.20, SLL: 22.50, SOS: 570.00, SSP: 1300.00, SZL: 18.20,
+    TND: 3.10, TZS: 2550.00, UGX: 3800.00, XAF: 620.00, XOF: 620.00,
+    ZAR: 17.21, ZMW: 24.50, ZWL: 5700.00,
+    USD: 1.00, EUR: 0.94, GBP: 0.81
+  };
 
-    case "South Africa":
-      paye = gross * 0.18;
-      pension = gross * 0.075;
-      health = gross * 0.02;
-      break;
-
-    case "Botswana":
-      paye = gross > 3000 ? (gross - 3000) * 0.25 : 0;
-      pension = gross * 0.05;
-      health = gross * 0.015;
-      break;
-
-    case "Namibia":
-      paye = gross * 0.20;
-      pension = gross * 0.075;
-      health = gross * 0.015;
-      break;
-
-    case "Zimbabwe":
-      paye = gross * 0.25;
-      pension = gross * 0.05;
-      health = gross * 0.02;
-      break;
-
-    default:
-      paye = gross * 0.15;
-      pension = gross * 0.05;
-      health = gross * 0.01;
+  // Format currency with flag and symbol
+  function formatCurrency(amount, country) {
+    const meta = countryMeta[country] || { currency: "", flag: "" };
+    return `${meta.flag} ${meta.currency} ${amount.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}`;
   }
 
-  const net = gross - (paye + pension + health);
-  return { paye, pension, health, net };
-}
+  // Payroll logic per country
+  function calculatePayroll(country, gross) {
+    let paye = 0, pension = 0, health = 0;
 
-const resultUSD = document.getElementById("resultUSD");
+    switch (country) {
+      case "Zambia":
+        if (gross <= 4800) paye = 0;
+        else if (gross <= 6900) paye = (gross - 4800) * 0.25;
+        else if (gross <= 9900) paye = 525 + (gross - 6900) * 0.30;
+        else paye = 1425 + (gross - 9900) * 0.375;
+        pension = gross * 0.05;
+        health = gross * 0.01;
+        break;
 
-function formatCurrency(amount, country) {
-  const meta = countryMeta[country] || { currency: "", flag: "" };
-  return `${meta.flag} ${meta.currency} ${amount.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })}`;
-}
+      case "South Africa":
+        paye = gross * 0.18;
+        pension = gross * 0.075;
+        health = gross * 0.02;
+        break;
 
-const convertBtn = document.getElementById("convertBtn");
-const convertCurrency = document.getElementById("convertCurrency");
-const resultCurrencyLabel = document.getElementById("resultCurrencyLabel");
-const erpAd = document.getElementById("erpAd");
+      case "Botswana":
+        paye = gross > 3000 ? (gross - 3000) * 0.25 : 0;
+        pension = gross * 0.05;
+        health = gross * 0.015;
+        break;
 
-const convertedGross = document.getElementById("convertedGross");
-const convertedPAYE = document.getElementById("convertedPAYE");
-const convertedPension = document.getElementById("convertedPension");
-const convertedHealth = document.getElementById("convertedHealth");
-const convertedNet = document.getElementById("convertedNet");
+      case "Namibia":
+        paye = gross * 0.20;
+        pension = gross * 0.075;
+        health = gross * 0.015;
+        break;
 
-  const rates = {
-  AOA: 911.98,     // Angolan Kwanza
-  BIF: 2933.83,    // Burundian Franc
-  BWP: 13.24,      // Botswana Pula
-  CDF: 2760.50,    // Congolese Franc
-  DJF: 177.72,     // Djiboutian Franc
-  DZD: 135.60,     // Algerian Dinar
-  EGP: 30.90,      // Egyptian Pound
-  ETB: 57.20,      // Ethiopian Birr
-  GHS: 14.19,      // Ghanaian Cedi
-  GNF: 8600.00,    // Guinean Franc
-  KES: 148.50,     // Kenyan Shilling
-  KMF: 460.00,     // Comorian Franc
-  LRD: 190.00,     // Liberian Dollar
-  LSL: 18.20,      // Lesotho Loti
-  LYD: 4.85,       // Libyan Dinar
-  MAD: 10.10,      // Moroccan Dirham
-  MRU: 39.00,      // Mauritanian Ouguiya
-  MUR: 45.50,      // Mauritian Rupee
-  MWK: 1700.00,    // Malawian Kwacha
-  MZN: 63.00,      // Mozambican Metical
-  NAD: 18.20,      // Namibian Dollar
-  NGN: 1250.00,    // Nigerian Naira
-  RWF: 1300.00,    // Rwandan Franc
-  SCR: 14.00,      // Seychellois Rupee
-  SDG: 670.00,     // Sudanese Pound
-  SHP: 1.20,       // Saint Helena Pound
-  SLL: 22.50,      // Sierra Leonean Leone
-  SOS: 570.00,     // Somali Shilling
-  SSP: 1300.00,    // South Sudanese Pound
-  SZL: 18.20,      // Swazi Lilangeni
-  TND: 3.10,       // Tunisian Dinar
-  TZS: 2550.00,    // Tanzanian Shilling
-  UGX: 3800.00,    // Ugandan Shilling
-  XAF: 620.00,     // Central African CFA Franc
-  XOF: 620.00,     // West African CFA Franc
-  ZAR: 17.21,      // South African Rand
-  ZMW: 24.50,      // Zambian Kwacha
-  ZWL: 5700.00,    // Zimbabwean Dollar
+      case "Zimbabwe":
+        paye = gross * 0.25;
+        pension = gross * 0.05;
+        health = gross * 0.02;
+        break;
 
-  // Global references
-  USD: 1.00,
-  EUR: 0.94,
-  GBP: 0.81
-};
+      default:
+        paye = gross * 0.15;
+        pension = gross * 0.05;
+        health = gross * 0.01;
+    }
 
+    const net = gross - (paye + pension + health);
+    return { paye, pension, health, net };
+  }
 
-function convertAmount(amount, currency) {
-  const rate = rates[currency] || 22.5;
-  return (amount / rate).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+  // Convert amount to selected currency
+  function convertAmount(amount, currency) {
+    const rate = rates[currency] || 22.5;
+    return (amount / rate).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  // Handle conversion
+  convertBtn.addEventListener("click", () => {
+    const currency = convertCurrency.value;
+    resultCurrencyLabel.textContent = currency;
+
+    const gross = parseFloat(grossIncomeInput.value);
+    const { paye, pension, health, net } = calculatePayroll(countrySelect.value, gross);
+
+    convertedGross.textContent = `${currency} ${convertAmount(gross, currency)}`;
+    convertedPAYE.textContent = `${currency} ${convertAmount(paye, currency)}`;
+    convertedPension.textContent = `${currency} ${convertAmount(pension, currency)}`;
+    convertedHealth.textContent = `${currency} ${convertAmount(health, currency)}`;
+    convertedNet.textContent = `${currency} ${convertAmount(net, currency)}`;
   });
-}
 
-convertBtn.addEventListener("click", () => {
-  const currency = convertCurrency.value;
-  resultCurrencyLabel.textContent = currency;
+  // Handle payroll calculation
+  payrollForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const country = countrySelect.value;
+    const gross = parseFloat(grossIncomeInput.value);
 
-  const gross = parseFloat(grossIncomeInput.value);
-  const { paye, pension, health, net } = calculatePayroll(countrySelect.value, gross);
+    if (!country || isNaN(gross)) return;
 
-  convertedGross.textContent = `${currency} ${convertAmount(gross, currency)}`;
-  convertedPAYE.textContent = `${currency} ${convertAmount(paye, currency)}`;
-  convertedPension.textContent = `${currency} ${convertAmount(pension, currency)}`;
-  convertedHealth.textContent = `${currency} ${convertAmount(health, currency)}`;
-  convertedNet.textContent = `${currency} ${convertAmount(net, currency)}`;
-});
+    const { paye, pension, health, net } = calculatePayroll(country, gross);
 
-payrollForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const country = countrySelect.value;
-  const gross = parseFloat(grossIncomeInput.value);
+    resultCountry.textContent = `${countryMeta[country].flag} ${country}`;
+    resultGross.textContent = formatCurrency(gross, country);
+    resultPAYE.textContent = formatCurrency(paye, country);
+    resultPension.textContent = formatCurrency(pension, country);
+    resultHealth.textContent = formatCurrency(health, country);
+    resultNet.textContent = formatCurrency(net, country);
 
-  if (!country || isNaN(gross)) return;
+    payrollResults.classList.remove("hidden");
+    erpAd.classList.remove("hidden");
+  });
+</script>
 
-  const { paye, pension, health, net } = calculatePayroll(country, gross);
-
-  resultCountry.textContent = `${countryMeta[country].flag} ${country}`;
-  resultGross.textContent = formatCurrency(gross, country);
-  resultPAYE.textContent = formatCurrency(paye, country);
-  resultPension.textContent = formatCurrency(pension, country);
-  resultHealth.textContent = formatCurrency(health, country);
-  resultNet.textContent = formatCurrency(net, country);
-
-  payrollResults.classList.remove("hidden");
-  erpAd.classList.remove("hidden");
-});
-  </script>
 </body>
 </html>
